@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
 
-    //I changed some of the for each loops so that they can account for index shift-Ray
 public class GameObjectManager {
 
     ArrayList<Bullet> bullets = new ArrayList<Bullet>();
