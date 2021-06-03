@@ -2,19 +2,16 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GameObjectManager {
-    //dimensions are 960x540, use these for coordinates
 
     ArrayList<Bullet> bullets = new ArrayList<Bullet>();
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    Player p1 = new Player(448,288, 32, 32,200);
-    //starting location coords in the top left of the sprite is 448,288. there are 2 levels, top is 288, bottom is 384.
-    //sprite dimensions are 32x32, so we should make the hitboxes the same size
+    GameObjectAttributeManager am = new GameObjectAttributeManager();
+    Player p;
 
-    //gun barrel coords for the minion sprites are 32, 17
-
-    //player and enemies have a healthCounter param now
-
-    public GameObjectManager() {
+    public GameObjectManager(Player p) {
+        // The object manager needs a reference to the player object created in GamePanel,
+        // in order to access its X and Y positions
+        this.p = p;
 
     }
 
@@ -41,20 +38,16 @@ public class GameObjectManager {
 
     // remove all the objects whose "isAlive" is false
     public void killObjects() {
-        for(int index = 0; index < bullets.size(); index++)
-        {
-            if(!bullets.get(index).isAlive)
-            {
-                bullets.remove(index);
-                index--;
+        for (int i = 0; i < bullets.size(); i++) {
+            if (!bullets.get(i).isAlive) {
+                bullets.remove(i);
+                i--;
             }
         }
-        for(int index = 0; index < enemies.size(); index++)
-        {
-            if(!enemies.get(index).isAlive)
-            {
-                enemies.remove(index);
-                index--;
+        for (int i = 0; i < enemies.size(); i++) {
+            if (!enemies.get(i).isAlive) {
+                enemies.remove(i);
+                i--;
             }
         }
 
@@ -65,21 +58,18 @@ public class GameObjectManager {
 
         // if a bullet collides with any enemy, delete the bullet
         // NOTE: IF WE GET LIKE PIERCING SHOTS OR SOMETHING, THEN WE GOTTA CHANGE THIS
-        for(int indexB = 0; indexB < bullets.size(); indexB++)
-        {
-            for(int indexE = 0 ; indexE < enemies.size(); indexE++)
-            {
-                if(bullets.get(indexB).collisionBox.intersects(enemies.get(indexE).collisionBox))
-                {
-                    bullets.remove(indexB);
-                    indexB--;
+        for (int b = 0; b < bullets.size(); b++) {
+            for (int e = 0; e < enemies.size(); e++) {
+                if (bullets.get(b).collisionBox.intersects(enemies.get(e).collisionBox)) {
+                    bullets.remove(b);
+                    b--;
                 }
             }
         }
     }
 
     public void addBullet() {
-        Bullet newBullet=new Bullet(1,1,1,1);
+        Bullet newBullet = new Bullet(p.x, p.y, 1, 1);
         bullets.add(newBullet);
     }
 

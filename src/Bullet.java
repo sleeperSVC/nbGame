@@ -1,9 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Bullet extends GameObject {
 
+    int bulletWidth = 10;
+    int bulletHeight = 10;
 
     public Bullet(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -30,19 +31,15 @@ public class Bullet extends GameObject {
     public void update() {
         super.update();
 
-        // check if the bullet is out of bounds
         if (!collisionBox.intersects(GameRunner.frameCollisionBox)) {
             isAlive = false;
         }
 
         //animation loop, idk if this is how u do it but it is how i think we can do it
         //we might be able to move it to gameObject and have it take framecount params and shit but this is easier
-        if (frameCounter < 3 )
-        {
+        if (frameCounter < 3) {
             frameCounter++;
-        }
-        else    //isAlive becomes false after 3 frames cause the animation is 3 frames long, we will have to change the penetration and shit cause the animation depends on isAlive
-        {
+        } else {   //isAlive becomes false after 3 frames cause the animation is 3 frames long, we will have to change the penetration and shit cause the animation depends on isAlive
             frameCounter = 0;
             isAlive = false;
         }

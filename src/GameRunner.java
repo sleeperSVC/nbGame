@@ -5,7 +5,7 @@ public class GameRunner {
 
     public static final int WIDTH = 960;
     public static final int HEIGHT = 540;
-    public static final Rectangle frameCollisionBox = new Rectangle(0, 0, WIDTH,HEIGHT);
+    public static final Rectangle frameCollisionBox = new Rectangle(0, 0, WIDTH, HEIGHT);
 
     public static void main(String[] args) {
 

@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 
 public class GameObject {
 
@@ -13,7 +12,6 @@ public class GameObject {
     int height;
     boolean isAlive;
     Rectangle collisionBox;
-    //Image image;
     ArrayList<Image> frameHolder;   //moved this here cause mos of the obects have frames, I only did the bullet class btw
     int frameCounter;               // ^ this makes the loadimage methods and shit obsolete beacuse we will outsource the animation to the individual classes ok
 
@@ -50,7 +48,6 @@ public class GameObject {
 //    public Image getImage() {
 //        return image;
 //    }
-
 
 
 }
