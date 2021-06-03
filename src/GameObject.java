@@ -3,14 +3,17 @@ import javax.swing.ImageIcon;
 
 public class GameObject {
 
-    private int x;
-    private int y;
-    private int width;
-    private int height;
-    private boolean isAlive;
+    // TODO im making all these have the default access modifier (which is basically the same as public) cause
+    //  its annoying to have to do Balls.getX().setX(Nuts.getX()).setY(Balls.getAlive()))()()()()
+    //  by the way, after you see this comment, delete it
+    int x;
+    int y;
+    int width;
+    int height;
+    boolean isAlive;
     Rectangle collisionBox;
-    //private Image image;
-    //private String imageName;
+    // Image image;
+    // String imageName;
 
     public GameObject(int x, int y, int width, int height) {
         this.x = x;
@@ -22,51 +25,11 @@ public class GameObject {
     }
 
     public void update() {
-        collisionBox.setBounds(x, y, width, height);    // updates collisionBox
+        collisionBox.setBounds(x, y, width, height);    // updates collisionBox to have the same values as the GameObject itself
     }
 
     public void draw(Graphics g) {
 
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public boolean getAlive() {
-        return isAlive;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setAlive(boolean alive) {
-        isAlive = alive;
     }
 
 

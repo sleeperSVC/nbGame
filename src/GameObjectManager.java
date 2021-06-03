@@ -27,23 +27,29 @@ public class GameObjectManager {
     public void killObjects() {
 
         for (Bullet b : bullets) {
-            if (b.getAlive()) {
+            if (!b.isAlive) {
                 bullets.remove(b);
             }
         }
 
         for (Enemy e : enemies) {
-            if (e.getAlive()) {
+            if (!e.isAlive) {
                 enemies.remove(e);
             }
         }
 
     }
 
-    private void checkCollision() {
-        // when two thingies intersect, do something
+    public void checkCollision() {
+        // when two objects' collisionBoxes intersect, do something
     }
 
+    public void addBullet() {
 
+    }
+
+    public void addEnemy() {
+
+    }
 
 }
