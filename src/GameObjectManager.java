@@ -71,7 +71,8 @@ public class GameObjectManager {
     }
 
     public void addBullet() {
-
+        Bullet newBullet=new Bullet(1,1,1,1);
+        bullets.add(newBullet);
     }
 
     public void addEnemy() {
