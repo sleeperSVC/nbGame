@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.util.ArrayList;
 
+    //I changed some of the for each loops so that they can account for index shift-Ray
 public class GameObjectManager {
 
     ArrayList<Bullet> bullets = new ArrayList<Bullet>();
@@ -33,16 +34,20 @@ public class GameObjectManager {
 
     // remove all the objects whose "isAlive" is false
     public void killObjects() {
-
-        for (Bullet b : bullets) {
-            if (!b.isAlive) {
-                bullets.remove(b);
+        for(int index = 0; index < bullets.size(); index++)
+        {
+            if(!bullets.get(index).isAlive)
+            {
+                bullets.remove(index);
+                index--;
             }
         }
-
-        for (Enemy e : enemies) {
-            if (!e.isAlive) {
-                enemies.remove(e);
+        for(int index = 0; index < enemies.size(); index++)
+        {
+            if(!enemies.get(index).isAlive)
+            {
+                enemies.remove(index);
+                index--;
             }
         }
 
@@ -53,14 +58,17 @@ public class GameObjectManager {
 
         // if a bullet collides with any enemy, delete the bullet
         // NOTE: IF WE GET LIKE PIERCING SHOTS OR SOMETHING, THEN WE GOTTA CHANGE THIS
-        for (Bullet b : bullets) {
-            for (Enemy e : enemies) {
-                if (b.collisionBox.intersects(e.collisionBox)) {
-                    bullets.remove(b);
+        for(int indexB = 0; indexB < bullets.size(); indexB++)
+        {
+            for(int indexE = 0 ; indexE < enemies.size(); indexE++)
+            {
+                if(bullets.get(indexB).collisionBox.intersects(enemies.get(indexE).collisionBox))
+                {
+                    bullets.remove(indexB);
+                    indexB--;
                 }
             }
         }
-
     }
 
     public void addBullet() {
