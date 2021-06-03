@@ -10,8 +10,15 @@ public class GameObjectManager {
 
     }
 
+    // iterate through bullets and enemies and call their update methods
     public void updateObjects() {
-        // iterate through bullets and enemies and call their update methods
+        for (Bullet b : bullets) {
+            b.update();
+        }
+
+        for (Enemy e : enemies) {
+            e.update();
+        }
     }
 
     public void drawObjects(Graphics g) {
@@ -24,6 +31,7 @@ public class GameObjectManager {
         }
     }
 
+    // remove all the objects whose "isAlive" is false
     public void killObjects() {
 
         for (Bullet b : bullets) {
@@ -40,8 +48,19 @@ public class GameObjectManager {
 
     }
 
+    // when two objects' collisionBoxes intersect, do something
     public void checkCollision() {
-        // when two objects' collisionBoxes intersect, do something
+
+        // if a bullet collides with any enemy, delete the bullet
+        // NOTE: IF WE GET LIKE PIERCING SHOTS OR SOMETHING, THEN WE GOTTA CHANGE THIS
+        for (Bullet b : bullets) {
+            for (Enemy e : enemies) {
+                if (b.collisionBox.intersects(e.collisionBox)) {
+                    bullets.remove(b);
+                }
+            }
+        }
+
     }
 
     public void addBullet() {

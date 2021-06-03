@@ -9,6 +9,11 @@ public class Bullet extends GameObject {
     @Override
     public void update() {
         super.update();
+
+        // check if the bullet is out of bounds
+        if (!collisionBox.intersects(GameRunner.frameCollisionBox)) {
+            isAlive = false;
+        }
     }
 
     @Override
