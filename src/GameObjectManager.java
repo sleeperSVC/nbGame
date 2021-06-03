@@ -2,9 +2,17 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GameObjectManager {
+    //dimensions are 960x540, use these for coordinates
 
     ArrayList<Bullet> bullets = new ArrayList<Bullet>();
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    Player p1 = new Player(448,288, 32, 32,200);
+    //starting location coords in the top left of the sprite is 448,288. there are 2 levels, top is 288, bottom is 384.
+    //sprite dimensions are 32x32, so we should make the hitboxes the same size
+
+    //gun barrel coords for the minion sprites are 32, 17
+
+    //player and enemies have a healthCounter param now
 
     public GameObjectManager() {
 
