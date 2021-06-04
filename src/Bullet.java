@@ -5,9 +5,12 @@ public class Bullet extends GameObject {
 
     int bulletWidth = 10;
     int bulletHeight = 10;
+    Player p;
 
-    public Bullet(int x, int y, int width, int height) {
+    public Bullet(int x, int y, int width, int height, Player p) {
         super(x, y, width, height);
+        this.p = p;
+
         frameCounter = 0;
         Image im;
 

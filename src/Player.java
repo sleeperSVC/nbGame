@@ -2,12 +2,11 @@ import java.awt.*;
 
 public class Player extends GameObject {
 
-    int health;
     int fireRate;
 
     public Player(int x, int y, int width, int height, int health, int fireRate) {
         super(x, y, width, height);
-        this.health = health;
+        healthCounter = health;
         this.fireRate = fireRate;
     }
 

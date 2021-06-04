@@ -14,6 +14,8 @@ public class GameObject {
     Rectangle collisionBox;
     ArrayList<Image> frameHolder;   //moved this here cause mos of the obects have frames, I only did the bullet class btw
     int frameCounter;               // ^ this makes the loadimage methods and shit obsolete beacuse we will outsource the animation to the individual classes ok
+    int healthCounter;              //use this for counting health (duh), replaced health param in player cause enemies have health too
+    int orientation;
 
     public GameObject(int x, int y, int width, int height) {
         this.x = x;

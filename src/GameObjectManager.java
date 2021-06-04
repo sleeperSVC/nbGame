@@ -69,7 +69,7 @@ public class GameObjectManager {
     }
 
     public void addBullet() {
-        Bullet newBullet = new Bullet(p.x, p.y, 1, 1);
+        Bullet newBullet = new Bullet(p.x, p.y, 1, 1, p);
         bullets.add(newBullet);
     }
 
