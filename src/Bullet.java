@@ -1,5 +1,8 @@
-import javax.swing.*;
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Bullet extends GameObject {
 
@@ -10,24 +13,20 @@ public class Bullet extends GameObject {
     public Bullet(int x, int y, int width, int height, Player p) {
         super(x, y, width, height);
         this.p = p;
-
         frameCounter = 0;
-        Image im;
 
-        String bulletPath = "src/assets/img/entities/bullet/bullet_1.png";
-        ImageIcon ii = new ImageIcon(bulletPath);
-        im = ii.getImage();
-        frameHolder.add(im);
-
-        bulletPath = "src/assets/img/entities/bullet/bullet_2.png";
-        ii = new ImageIcon(bulletPath);
-        im = ii.getImage();
-        frameHolder.add(im);
-
-        bulletPath = "src/assets/img/entities/bullet/bullet_3.png";
-        ii = new ImageIcon(bulletPath);
-        im = ii.getImage();
-        frameHolder.add(im);
+        // loading imgs
+        BufferedImage im;
+        try {
+            im = ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_1.png"));
+            frameHolder.add(im);
+            im = ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_2.png"));
+            frameHolder.add(im);
+            im = ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_3.png"));
+            frameHolder.add(im);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -49,7 +48,7 @@ public class Bullet extends GameObject {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics2D g) {
         g.drawImage(frameHolder.get(frameCounter), x, y, null);
     }
 }

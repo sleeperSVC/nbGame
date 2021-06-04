@@ -1,5 +1,8 @@
-import javax.swing.*;
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Enemy extends GameObject {
 
@@ -9,32 +12,23 @@ public class Enemy extends GameObject {
         super(x, y, width, height);
 
         frameCounter = 0;
-        Image im;
+        BufferedImage im;
+        try {
 
-        String enemy1Path = "src/assets/img/entities/enemy1/enemy1_1.png";
-        ImageIcon ii = new ImageIcon(enemy1Path);
-        im = ii.getImage();
-        frameHolder.add(im);
+            im = ImageIO.read(getClass().getResource("resources/image/entities/enemy/enemy1_1.png"));
+            frameHolder.add(im);
+            im = ImageIO.read(getClass().getResource("resources/image/entities/enemy/enemy1_2.png"));
+            frameHolder.add(im);
+            im = ImageIO.read(getClass().getResource("resources/image/entities/enemy/enemy1_3.png"));
+            frameHolder.add(im);
+            im = ImageIO.read(getClass().getResource("resources/image/entities/enemy/enemy1_4.png"));
+            frameHolder.add(im);
+            im = ImageIO.read(getClass().getResource("resources/image/entities/enemy/enemy1_5.png"));
+            frameHolder.add(im);
 
-        enemy1Path = "src/assets/img/entities/enemy1/enemy1_2.png";
-        ii = new ImageIcon(enemy1Path);
-        im = ii.getImage();
-        frameHolder.add(im);
-
-        enemy1Path = "src/assets/img/entities/enemy1/enemy1_3.png";
-        ii = new ImageIcon(enemy1Path);
-        im = ii.getImage();
-        frameHolder.add(im);
-
-        enemy1Path = "src/assets/img/entities/enemy1/enemy1_4.png";
-        ii = new ImageIcon(enemy1Path);
-        im = ii.getImage();
-        frameHolder.add(im);
-
-        enemy1Path = "src/assets/img/entities/enemy1/enemy1_5.png";
-        ii = new ImageIcon(enemy1Path);
-        im = ii.getImage();
-        frameHolder.add(im);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

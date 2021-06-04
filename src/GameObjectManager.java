@@ -26,7 +26,7 @@ public class GameObjectManager {
         }
     }
 
-    public void drawObjects(Graphics g) {
+    public void drawObjects(Graphics2D g) {
         for (Bullet b : bullets) {
             b.draw(g);
         }

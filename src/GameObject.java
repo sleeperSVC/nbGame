@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class GameObject {
@@ -10,12 +11,25 @@ public class GameObject {
     int y;
     int width;
     int height;
+    int healthCounter;
+    int speed;
+
     boolean isAlive;
-    Rectangle collisionBox;
-    ArrayList<Image> frameHolder;   //moved this here cause mos of the obects have frames, I only did the bullet class btw
-    int frameCounter;               // ^ this makes the loadimage methods and shit obsolete beacuse we will outsource the animation to the individual classes ok
-    int healthCounter;              //use this for counting health (duh), replaced health param in player cause enemies have health too
     int orientation;
+    Rectangle collisionBox;
+
+    ArrayList<BufferedImage> frameHolder = new ArrayList<BufferedImage>();
+    int frameCounter;
+
+
+    // constructor with health and speed parameter
+    public GameObject(int x, int y, int width, int height, int health, int speed) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.healthCounter = health;
+        this.speed = speed;
 
     public GameObject(int x, int y, int width, int height) {
         this.x = x;

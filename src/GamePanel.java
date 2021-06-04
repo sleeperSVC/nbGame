@@ -13,20 +13,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         p = new Player(448, 288, 32, 32, 200, 10);    // initialize a new player
     }
 
-    public void startTimer() {
-        timer.start();
+    public void drawMenuState(Graphics2D g) {
+
     }
 
-    public void paintComponent(Graphics g) {
+    public void drawGameState(Graphics2D g) {
 
-        objectManager.drawObjects(g);
+    }
 
-        g.setColor(Color.BLACK);
-        g.fillRect(100, 100, 100, 100);
-        g.setColor(Color.RED);
-        g.drawString("Test String asdfadsfasdf", 300, 500);
-
-        System.out.println("I was called by the repaint() method in actionPerformed()!");
+    public void drawEndState(Graphics2D g) {
 
     }
 
