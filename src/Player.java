@@ -16,8 +16,8 @@ public class Player extends GameMovingObject {
         super(x, y, width, height, health, speedFactor);
         this.fireRate = fireRate;
 
-        xVMax = 4;
-        yVMax = 4;
+        xVMax = 4;  // placeholder value
+        yVMax = 4;  // placeholder value
 
         frameCheck = true;
         frameCounter = 0;

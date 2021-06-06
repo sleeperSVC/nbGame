@@ -1,9 +1,6 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-
-//TODO: this is broken now cause of the new movement
 
 public class MuzzleFlash extends GameObject {
 
@@ -16,7 +13,6 @@ public class MuzzleFlash extends GameObject {
         frameCounter = 0;
 
         try {
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_1.png")));
             frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_2.png")));
             frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_3.png")));
             frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_4.png")));

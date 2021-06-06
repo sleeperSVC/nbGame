@@ -31,9 +31,9 @@ public class Bullet extends GameMovingObject {
         }
 
         // if you wanna make the bullet slow down faster, or make it not slow down at all, edit this lines
-        xVMax -= Math.random()*.5 + 1;
+        xVMax -= Math.random() * .5 + 1;
 
-        if (!collisionBox.intersects(GameRunner.frameCollisionBox) || xVMax <= 1) {
+        if (!collisionBox.intersects(GamePanel.frameCollisionBox) || xVMax <= 1) {
             isAlive = false;
         }
     }

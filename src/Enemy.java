@@ -1,10 +1,8 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Enemy extends GameMovingObject {
-
 
     public Enemy(int x, int y, int width, int height, int health, int speedFactor) {
 

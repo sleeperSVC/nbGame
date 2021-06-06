@@ -1,8 +1,6 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener, MouseListener {
 
@@ -13,10 +11,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     final int MENU_STATE = 0;
     final int GAME_STATE = 1;
     final int END_STATE = 2;
-    int currentState = GAME_STATE;
+    int currentState = MENU_STATE;
+
+    public static final int FRAME_WIDTH = 960;
+    public static final int FRAME_HEIGHT = 540;
+    public static final Rectangle frameCollisionBox = new Rectangle(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
 
     final static double GRAVITY = 5;
     final static int FRICTION = 2;
+
+    ImageIcon layer1 = new ImageIcon(getClass().getResource("resources/image/environment/layer1.png"));
+    ImageIcon layer2 = new ImageIcon(getClass().getResource("resources/image/environment/layer2.png"));
+    ImageIcon layer3 = new ImageIcon(getClass().getResource("resources/image/environment/layer3.png"));
+    ImageIcon layer4 = new ImageIcon(getClass().getResource("resources/image/environment/layer4.png"));
 
     public GamePanel() {
         timer = new Timer(1000 / 60, this);
@@ -30,12 +37,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     }
 
     public void drawGameState(Graphics g) {
-        try {
-            g.drawImage(ImageIO.read(getClass().getResource("resources/image/environment/combinedBackground.png")), 0, 0, null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        objectManager.drawObjects(g);
+
+        layer1.paintIcon(this, g, 0, 0);
+        layer2.paintIcon(this, g, 0, 0);
+        layer3.paintIcon(this, g, 0, 0);
+        objectManager.drawObjects(g);   // painting game objects before layer 4
+        layer4.paintIcon(this, g, 0, 0);
     }
 
     public void drawEndState(Graphics g) {
