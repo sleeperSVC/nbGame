@@ -13,11 +13,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     final int END_STATE = 2;
     int currentState = GAME_STATE;
 
-    final static int GRAVITY = 5;
+    final static double GRAVITY = 5;
+    final static double FRICTION = 2;
 
     public GamePanel() {
         timer = new Timer(1000 / 60, this);   // the timer will call actionPerformed() 60 times a second
-        p = new Player(448, 288, 32, 32, 200, 5, 10, 1);    // initialize a new player
+        p = new Player(448, 288, 32, 32, 200, 2, 10, 1);    // initialize a new player
         mF = new MuzzleFlash(448, 288, 5, 5, p);
         objectManager = new GameObjectManager(p);
     }
@@ -26,7 +27,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     }
 
-    //
     public void drawGameState(Graphics g) {
         g.fillRect(0, 0, GameRunner.WIDTH, GameRunner.HEIGHT);
         objectManager.drawObjects(g);
@@ -40,17 +40,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     }
 
-    //calls the update method for the player
+    // updates the player and all game objects
     public void updateGameState() {
         objectManager.updateObjects();
-
     }
 
     public void updateEndState() {
 
     }
 
-    // illustrates the game display onto the Jpanel based on the game state
+    // illustrates the game display onto the JPanel based on the game state
     public void paintComponent(Graphics g) {
         if (currentState == MENU_STATE) {
             drawMenuState(g);

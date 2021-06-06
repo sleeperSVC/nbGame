@@ -1,37 +1,22 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
-public class Player extends GameObject {
+public class Player extends GameMovingObject {
 
     int fireRate;
-    int speed;
 
-    // velocity
-    private int xV = 0;
-    private int yV = 0;
-    private int xVMax = 10;
-    private int yVMax = 10;
-
-    int mouseX;
-    int mouseY;
-
-    boolean isMoving;
+    //TODO: idk how the frame stuff works, so you guys can sort that out in GameMovingObject - bry
     boolean frameCheck;
     int idleFrameCount = 4;
     int movingFrameCount = 6;
 
     //constructor class for player
-    public Player(int x, int y, int width, int height, int health, int speed, int jumpSpeed, int fireRate) {
-        super(x, y, width, height, health, speed);
+    public Player(int x, int y, int width, int height, int health, int speedFactor, int jumpSpeed, int fireRate) {
+        super(x, y, width, height, health, speedFactor, jumpSpeed);
         this.fireRate = fireRate;
-        isMoving = false;
-        frameCheck = true;
 
-        this.speed = 10;
+        frameCheck = true;
         frameCounter = 0;
 
         try {
@@ -48,7 +33,6 @@ public class Player extends GameObject {
     public void changeMovingStatus(boolean isMoving) {
         this.isMoving = isMoving;
 
-        BufferedImage im;
         try {
             frameHolder.clear();
             frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_1.png")));
@@ -71,43 +55,14 @@ public class Player extends GameObject {
             isAlive = false;
         }
 
-        if (movingRight) {
-            xV += speed;
-        }
-        if (movingLeft) {
-            xV -= speed;
-        }
 
-        if (Math.abs(xV) > 0) {
-            if (xV > 0)
-                xV--;
-            if (xV < 0)
-                xV++;
-        }
-        if (Math.abs(xV) > xVMax) {
-            if (xV > 0)
-                xV = xVMax;;
-            if (xV < 0)
-                xV = -xVMax;
-        }
-//        if (Math.abs(yV) > 0) {
-//            yV--;
-//        }
-//        if (Math.abs(yV) > yVMax) {
-//            yV = yVMax;
-//        }
-
-        // move the player by the velocity
-        x += xV;
-        y -= yV;
-        //y += GamePanel.GRAVITY; // move player down by GRAVITY pixel
     }
 
     //draw method for the player's sprite
     @Override
     public void draw(Graphics g) {
 
-        if (isMoving == false && frameCheck) {
+        if (!isMoving && frameCheck) {
             if (frameCounter < idleFrameCount - 1) {
                 frameCounter++;
             } else {
@@ -115,7 +70,7 @@ public class Player extends GameObject {
             }
         }
 
-        if (isMoving == true && frameCheck) {
+        if (isMoving && frameCheck) {
             if (frameCounter < movingFrameCount - 1) {
                 frameCounter++;
             } else {

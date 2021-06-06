@@ -9,32 +9,16 @@ public class GameObject {
     int width;
     int height;
     int healthCounter;
-    int speed;
 
     boolean isAlive = true;
-
-    boolean movingRight = false;
-    boolean movingLeft = false;
 
     int orientation = 1;
     Rectangle collisionBox;
 
-    ArrayList<BufferedImage> frameHolder = new ArrayList<BufferedImage>();
+    ArrayList<BufferedImage> frameHolder = new ArrayList<>();
     int frameCounter;
 
 
-    // constructor with health and speed parameter
-    public GameObject(int x, int y, int width, int height, int health, int speed) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.healthCounter = health;
-        this.speed = speed;
-        collisionBox = new Rectangle(x, y, width, height);
-    }
-
-    // constructor with no health parameter
     public GameObject(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;

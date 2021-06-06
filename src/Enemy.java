@@ -1,15 +1,14 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
-public class Enemy extends GameObject {
+public class Enemy extends GameMovingObject {
 
 
-    public Enemy(int x, int y, int width, int height, int health, int speed) {
+    public Enemy(int x, int y, int width, int height, int health, int speedFactor, int jumpFactor) {
 
-        super(x, y, width, height, health, speed);
+        super(x, y, width, height, health, speedFactor, jumpFactor);
 
         frameCounter = 0;
         BufferedImage im;
