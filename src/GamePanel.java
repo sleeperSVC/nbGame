@@ -12,7 +12,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     final int MENU_STATE = 0;
     final int GAME_STATE = 1;
     final int END_STATE = 2;
-    int currentState = MENU_STATE;
+    int currentState = GAME_STATE;
 
     public static final int FRAME_WIDTH = 960;
     public static final int FRAME_HEIGHT = 540;

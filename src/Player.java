@@ -1,6 +1,8 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Player extends GameMovingObject {
 
@@ -10,6 +12,8 @@ public class Player extends GameMovingObject {
     boolean frameCheck;
     int idleFrameCount = 4;
     int movingFrameCount = 6;
+    int movingFrameCounter;
+    ArrayList<BufferedImage> movingFrameHolder = new ArrayList<>();
 
     //constructor class for player
     public Player(int x, int y, int width, int height, int health, int speedFactor, int fireRate) {
@@ -21,12 +25,21 @@ public class Player extends GameMovingObject {
 
         frameCheck = true;
         frameCounter = 0;
+        movingFrameCounter = 0;
 
         try {
+            movingFrameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_1.png")));
+            movingFrameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_2.png")));
+            movingFrameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_3.png")));
+            movingFrameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_4.png")));
+            movingFrameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_5.png")));
+            movingFrameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_6.png")));
+
             frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_1.png")));
             frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_2.png")));
             frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_3.png")));
             frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_4.png")));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,18 +48,6 @@ public class Player extends GameMovingObject {
     //animation for the player's model
     public void changeMovingStatus(boolean isMoving) {
         this.isMoving = isMoving;
-
-        try {
-            frameHolder.clear();
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_1.png")));
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_2.png")));
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_3.png")));
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_4.png")));
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_4.png")));
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_4.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     //
@@ -65,6 +66,14 @@ public class Player extends GameMovingObject {
     @Override
     public void draw(Graphics g) {
 
+        if (isMoving && frameCheck) {
+            if (movingFrameCounter < movingFrameCount - 1) {
+                movingFrameCounter++;
+            } else {
+                movingFrameCounter = 0;
+            }
+
+        }
         if (!isMoving && frameCheck) {
             if (frameCounter < idleFrameCount - 1) {
                 frameCounter++;
@@ -72,20 +81,24 @@ public class Player extends GameMovingObject {
                 frameCounter = 0;
             }
         }
+        //orientation 0==left | 1==right
 
-        if (isMoving && frameCheck) {
-            if (frameCounter < movingFrameCount - 1) {
-                frameCounter++;
+
+
+        if (isMoving){
+            if (orientation == 1) {
+                g.drawImage(movingFrameHolder.get(movingFrameCounter), x, y, 32, 32, null);
             } else {
-                frameCounter = 0;
+                g.drawImage(movingFrameHolder.get(movingFrameCounter), x + 32, y, -32, 32, null);
+            }
+        }else {
+            if (orientation == 1) {
+                g.drawImage(frameHolder.get(frameCounter), x, y, 32, 32, null);
+            } else {
+                g.drawImage(frameHolder.get(frameCounter), x + 32, y, -32, 32, null);
             }
         }
-        //orientation 0==left | 1==right
-        if (orientation == 1) {
-            g.drawImage(frameHolder.get(frameCounter), x, y, 32, 32, null);
-        } else {
-            g.drawImage(frameHolder.get(frameCounter), x + 32, y, -32, 32, null);
-        }
+
         //changes fps to 30
         frameCheck = !frameCheck;
     }
