@@ -29,6 +29,9 @@ public class MuzzleFlash extends GameObject {
     @Override
     public void update() {
 
+        x = p.x;
+        y = p.y;
+
         if (frameCounter < 3) {
             frameCounter++;
         } else {
