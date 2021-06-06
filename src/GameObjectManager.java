@@ -3,8 +3,12 @@ import java.util.ArrayList;
 
 public class GameObjectManager {
 
-    ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-    ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    ArrayList<Bullet> bullets = new ArrayList<>();
+    ArrayList<MuzzleFlash> flashes = new ArrayList<>();
+    ArrayList<Enemy> enemies = new ArrayList<>();
+
+    boolean isFiring;
+
     GameObjectAttributeManager am = new GameObjectAttributeManager();
     Player p;
 
@@ -17,29 +21,36 @@ public class GameObjectManager {
 
     // iterate through bullets and enemies and call their update methods
     public void updateObjects() {
-        for (Bullet b : bullets) {
-            b.update();
+        checkCollision();
+        killObjects();
+        p.update();
+        if (isFiring) {
+            addBullet();
         }
 
-        for (Enemy e : enemies) {
-            e.update();
-        }
+        bullets.forEach(b -> b.update());
+        enemies.forEach(e -> e.update());
+        flashes.forEach(f -> f.update());
     }
 
-    public void drawObjects(Graphics2D g) {
-        for (Bullet b : bullets) {
-            b.draw(g);
-        }
+    //draws the sprites
+    public void drawObjects(Graphics g) {
+        p.draw(g);
 
-        for (Enemy e : enemies) {
-            e.draw(g);
-        }
+        bullets.forEach(b -> b.draw(g));
+        enemies.forEach(e -> e.draw(g));
+        flashes.forEach(f -> f.draw(g));
     }
 
     // remove all the objects whose "isAlive" is false
     public void killObjects() {
+        if (!p.isAlive) {
+            System.out.println("player dead");
+        }
+
         for (int i = 0; i < bullets.size(); i++) {
             if (!bullets.get(i).isAlive) {
+                System.out.println("removed a bullet");
                 bullets.remove(i);
                 i--;
             }
@@ -50,7 +61,12 @@ public class GameObjectManager {
                 i--;
             }
         }
-
+        for (int i = 0; i < flashes.size(); i++) {
+            if (!flashes.get(i).isAlive) {
+                flashes.remove(i);
+                i--;
+            }
+        }
     }
 
     // when two objects' collisionBoxes intersect, do something
@@ -68,9 +84,13 @@ public class GameObjectManager {
         }
     }
 
+    //adds bullets to the arrayList. muzzle flash is also added in conjunction with bullets
     public void addBullet() {
-        Bullet newBullet = new Bullet(p.x, p.y, 1, 1, p);
+        Bullet newBullet = new Bullet(p.x, p.y, am.bulletWidth, am.bulletHeight, am.bulletSpeed, p.orientation);
         bullets.add(newBullet);
+
+        MuzzleFlash muzzle = new MuzzleFlash(p.x, p.y, 9, 9, p);
+        flashes.add(muzzle);
     }
 
     public void addEnemy() {

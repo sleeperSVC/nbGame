@@ -17,8 +17,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     }
 
-    public void drawGameState(Graphics2D g) {
-
+    //
+    public void drawGameState(Graphics g) {
+        g.fillRect(0, 0, GameRunner.WIDTH, GameRunner.HEIGHT);
+        objectManager.drawObjects(g);
     }
 
     public void drawEndState(Graphics2D g) {

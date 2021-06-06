@@ -13,8 +13,10 @@ public class Player extends GameObject {
         super(x, y, width, height);
         healthCounter = health;
         this.fireRate = fireRate;
-        isRunning = false;
+        isMoving = false;
+        frameCheck = true;
 
+        this.speed = 10;
         frameCounter = 0;
         BufferedImage im;
         try {
@@ -32,8 +34,9 @@ public class Player extends GameObject {
         }
     }
 
-    public void changeRunningStatus(boolean isRunning) {
-        this.isRunning = isRunning;
+    //animation for the player's model
+    public void changeMovingStatus(boolean isMoving) {
+        this.isMoving = isMoving;
 
         BufferedImage im;
         try {
@@ -65,6 +68,36 @@ public class Player extends GameObject {
             isAlive = false;
         }
 
+        if (movingRight) {
+            xV += speed;
+        }
+        if (movingLeft) {
+            xV -= speed;
+        }
+
+        if (Math.abs(xV) > 0) {
+            if (xV > 0)
+                xV--;
+            if (xV < 0)
+                xV++;
+        }
+        if (Math.abs(xV) > xVMax) {
+            if (xV > 0)
+                xV = xVMax;;
+            if (xV < 0)
+                xV = -xVMax;
+        }
+//        if (Math.abs(yV) > 0) {
+//            yV--;
+//        }
+//        if (Math.abs(yV) > yVMax) {
+//            yV = yVMax;
+//        }
+
+        // move the player by the velocity
+        x += xV;
+        y -= yV;
+        //y += GamePanel.GRAVITY; // move player down by GRAVITY pixel
     }
 
     @Override
@@ -85,6 +118,50 @@ public class Player extends GameObject {
             }
         }
         g.drawImage(frameHolder.get(frameCounter), x, y, null);
+    }
+
+    //method for player movement(running)
+    public void move(char dir) {
+        switch (dir) {
+            case 'd':   // right
+                orientation = 1;
+                movingRight = true;
+                break;
+            case 'a':   // left
+                orientation = 0;
+                movingLeft = true;
+                break;
+            case 'w':   // up
+
+                break;
+            case 's':   // down
+                /*
+                    if(canGoDown) ladder
+                    y -= speed;
+                 */
+                break;
+        }
+    }
+
+    //method for player movement(stopping)
+    public void stopMove(char dir) {
+        switch (dir) {
+            case 'd':   // right
+                movingRight = false;
+                break;
+            case 'a':   // left
+                movingLeft = false;
+                break;
+            case 'w':   // up
+
+                break;
+
+            case 's':   // down
+
+                break;
+
+
+        }
     }
 
 }

@@ -41,7 +41,7 @@ public class Enemy extends GameObject {
 
         //animation loop, idk if this is how u do it but it is how i think we can do it
         //we might be able to move it to gameObject and have it take framecount params and shit but this is easier
-        if (frameCounter < 5) {
+        if (frameCounter < 4) {
             frameCounter++;
         } else {
             frameCounter = 0;

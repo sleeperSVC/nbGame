@@ -6,26 +6,18 @@ import java.io.IOException;
 
 public class Bullet extends GameObject {
 
-    int bulletWidth = 10;
-    int bulletHeight = 10;
-    Player p;
+    int bulletWidth = 1;
+    int bulletHeight = 1;
+    int orientation;
 
-    public Bullet(int x, int y, int width, int height, Player p) {
+    public Bullet(int x, int y, int width, int height, int speed, int orientation) {
         super(x, y, width, height);
-        this.p = p;
-        frameCounter = 0;
+        this.speed = speed;
+        this.orientation = orientation;
+        this.y += 17;
 
-        // loading imgs
-        BufferedImage im;
-        try {
-            im = ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_1.png"));
-            frameHolder.add(im);
-            im = ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_2.png"));
-            frameHolder.add(im);
-            im = ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_3.png"));
-            frameHolder.add(im);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (orientation == 1) {
+            this.x += 32;
         }
     }
 
@@ -37,18 +29,16 @@ public class Bullet extends GameObject {
             isAlive = false;
         }
 
-        //animation loop, idk if this is how u do it but it is how i think we can do it
-        //we might be able to move it to gameObject and have it take framecount params and shit but this is easier
-        if (frameCounter < 3) {
-            frameCounter++;
-        } else {   //isAlive becomes false after 3 frames cause the animation is 3 frames long, we will have to change the penetration and shit cause the animation depends on isAlive
-            frameCounter = 0;
-            isAlive = false;
+        if (orientation == 1) {
+            x += speed;
+        } else {
+            x -= speed;
         }
     }
 
     @Override
-    public void draw(Graphics2D g) {
-        g.drawImage(frameHolder.get(frameCounter), x, y, null);
+    public void draw(Graphics g) {
+        g.setColor(Color.ORANGE);
+        g.fillOval(x, y, width, height);
     }
 }
