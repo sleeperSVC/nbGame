@@ -7,7 +7,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     Timer timer;
     Player p;
     GameObjectManager objectManager;
-    MuzzleFlash mF;
+    Menu menu;
+
     final int MENU_STATE = 0;
     final int GAME_STATE = 1;
     final int END_STATE = 2;
@@ -28,8 +29,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     public GamePanel() {
         timer = new Timer(1000 / 60, this);
         p = new Player(448, 288, 32, 32, 200, 4, 10);    // initialize a new player
-        mF = new MuzzleFlash(448, 288, 5, 5, p);
         objectManager = new GameObjectManager(p);
+        menu = new Menu();
     }
 
     public void drawMenuState(Graphics g) {
@@ -136,20 +137,31 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if (currentState == MENU_STATE) {
+            if (menu.click(e) == Menu.CREDITS_BUTTON) {
 
+                JOptionPane.showMessageDialog(null, "Bry Ray and ET");
+            }
+        }
     }
 
     //sets the firing status to true
     @Override
     public void mousePressed(MouseEvent e) {
-        objectManager.isFiring = true;
+
+
+        if (currentState == GAME_STATE) {
+            objectManager.isFiring = true;
+        }
         //objectManager.addBullet();
     }
 
     //sets the firing status to false
     @Override
     public void mouseReleased(MouseEvent e) {
-        objectManager.isFiring = false;
+        if (currentState == GAME_STATE) {
+            objectManager.isFiring = false;
+        }
     }
 
     @Override
