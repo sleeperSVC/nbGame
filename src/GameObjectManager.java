@@ -7,8 +7,6 @@ public class GameObjectManager {
     ArrayList<MuzzleFlash> flashes = new ArrayList<>();
     ArrayList<Enemy> enemies = new ArrayList<>();
 
-    boolean isFiring;
-
     GameObjectAttributeManager am = new GameObjectAttributeManager();
     Player p;
 
@@ -26,7 +24,10 @@ public class GameObjectManager {
         killObjects();
         p.update();
         if (isFiring) {
-            addBullet();
+            if (System.currentTimeMillis() - bulletStartTime >= p.fireRate) {
+                addBullet();
+                bulletStartTime = System.currentTimeMillis();
+            }
         }
 
         bullets.forEach(b -> b.update());
@@ -63,6 +64,8 @@ public class GameObjectManager {
             for (int e = 0; e < enemies.size(); e++) {
                 if (bullets.get(b).collisionBox.intersects(enemies.get(e).collisionBox)) {
                     bullets.remove(b);
+                    audioManager.playSound(0);
+                    enemies.get(e).damage(am.bulletDamage);
                     b--;
                 }
             }
@@ -70,9 +73,10 @@ public class GameObjectManager {
     }
 
     //adds bullets to the arrayList. muzzle flash is also added in conjunction with bullets
-    public void addBullet() {
-        bullets.add(new Bullet(p.x, p.y, am.bulletWidth, am.bulletHeight, am.bulletSpeedFactor, am.bulletInaccuracy, p.orientation, p.xV, p.yV));
+    private void addBullet() {
+        bullets.add(new Bullet(p.x, p.y, am.bulletWidth, am.bulletHeight, am.bulletSpeedFactor, am.bulletInaccuracy, am.bulletDamage,  p.orientation, p.xV, p.yV));
         flashes.add(new MuzzleFlash(p.x, p.y, 9, 9, p));
+        audioManager.playSound(0);
     }
 
     //adds an enemy to the enemy arrayList

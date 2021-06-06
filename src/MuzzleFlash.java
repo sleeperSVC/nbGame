@@ -40,9 +40,9 @@ public class MuzzleFlash extends GameObject {
     public void draw(Graphics g) {
 
         if (p.orientation == 1) {
-            g.drawImage(frameHolder.get(frameCounter), x + 32, y + 17, 9, 9, null);
+            g.drawImage(frameHolder.get(frameCounter), x + 32, y + 14, 9, 9, null);
         } else {
-            g.drawImage(frameHolder.get(frameCounter), x, y + 17, -9, 9, null);
+            g.drawImage(frameHolder.get(frameCounter), x, y + 14, -9, 9, null);
         }
     }
 }

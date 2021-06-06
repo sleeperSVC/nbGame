@@ -84,7 +84,6 @@ public class Player extends GameMovingObject {
         //orientation 0==left | 1==right
 
 
-
         if (isMoving){
             if (orientation == 1) {
                 g.drawImage(movingFrameHolder.get(movingFrameCounter), x, y, 32, 32, null);

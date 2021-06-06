@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.image.RescaleOp;
 
 public class GameMovingObject extends GameObject {
 
@@ -11,6 +12,8 @@ public class GameMovingObject extends GameObject {
     boolean movingLeft = false;     // NOT JUST FOR WASD INPUT ANYMORE
 
     boolean isMoving = false;   // for seeing which frame arraylist to use
+
+    RescaleOp rescaleOp = new RescaleOp(2f, 15, null);
 
     public GameMovingObject(int x, int y, int width, int height, int health, double speedFactor) {
         super(x, y, width, height);

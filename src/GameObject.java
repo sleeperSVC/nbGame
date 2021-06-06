@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
 import java.util.ArrayList;
 
 public class GameObject {
@@ -9,7 +10,7 @@ public class GameObject {
     int width;
     int height;
     int health;
-
+    boolean isDamaged = false;
     boolean isAlive = true;
 
     int orientation = 1;

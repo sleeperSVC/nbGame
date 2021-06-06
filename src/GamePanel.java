@@ -12,15 +12,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     final int MENU_STATE = 0;
     final int GAME_STATE = 1;
     final int END_STATE = 2;
-    int currentState = GAME_STATE;
+    int currentState = MENU_STATE;
 
     public static final int FRAME_WIDTH = 960;
     public static final int FRAME_HEIGHT = 540;
     public static final Rectangle frameCollisionBox = new Rectangle(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
 
-    final static double GRAVITY = 5;
-    final static int FRICTION = 2;
-
+    public static final double GRAVITY = 5;
+    public static final int FRICTION = 2;
+    ImageIcon menu1 = new ImageIcon(getClass().getResource("resources/image/environment/menu1.png"));
     ImageIcon layer1 = new ImageIcon(getClass().getResource("resources/image/environment/layer1.png"));
     ImageIcon layer2 = new ImageIcon(getClass().getResource("resources/image/environment/layer2.png"));
     ImageIcon layer3 = new ImageIcon(getClass().getResource("resources/image/environment/layer3.png"));

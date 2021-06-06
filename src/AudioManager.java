@@ -5,17 +5,23 @@ import java.util.ArrayList;
 
 public class AudioManager {
 
-    String gunShot = "resources/sound/guns/mp5navy/mp5-1.wav";
-    String hit = "resources/sound/hitsounds/bhit_flesh-1.wav";
-    String miss = "resources/sound/hitsounds/kevlar1.wav";
-    String walk = "";
+    private ArrayList<String> soundList = new ArrayList<>();
+    private ArrayList<String> hitSoundList = new ArrayList<>();
 
-    public AudioManager(){
+    public AudioManager() {
+        soundList.add("resources/sound/guns/smokegrenade/grenade_hit1.wav");
+        soundList.add("");
+        hitSoundList.add("resources/sound/hitsounds/kevlar1.wav");
+        hitSoundList.add("resources/sound/hitsounds/kevlar2.wav");
+        hitSoundList.add("resources/sound/hitsounds/kevlar3.wav");
+        hitSoundList.add("resources/sound/hitsounds/kevlar4.wav");
+        hitSoundList.add("resources/sound/hitsounds/kevlar5.wav");
+        hitSoundList.add("resources/sound/hitsounds/headshot3.wav");
+        hitSoundList.add("resources/sound/hitsounds/headshot4.wav");
+        hitSoundList.add("resources/sound/hitsounds/headshot5.wav");
     }
 
-    private void playSound(String soundFile) {
-        File f = new File("./" + soundFile);
-        AudioInputStream audioIn = null;
+    public void playSound(int i) {
         try {
             audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
         } catch (UnsupportedAudioFileException e) {
