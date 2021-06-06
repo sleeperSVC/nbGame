@@ -6,25 +6,17 @@ import java.io.IOException;
 public class Enemy extends GameMovingObject {
 
 
-    public Enemy(int x, int y, int width, int height, int health, int speedFactor, int jumpFactor) {
+    public Enemy(int x, int y, int width, int height, int health, int speedFactor) {
 
-        super(x, y, width, height, health, speedFactor, jumpFactor);
+        super(x, y, width, height, health, speedFactor);
 
         frameCounter = 0;
-        BufferedImage im;
         try {
-
-            im = ImageIO.read(getClass().getResource("resources/image/entities/enemy/enemy1_1.png"));
-            frameHolder.add(im);
-            im = ImageIO.read(getClass().getResource("resources/image/entities/enemy/enemy1_2.png"));
-            frameHolder.add(im);
-            im = ImageIO.read(getClass().getResource("resources/image/entities/enemy/enemy1_3.png"));
-            frameHolder.add(im);
-            im = ImageIO.read(getClass().getResource("resources/image/entities/enemy/enemy1_4.png"));
-            frameHolder.add(im);
-            im = ImageIO.read(getClass().getResource("resources/image/entities/enemy/enemy1_5.png"));
-            frameHolder.add(im);
-
+            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/enemy/enemy1_1.png")));
+            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/enemy/enemy1_2.png")));
+            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/enemy/enemy1_3.png")));
+            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/enemy/enemy1_4.png")));
+            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/enemy/enemy1_5.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,7 +26,7 @@ public class Enemy extends GameMovingObject {
     public void update() {
         super.update();
 
-        if (healthCounter == 0) {
+        if (health == 0) {
             isAlive = false;
         }
 

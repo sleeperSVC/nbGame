@@ -12,9 +12,12 @@ public class Player extends GameMovingObject {
     int movingFrameCount = 6;
 
     //constructor class for player
-    public Player(int x, int y, int width, int height, int health, int speedFactor, int jumpSpeed, int fireRate) {
-        super(x, y, width, height, health, speedFactor, jumpSpeed);
+    public Player(int x, int y, int width, int height, int health, int speedFactor, int fireRate) {
+        super(x, y, width, height, health, speedFactor);
         this.fireRate = fireRate;
+
+        xVMax = 4;
+        yVMax = 4;
 
         frameCheck = true;
         frameCounter = 0;
@@ -51,7 +54,7 @@ public class Player extends GameMovingObject {
     public void update() {
         super.update();
 
-        if (healthCounter == 0) {
+        if (health == 0) {
             isAlive = false;
         }
 
