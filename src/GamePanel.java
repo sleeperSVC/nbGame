@@ -6,14 +6,23 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     Timer timer;
     Player p;
-    GameObjectManager objectManager = new GameObjectManager(p);
+    GameObjectManager objectManager;
+    MuzzleFlash mF;
+    final int MENU_STATE = 0;
+    final int GAME_STATE = 1;
+    final int END_STATE = 2;
+    int currentState = GAME_STATE;
+
+    final static int GRAVITY = 5;
 
     public GamePanel() {
         timer = new Timer(1000 / 60, this);   // the timer will call actionPerformed() 60 times a second
-        p = new Player(448, 288, 32, 32, 200, 10);    // initialize a new player
+        p = new Player(448, 288, 32, 32, 200, 5, 10, 1);    // initialize a new player
+        mF = new MuzzleFlash(448, 288, 5, 5, p);
+        objectManager = new GameObjectManager(p);
     }
 
-    public void drawMenuState(Graphics2D g) {
+    public void drawMenuState(Graphics g) {
 
     }
 
@@ -23,12 +32,50 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         objectManager.drawObjects(g);
     }
 
-    public void drawEndState(Graphics2D g) {
+    public void drawEndState(Graphics g) {
 
     }
 
+    public void updateMenuState() {
+
+    }
+
+    //calls the update method for the player
+    public void updateGameState() {
+        objectManager.updateObjects();
+
+    }
+
+    public void updateEndState() {
+
+    }
+
+    // illustrates the game display onto the Jpanel based on the game state
+    public void paintComponent(Graphics g) {
+        if (currentState == MENU_STATE) {
+            drawMenuState(g);
+        }
+        if (currentState == GAME_STATE) {
+            drawGameState(g);
+        }
+        if (currentState == END_STATE) {
+            drawEndState(g);
+        }
+    }
+
+    //updates the game state
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        if (currentState == MENU_STATE) {
+            updateMenuState();
+        }
+        if (currentState == GAME_STATE) {
+            updateGameState();
+        }
+        if (currentState == END_STATE) {
+            updateEndState();
+        }
         repaint();
     }
 
@@ -37,14 +84,42 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     }
 
+    //starts player movement when the keys are pressed
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("\tThe _" + e.getKeyChar() + "_ key was pressed!");
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_W:
+                p.move('w');
+                break;
+            case KeyEvent.VK_A:
+                p.move('a');
+                break;
+            case KeyEvent.VK_S:
+                p.move('s');
+                break;
+            case KeyEvent.VK_D:
+                p.move('d');
+                break;
+        }
     }
 
+    //stops player movement when the keys are released
     @Override
     public void keyReleased(KeyEvent e) {
-
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_W:
+                p.stopMove('w');
+                break;
+            case KeyEvent.VK_A:
+                p.stopMove('a');
+                break;
+            case KeyEvent.VK_S:
+                p.stopMove('s');
+                break;
+            case KeyEvent.VK_D:
+                p.stopMove('d');
+                break;
+        }
     }
 
     @Override
@@ -52,14 +127,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     }
 
+    //sets the firing status to true
     @Override
     public void mousePressed(MouseEvent e) {
-
+        objectManager.isFiring = true;
     }
 
+    //sets the firing status to false
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        objectManager.isFiring = false;
     }
 
     @Override

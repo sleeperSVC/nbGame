@@ -20,6 +20,6 @@ public class GameRunner {
         frame.pack();
         frame.setVisible(true);
 
-        gamePanel.startTimer();
+        gamePanel.timer.start();
     }
 }

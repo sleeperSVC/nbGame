@@ -12,6 +12,7 @@ public class GameObjectManager {
     GameObjectAttributeManager am = new GameObjectAttributeManager();
     Player p;
 
+    //constructor class
     public GameObjectManager(Player p) {
         // The object manager needs a reference to the player object created in GamePanel,
         // in order to access its X and Y positions
@@ -93,7 +94,9 @@ public class GameObjectManager {
         flashes.add(muzzle);
     }
 
+    //adds an enemy to the enemy arrayList
     public void addEnemy() {
+        // Enemy newEnemy = new Enemy(0,0,0,0,0,0,0,);
 
     }
 

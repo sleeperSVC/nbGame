@@ -7,9 +7,9 @@ import java.io.IOException;
 public class Enemy extends GameObject {
 
 
-    public Enemy(int x, int y, int width, int height) {
+    public Enemy(int x, int y, int width, int height, int health, int speed) {
 
-        super(x, y, width, height);
+        super(x, y, width, height, health, speed);
 
         frameCounter = 0;
         BufferedImage im;
@@ -35,7 +35,7 @@ public class Enemy extends GameObject {
     public void update() {
         super.update();
 
-        if (healthCounter == 0){
+        if (healthCounter == 0) {
             isAlive = false;
         }
 

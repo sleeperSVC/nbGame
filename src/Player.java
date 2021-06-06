@@ -8,27 +8,37 @@ import java.io.IOException;
 public class Player extends GameObject {
 
     int fireRate;
+    int speed;
 
-    public Player(int x, int y, int width, int height, int health, int fireRate) {
-        super(x, y, width, height);
-        healthCounter = health;
+    // velocity
+    private int xV = 0;
+    private int yV = 0;
+    private int xVMax = 10;
+    private int yVMax = 10;
+
+    int mouseX;
+    int mouseY;
+
+    boolean isMoving;
+    boolean frameCheck;
+    int idleFrameCount = 4;
+    int movingFrameCount = 6;
+
+    //constructor class for player
+    public Player(int x, int y, int width, int height, int health, int speed, int jumpSpeed, int fireRate) {
+        super(x, y, width, height, health, speed);
         this.fireRate = fireRate;
         isMoving = false;
         frameCheck = true;
 
         this.speed = 10;
         frameCounter = 0;
-        BufferedImage im;
-        try {
-            im = ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_1.png"));
-            frameHolder.add(im);
-            im = ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_2.png"));
-            frameHolder.add(im);
-            im = ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_3.png"));
-            frameHolder.add(im);
-            im = ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_4.png"));
-            frameHolder.add(im);
 
+        try {
+            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_1.png")));
+            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_2.png")));
+            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_3.png")));
+            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_4.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,26 +50,19 @@ public class Player extends GameObject {
 
         BufferedImage im;
         try {
-
-            im = ImageIO.read(getClass().getResource("resources/image/entities/run/run_1.png"));
-            frameHolder.add(im);
-            im = ImageIO.read(getClass().getResource("resources/image/entities/run/run_2.png"));
-            frameHolder.add(im);
-            im = ImageIO.read(getClass().getResource("resources/image/entities/run/run_3.png"));
-            frameHolder.add(im);
-            im = ImageIO.read(getClass().getResource("resources/image/entities/run/run_4.png"));
-            frameHolder.add(im);
-            im = ImageIO.read(getClass().getResource("resources/image/entities/run/run_5.png"));
-            frameHolder.add(im);
-            im = ImageIO.read(getClass().getResource("resources/image/entities/run/run_6.png"));
-            frameHolder.add(im);
-
+            frameHolder.clear();
+            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_1.png")));
+            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_2.png")));
+            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_3.png")));
+            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_4.png")));
+            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_4.png")));
+            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_4.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
+    //
     @Override
     public void update() {
         super.update();
@@ -100,24 +103,33 @@ public class Player extends GameObject {
         //y += GamePanel.GRAVITY; // move player down by GRAVITY pixel
     }
 
+    //draw method for the player's sprite
     @Override
-    public void draw(Graphics2D g) {
-        if (isRunning == false) {
-            if (frameCounter < 4) {
+    public void draw(Graphics g) {
+
+        if (isMoving == false && frameCheck) {
+            if (frameCounter < idleFrameCount - 1) {
                 frameCounter++;
             } else {
                 frameCounter = 0;
             }
         }
 
-        if (isRunning == true) {
-            if (frameCounter < 6) {
+        if (isMoving == true && frameCheck) {
+            if (frameCounter < movingFrameCount - 1) {
                 frameCounter++;
             } else {
                 frameCounter = 0;
             }
         }
-        g.drawImage(frameHolder.get(frameCounter), x, y, null);
+        //orientation 0==left | 1==right
+        if (orientation == 1) {
+            g.drawImage(frameHolder.get(frameCounter), x, y, 32, 32, null);
+        } else {
+            g.drawImage(frameHolder.get(frameCounter), x + 32, y, -32, 32, null);
+        }
+        //changes fps to 30
+        frameCheck = !frameCheck;
     }
 
     //method for player movement(running)
