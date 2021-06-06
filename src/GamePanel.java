@@ -103,15 +103,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
                 p.move('w');
+                p.changeMovingStatus(true);
                 break;
             case KeyEvent.VK_A:
                 p.move('a');
+                p.changeMovingStatus(true);
                 break;
             case KeyEvent.VK_S:
                 p.move('s');
+                p.changeMovingStatus(true);
                 break;
             case KeyEvent.VK_D:
                 p.move('d');
+                p.changeMovingStatus(true);
                 break;
         }
     }
@@ -122,15 +126,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
                 p.stopMove('w');
+                p.changeMovingStatus(false);
                 break;
             case KeyEvent.VK_A:
                 p.stopMove('a');
+                p.changeMovingStatus(false);
                 break;
             case KeyEvent.VK_S:
                 p.stopMove('s');
+                p.changeMovingStatus(false);
                 break;
             case KeyEvent.VK_D:
                 p.stopMove('d');
+                p.changeMovingStatus(false);
                 break;
         }
     }
