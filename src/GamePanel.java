@@ -35,23 +35,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         objectManager.addEnemy();
     }
 
-    public void drawMenuState(Graphics g) {
-
-    }
-
-    public void drawGameState(Graphics g) {
-
-        layer1.paintIcon(this, g, 0, 0);
-        layer2.paintIcon(this, g, 0, 0);
-        layer3.paintIcon(this, g, 0, 0);
-        objectManager.drawObjects(g);   // painting game objects before layer 4
-        layer4.paintIcon(this, g, 0, 0);
-    }
-
-    public void drawEndState(Graphics g) {
-
-    }
-
     public void updateMenuState() {
 
     }
@@ -59,6 +42,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     // updates the player and all game objects
     public void updateGameState() {
         objectManager.updateObjects();
+        if(!p.isAlive){
+            currentState = END_STATE;
+        }
     }
 
     public void updateEndState() {
@@ -165,9 +151,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     @Override
     public void mouseClicked(MouseEvent e) {
         if (currentState == MENU_STATE) {
-            if (menu.click(e) == Menu.CREDITS_BUTTON) {
+            if (menu.mouseClicked(e) == Menu.HELP_BUTTON){
 
-                JOptionPane.showMessageDialog(null, "Bry Ray and ET");
+            }
+            if(menu.mouseClicked(e) == Menu.START_BUTTON){
+                currentState = GAME_STATE;
+               // updateGameState();
             }
             if (menu.mouseClicked(e) == Menu.CREDITS_BUTTON) {
                 JOptionPane.showMessageDialog(null, "Bry Ray and ET");
