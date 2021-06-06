@@ -3,28 +3,25 @@ import java.awt.*;
 public class GameMovingObject extends GameObject {
 
     double speedFactor;
-    double jumpSpeed;
-
     double xV = 0;
     double yV = 0;
-    double xVMax = 10;
-    double yVMax = 10;
+    double xVMax = 0;
+    double yVMax = 0;
+    boolean movingRight = false;    // NOT JUST FOR WASD INPUT ANYMORE
+    boolean movingLeft = false;     // NOT JUST FOR WASD INPUT ANYMORE
 
     boolean isMoving = false;   // for seeing which frame arraylist to use
 
-    boolean movingRight = false;// for input
-    boolean movingLeft = false; // for input
-
-    public GameMovingObject(int x, int y, int width, int height, int health, double speedFactor, double jumpSpeed) {
+    public GameMovingObject(int x, int y, int width, int height, int health, double speedFactor) {
         super(x, y, width, height);
-        this.healthCounter = health;
+        this.health = health;
         this.speedFactor = speedFactor;
-        this.jumpSpeed = jumpSpeed;
-        collisionBox = new Rectangle(x, y, width, height);
     }
 
     @Override
     public void update() {
+        super.update();
+
         // IF MOVING, INCREASE VELOCITIES BY SPEED
         if (movingRight) {
             xV += speedFactor;
@@ -59,11 +56,9 @@ public class GameMovingObject extends GameObject {
                 yV = -yVMax;
         }
 
-        // MOVE THE OBJECT BY THE VELOCITY
+        // SHIFT THE OBJECT BY THE VELOCITY
         x += xV;
         y -= yV;
-
-        System.out.println("x = " + x + " y = " + y + ", xV = " + xV + " yV = " + yV);
 
         //y += GamePanel.GRAVITY; // move object down by GRAVITY pixels
     }

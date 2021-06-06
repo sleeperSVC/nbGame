@@ -49,25 +49,9 @@ public class GameObjectManager {
             System.out.println("player dead");
         }
 
-        for (int i = 0; i < bullets.size(); i++) {
-            if (!bullets.get(i).isAlive) {
-                System.out.println("removed a bullet");
-                bullets.remove(i);
-                i--;
-            }
-        }
-        for (int i = 0; i < enemies.size(); i++) {
-            if (!enemies.get(i).isAlive) {
-                enemies.remove(i);
-                i--;
-            }
-        }
-        for (int i = 0; i < flashes.size(); i++) {
-            if (!flashes.get(i).isAlive) {
-                flashes.remove(i);
-                i--;
-            }
-        }
+        bullets.removeIf(b -> !b.isAlive);
+        enemies.removeIf(e -> !e.isAlive);
+        flashes.removeIf(f -> !f.isAlive);
     }
 
     // when two objects' collisionBoxes intersect, do something
@@ -87,11 +71,8 @@ public class GameObjectManager {
 
     //adds bullets to the arrayList. muzzle flash is also added in conjunction with bullets
     public void addBullet() {
-        Bullet newBullet = new Bullet(p.x, p.y, am.bulletWidth, am.bulletHeight, am.bulletSpeed, p.orientation);
-        bullets.add(newBullet);
-
-        MuzzleFlash muzzle = new MuzzleFlash(p.x, p.y, 9, 9, p);
-        flashes.add(muzzle);
+        bullets.add(new Bullet(p.x, p.y, am.bulletWidth, am.bulletHeight, am.bulletSpeedFactor, am.bulletInaccuracy, p.orientation, p.xV, p.yV));
+        flashes.add(new MuzzleFlash(p.x, p.y, 9, 9, p));
     }
 
     //adds an enemy to the enemy arrayList

@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+//TODO: this is broken now cause of the new movement
+
 public class MuzzleFlash extends GameObject {
 
     Player p;
@@ -12,10 +14,7 @@ public class MuzzleFlash extends GameObject {
         super(x, y, width, height);
         this.p = p;
         frameCounter = 0;
-        isAlive = true;
 
-        // loading imgs
-        BufferedImage im;
         try {
             frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_1.png")));
             frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_2.png")));

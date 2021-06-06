@@ -1,6 +1,8 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener, MouseListener {
 
@@ -14,11 +16,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     int currentState = GAME_STATE;
 
     final static double GRAVITY = 5;
-    final static double FRICTION = 2;
+    final static int FRICTION = 2;
 
     public GamePanel() {
-        timer = new Timer(1000 / 60, this);   // the timer will call actionPerformed() 60 times a second
-        p = new Player(448, 288, 32, 32, 200, 2, 10, 1);    // initialize a new player
+        timer = new Timer(1000 / 60, this);
+        p = new Player(448, 288, 32, 32, 200, 4, 10);    // initialize a new player
         mF = new MuzzleFlash(448, 288, 5, 5, p);
         objectManager = new GameObjectManager(p);
     }
@@ -28,7 +30,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     }
 
     public void drawGameState(Graphics g) {
-        g.fillRect(0, 0, GameRunner.WIDTH, GameRunner.HEIGHT);
+        try {
+            g.drawImage(ImageIO.read(getClass().getResource("resources/image/environment/combinedBackground.png")), 0, 0, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         objectManager.drawObjects(g);
     }
 
@@ -130,6 +136,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     @Override
     public void mousePressed(MouseEvent e) {
         objectManager.isFiring = true;
+        //objectManager.addBullet();
     }
 
     //sets the firing status to false

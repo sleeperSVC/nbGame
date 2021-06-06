@@ -8,7 +8,7 @@ public class GameObject {
     int y;
     int width;
     int height;
-    int healthCounter;
+    int health;
 
     boolean isAlive = true;
 
@@ -17,7 +17,6 @@ public class GameObject {
 
     ArrayList<BufferedImage> frameHolder = new ArrayList<>();
     int frameCounter;
-
 
     public GameObject(int x, int y, int width, int height) {
         this.x = x;
