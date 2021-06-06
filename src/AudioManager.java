@@ -3,6 +3,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+//TODO: fix hitsounds
+
 public class AudioManager {
 
     private ArrayList<String> soundList = new ArrayList<>();
@@ -23,27 +25,13 @@ public class AudioManager {
 
     public void playSound(int i) {
         try {
-            audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Clip clip = null;
-        try {
-            clip = AudioSystem.getClip();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        }
-        try {
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(getClass().getResource(soundList.get(i)));
+            Clip clip = AudioSystem.getClip();
             clip.open(audioIn);
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            clip.start();
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             e.printStackTrace();
         }
-        clip.start();
     }
-
 
 }

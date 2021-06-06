@@ -9,7 +9,6 @@ public class Player extends GameMovingObject {
     int fireRate;
 
     //TODO: idk how the frame stuff works, so you guys can sort that out in GameMovingObject - bry
-    boolean frameCheck;
     int idleFrameCount = 4;
     int movingFrameCount = 6;
     int movingFrameCounter;
@@ -23,8 +22,6 @@ public class Player extends GameMovingObject {
         xVMax = 4;  // placeholder value
         yVMax = 4;  // placeholder value
 
-        frameCheck = true;
-        frameCounter = 0;
         movingFrameCounter = 0;
 
         try {

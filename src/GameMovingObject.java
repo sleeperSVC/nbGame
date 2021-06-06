@@ -28,12 +28,14 @@ public class GameMovingObject extends GameObject {
         // IF MOVING, INCREASE VELOCITIES BY SPEED
         if (movingRight) {
             xV += speedFactor;
+            orientation = 1;
         }
         if (movingLeft) {
             xV -= speedFactor;
+            orientation = 0;
         }
 
-        // FRICTION STUFF AND MAX VELOCITY
+        // FRICTION STUFF AND MAX VELOCITY CAP
         if (Math.abs(xV) > 0) {
             if (xV > 0)
                 xV -= GamePanel.FRICTION;

@@ -13,7 +13,7 @@ public class Menu {
 
     // well have this method return an integer, and then in GamePanel mouseClicked() depending
     // on the returned value it will do something
-    public int click(MouseEvent e) {
+    public int mouseClicked(MouseEvent e) {
         if (startRect.intersects(e.getX(), e.getY(), 1, 1)) {
             return START_BUTTON;
         }
@@ -21,7 +21,22 @@ public class Menu {
         return -1;
     }
 
+    public void mouseEntered(MouseEvent e) {
+        if (startRect.intersects(e.getX(), e.getY(), 1, 1)) {
+            currentHovered = START_BUTTON;
+        }
+        if (helpRect.intersects(e.getX(), e.getY(), 1, 1)) {
+            currentHovered = HELP_BUTTON;
+        }
+        if (creditsRect.intersects(e.getX(), e.getY(), 1, 1)) {
+            currentHovered = CREDITS_BUTTON;
+        }
+        System.out.println("mouse entered " + currentHovered);
+
+    }
+
     public void draw(Graphics g) {
         g.drawRect(startRect.x, startRect.y, startRect.width, startRect.height);
     }
+
 }

@@ -8,7 +8,12 @@ public class GameObjectManager {
     ArrayList<Enemy> enemies = new ArrayList<>();
 
     GameObjectAttributeManager am = new GameObjectAttributeManager();
+    AudioManager audioManager = new AudioManager();
     Player p;
+
+    long bulletStartTime = System.currentTimeMillis();
+    boolean isFiring;
+
 
     //constructor class
     public GameObjectManager(Player p) {
@@ -55,11 +60,8 @@ public class GameObjectManager {
         flashes.removeIf(f -> !f.isAlive);
     }
 
-    // when two objects' collisionBoxes intersect, do something
     public void checkCollision() {
-
-        // if a bullet collides with any enemy, delete the bullet
-        // NOTE: IF WE GET LIKE PIERCING SHOTS OR SOMETHING, THEN WE GOTTA CHANGE THIS
+        // if a bullet collides with any enemy, delete the bullet, TODO damage the enemy
         for (int b = 0; b < bullets.size(); b++) {
             for (int e = 0; e < enemies.size(); e++) {
                 if (bullets.get(b).collisionBox.intersects(enemies.get(e).collisionBox)) {
@@ -81,8 +83,7 @@ public class GameObjectManager {
 
     //adds an enemy to the enemy arrayList
     public void addEnemy() {
-        // Enemy newEnemy = new Enemy(0,0,0,0,0,0,0,);
-
+        enemies.add(new Enemy(20, 288, 32,32, 100, 4, p));
     }
 
 }

@@ -18,6 +18,7 @@ public class GameObject {
 
     ArrayList<BufferedImage> frameHolder = new ArrayList<>();
     int frameCounter;
+    boolean frameCheck;
 
     public GameObject(int x, int y, int width, int height) {
         this.x = x;
@@ -25,6 +26,9 @@ public class GameObject {
         this.width = width;
         this.height = height;
         collisionBox = new Rectangle(x, y, width, height);
+        frameCounter = 0;
+        frameCheck = true;
+
     }
 
     public void update() {

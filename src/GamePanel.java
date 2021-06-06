@@ -28,9 +28,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     public GamePanel() {
         timer = new Timer(1000 / 60, this);
-        p = new Player(448, 288, 32, 32, 200, 4, 10);    // initialize a new player
+        p = new Player(448, 288, 32, 32, 200, 4, 100);    // initialize a new player
         objectManager = new GameObjectManager(p);
         menu = new Menu();
+
+        objectManager.addEnemy();
     }
 
     public void drawMenuState(Graphics g) {
@@ -74,6 +76,23 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         if (currentState == END_STATE) {
             drawEndState(g);
         }
+    }
+
+    public void drawMenuState(Graphics g){
+        menu1.paintIcon(this, g, 0, 0);
+        menu.draw(g);
+    }
+
+    public void drawGameState(Graphics g) {
+        layer1.paintIcon(this, g, 0, 0);
+        layer2.paintIcon(this, g, 0, 0);
+        layer3.paintIcon(this, g, 0, 0);
+        objectManager.drawObjects(g);   // painting game objects before layer 4
+        layer4.paintIcon(this, g, 0, 0);
+    }
+
+    public void drawEndState(Graphics g) {
+
     }
 
     //updates the game state
@@ -150,14 +169,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
                 JOptionPane.showMessageDialog(null, "Bry Ray and ET");
             }
+            if (menu.mouseClicked(e) == Menu.CREDITS_BUTTON) {
+                JOptionPane.showMessageDialog(null, "Bry Ray and ET");
+            }
         }
     }
 
     //sets the firing status to true
     @Override
     public void mousePressed(MouseEvent e) {
-
-
         if (currentState == GAME_STATE) {
             objectManager.isFiring = true;
         }
