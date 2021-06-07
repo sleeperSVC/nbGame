@@ -152,7 +152,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     public void mouseClicked(MouseEvent e) {
         if (currentState == MENU_STATE) {
             if (menu.mouseClicked(e) == Menu.HELP_BUTTON){
-
+                JOptionPane.showMessageDialog(null, "WASD to move\nLeft Mouse to Fire\nSave the minion babies and kill the Ghosts");
             }
             if(menu.mouseClicked(e) == Menu.START_BUTTON){
                 currentState = GAME_STATE;

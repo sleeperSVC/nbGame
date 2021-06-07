@@ -55,6 +55,7 @@ public class Menu {
         g.drawString("How To Play", helpRect.x, helpRect.y);
         g.drawString("Credits", creditsRect.x, creditsRect.y);
 
+
         switch (currentHovered) {
             case START_BUTTON:
                 g.drawRect(startRect.x, startRect.y, startRect.width, startRect.height);
