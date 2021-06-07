@@ -159,7 +159,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
                // updateGameState();
             }
             if (menu.mouseClicked(e) == Menu.CREDITS_BUTTON) {
-                JOptionPane.showMessageDialog(null, "Bry Ray and ET");
+                JOptionPane.showMessageDialog(null, "Bryan Rayan and Ethan");
             }
         }
     }

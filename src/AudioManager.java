@@ -18,6 +18,7 @@ public class AudioManager {
     public AudioManager() {
         soundList.add("resources/sound/guns/mp5navy/mp5-1.wav");
 
+        hitSoundList.add("resources/sound/hitsounds/bhit_flesh-2.wav");
 //        hitSoundList.add("resources/sound/hitsounds/kevlar1.wav");
 //        hitSoundList.add("resources/sound/hitsounds/kevlar2.wav");
 //        hitSoundList.add("resources/sound/hitsounds/kevlar3.wav");

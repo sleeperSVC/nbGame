@@ -8,10 +8,11 @@ public class GameObjectManager {
     ArrayList<Enemy> enemies = new ArrayList<>();
     ArrayList<Baby> babies = new ArrayList<>();
 
-    GameObjectAttributeManager am = new GameObjectAttributeManager();
+    GameObjectAttributes am = new GameObjectAttributes();
     AudioManager audioManager = new AudioManager();
     Player p;
 
+    long immuneStartTime = System.currentTimeMillis();
     long bulletStartTime = System.currentTimeMillis();
     boolean isFiring;
 
@@ -64,18 +65,34 @@ public class GameObjectManager {
     }
 
     public void checkCollision() {
+
         // if a bullet collides with any enemy, delete the bullet, damage the enemy
         for (int b = 0; b < bullets.size(); b++) {
             for (int e = 0; e < enemies.size(); e++) {
                 if (bullets.get(b).collisionBox.intersects(enemies.get(e).collisionBox)) {
                     bullets.remove(b);
-                    audioManager.playSound((int) (Math.random() * audioManager.hitSoundList.size()), audioManager.HIT_SOUND_LIST);
+                    audioManager.playSound((int) (Math.random() * (audioManager.hitSoundList.size() - 1) + 1), audioManager.HIT_SOUND_LIST);
                     enemies.get(e).damage(am.bulletDamage);
                     b--;
                 }
             }
         }
-    }
+
+        //if an enemy collides with the player, damage player
+        for (int i = 0; i < enemies.size(); i++) {
+
+            if (System.currentTimeMillis() - immuneStartTime >= 500) {
+                if (enemies.get(i).collisionBox.intersects(p.collisionBox)) {
+                    p.health -= am.enemyDamage;
+                    audioManager.playSound(0, 1);
+                }
+                immuneStartTime = System.currentTimeMillis();
+            }
+        }
+
+
+
+}
 
     //adds bullets to the arrayList. muzzle flash is also added in conjunction with bullets
     public void addBullet() {

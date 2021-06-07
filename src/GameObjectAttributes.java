@@ -1,5 +1,5 @@
-public class GameObjectAttributeManager {
-
+public class GameObjectAttributes {
+    int enemyDamage = 5;
     int bulletWidth = 5;
     int bulletHeight = 5;
     double bulletSpeedFactor = 100;
