@@ -6,6 +6,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     Timer timer;
     Menu menu;
+    EndScene end;
     Map map;
     GameObjectManager objectManager;
     Player p;
@@ -14,7 +15,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     final int MENU_STATE = 0;
     final int GAME_STATE = 1;
     final int END_STATE = 2;
-    int currentState = MENU_STATE;
+    int currentState = END_STATE;
 
     public static final int FRAME_WIDTH = 960;
     public static final int FRAME_HEIGHT = 540;
@@ -32,6 +33,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     public GamePanel() {
         timer = new Timer(1000 / 60, this);
         menu = new Menu();
+        end = new EndScene();
         map = new Map();
         p = new Player(448, 288, 32, 32, 200, 4, 100);    // initialize a new player
         objectManager = new GameObjectManager(p);
@@ -53,7 +55,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     }
 
     public void updateEndState() {
-
+        Point point = MouseInfo.getPointerInfo().getLocation();
+        end.checkHover(point);
     }
 
     // illustrates the game display onto the JPanel based on the game state
@@ -83,7 +86,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     }
 
     public void drawEndState(Graphics g) {
-
+        menu1.paintIcon(this, g, 0, 0);
+        end.draw(g);
     }
 
     //updates the game state
@@ -165,6 +169,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
             }
             if (menu.mouseClicked(e) == Menu.CREDITS_BUTTON) {
                 JOptionPane.showMessageDialog(null, "Bryan Rayan and Ethan");
+            }
+        }
+
+        if (currentState == END_STATE){
+            if (end.mouseClicked(e) == end.RESTART_BUTTON){
+                currentState = GAME_STATE;
+            }
+            if (end.mouseClicked(e) == end.MENU_BUTTON) {
+                currentState = MENU_STATE;
             }
         }
     }
