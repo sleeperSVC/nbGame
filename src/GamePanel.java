@@ -5,9 +5,11 @@ import java.awt.event.*;
 public class GamePanel extends JPanel implements ActionListener, KeyListener, MouseListener {
 
     Timer timer;
-    Player p;
-    GameObjectManager objectManager;
     Menu menu;
+    Map map;
+    GameObjectManager objectManager;
+    Player p;
+    Point point;
 
     final int MENU_STATE = 0;
     final int GAME_STATE = 1;
@@ -20,6 +22,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     public static final double GRAVITY = 5;
     public static final int FRICTION = 2;
+
     ImageIcon menu1 = new ImageIcon(getClass().getResource("resources/image/environment/menu1.png"));
     ImageIcon layer1 = new ImageIcon(getClass().getResource("resources/image/environment/layer1.png"));
     ImageIcon layer2 = new ImageIcon(getClass().getResource("resources/image/environment/layer2.png"));
@@ -28,15 +31,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     public GamePanel() {
         timer = new Timer(1000 / 60, this);
+        menu = new Menu();
+        map = new Map();
         p = new Player(448, 288, 32, 32, 200, 4, 100);    // initialize a new player
         objectManager = new GameObjectManager(p);
-        menu = new Menu();
 
-        objectManager.addEnemy();
+        objectManager.addEnemy();// TODO: delete this eventually
     }
 
     public void updateMenuState() {
-
+        Point point = MouseInfo.getPointerInfo().getLocation();
+        menu.checkHover(point);
     }
 
     // updates the player and all game objects
