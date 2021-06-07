@@ -183,7 +183,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        objectManager.addBullet();//this is not done
     }
 
     @Override
