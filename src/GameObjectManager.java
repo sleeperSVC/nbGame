@@ -6,6 +6,7 @@ public class GameObjectManager {
     ArrayList<Bullet> bullets = new ArrayList<>();
     ArrayList<MuzzleFlash> flashes = new ArrayList<>();
     ArrayList<Enemy> enemies = new ArrayList<>();
+    ArrayList<Baby> babies = new ArrayList<>();
 
     GameObjectAttributeManager am = new GameObjectAttributeManager();
     AudioManager audioManager = new AudioManager();
@@ -37,6 +38,7 @@ public class GameObjectManager {
         bullets.forEach(b -> b.update());
         enemies.forEach(e -> e.update());
         flashes.forEach(f -> f.update());
+        babies.forEach(c -> c.update());
     }
 
     //draws the sprites
@@ -46,6 +48,7 @@ public class GameObjectManager {
         bullets.forEach(b -> b.draw(g));
         enemies.forEach(e -> e.draw(g));
         flashes.forEach(f -> f.draw(g));
+        babies.forEach(c -> c.draw(g));
     }
 
     // remove all the objects whose "isAlive" is false
@@ -57,6 +60,7 @@ public class GameObjectManager {
         bullets.removeIf(b -> !b.isAlive);
         enemies.removeIf(e -> !e.isAlive);
         flashes.removeIf(f -> !f.isAlive);
+        babies.removeIf(c -> !c.isAlive);
     }
 
     public void checkCollision() {
@@ -74,10 +78,16 @@ public class GameObjectManager {
     }
 
     //adds bullets to the arrayList. muzzle flash is also added in conjunction with bullets
-    private void addBullet() {
+    public void addBullet() {
         bullets.add(new Bullet(p.x, p.y, am.bulletWidth, am.bulletHeight, am.bulletSpeedFactor, am.bulletInaccuracy, am.bulletDamage,  p.orientation, p.xV, p.yV));
         flashes.add(new MuzzleFlash(p.x, p.y, 9, 9, p));
         audioManager.playSound(0, audioManager.SOUND_LIST);
+    }
+
+    public void addBaby(){
+        int babyX;
+        int babyY;
+
     }
 
     //adds an enemy to the enemy arrayList
