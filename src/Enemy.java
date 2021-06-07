@@ -65,7 +65,6 @@ public class Enemy extends GameMovingObject {
             movingLeft = true;
             movingRight = false;
         }
-        System.out.println("xV = " + xV + " speedFactor = " + speedFactor);
     }
 
     @Override

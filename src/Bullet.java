@@ -5,7 +5,6 @@ public class Bullet extends GameMovingObject {
     double inaccuracy;
     int damage;
 
-
     //bullet colorings
     Color purple1 = new Color(125, 52, 235);
     Color purple2 = new Color(96, 30, 191);
@@ -15,7 +14,7 @@ public class Bullet extends GameMovingObject {
     public Bullet(int x, int y, int width, int height, double speedFactor, double bulletInaccuracy, int bulletDamage, int orientation, double pxV, double pyV) {
         super((orientation == 1 ? x + 32 : x), y + 17, width, height, 1, speedFactor);
         // don't get scared of this ^ ternary operator, its just the same as "if orientation == 1, then return x+32, else return x
-
+        this.inaccuracy = bulletInaccuracy;
         this.orientation = orientation;
         this.xV = pxV; // TODO initial velocity is the player's velocity. simulates inertia. kinda scuffed atm
         this.yV = pyV;
@@ -42,7 +41,7 @@ public class Bullet extends GameMovingObject {
         }
 
         // if you wanna make the bullet slow down faster, or make it not slow down at all, edit this lines
-        xVMax -= Math.random() * .5 + 1;
+        //xVMax -= Math.random() * .5 + 1;
 
         if (!collisionBox.intersects(GamePanel.frameCollisionBox) || xVMax <= 1) {
             isAlive = false;
@@ -56,7 +55,7 @@ public class Bullet extends GameMovingObject {
 
         //updates color
         int randColor = (int) (Math.random() * 3);
-        switch (randColor){
+        switch (randColor) {
             case 0:
                 current = purple1;
                 break;
@@ -72,7 +71,7 @@ public class Bullet extends GameMovingObject {
         int randHeight = (int) (Math.random() * 5);
         g.setColor(current);
         g.fillOval(x, y, width + randWidth, height + randHeight);
-        g.setColor(current);
+        g.setColor(Color.BLACK);
         g.drawOval(x, y, width + randWidth, height + randHeight);
     }
 }

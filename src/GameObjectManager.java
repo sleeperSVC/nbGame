@@ -17,8 +17,7 @@ public class GameObjectManager {
 
     //constructor class
     public GameObjectManager(Player p) {
-        // The object manager needs a reference to the player object created in GamePanel,
-        // in order to access its X and Y positions
+        // The object manager needs a reference to the player object created in GamePanel, in order to access its X and Y positions
         this.p = p;
 
     }
@@ -61,12 +60,12 @@ public class GameObjectManager {
     }
 
     public void checkCollision() {
-        // if a bullet collides with any enemy, delete the bullet, TODO damage the enemy
+        // if a bullet collides with any enemy, delete the bullet, damage the enemy
         for (int b = 0; b < bullets.size(); b++) {
             for (int e = 0; e < enemies.size(); e++) {
                 if (bullets.get(b).collisionBox.intersects(enemies.get(e).collisionBox)) {
                     bullets.remove(b);
-                    audioManager.playSound(0);
+                    audioManager.playSound((int) (Math.random() * audioManager.hitSoundList.size()), audioManager.HIT_SOUND_LIST);
                     enemies.get(e).damage(am.bulletDamage);
                     b--;
                 }
@@ -78,7 +77,7 @@ public class GameObjectManager {
     private void addBullet() {
         bullets.add(new Bullet(p.x, p.y, am.bulletWidth, am.bulletHeight, am.bulletSpeedFactor, am.bulletInaccuracy, am.bulletDamage,  p.orientation, p.xV, p.yV));
         flashes.add(new MuzzleFlash(p.x, p.y, 9, 9, p));
-        audioManager.playSound(0);
+        audioManager.playSound(0, audioManager.SOUND_LIST);
     }
 
     //adds an enemy to the enemy arrayList
