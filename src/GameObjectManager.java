@@ -12,6 +12,7 @@ public class GameObjectManager {
     AudioManager audioManager = new AudioManager();
     Player p;
 
+
     long immuneStartTime = System.currentTimeMillis();
     long bulletStartTime = System.currentTimeMillis();
     boolean isFiring;
@@ -21,7 +22,7 @@ public class GameObjectManager {
     public GameObjectManager(Player p) {
         // The object manager needs a reference to the player object created in GamePanel, in order to access its X and Y positions
         this.p = p;
-
+        addBaby(500, 297);
     }
 
     // iterate through bullets and enemies and call their update methods
@@ -101,15 +102,14 @@ public class GameObjectManager {
         audioManager.playSound(0, audioManager.SOUND_LIST);
     }
 
-    public void addBaby(){
-        int babyX;
-        int babyY;
+    public void addBaby(int babyX, int babyY){
+        Baby newBaby = new Baby(babyX, babyY, 16,16,1, p);
 
     }
 
     //adds an enemy to the enemy arrayList
     public void addEnemy() {
-        enemies.add(new Enemy(20, 288, 32,32, 100, 4, p));
+        enemies.add(new Enemy(20, 288, 32,32, am.enemyHealth, 4, p));
     }
 
 }

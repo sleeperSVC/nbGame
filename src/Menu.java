@@ -6,9 +6,9 @@ import java.awt.color.*;
 //960 x 540
 public class Menu {
 
-    Rectangle startRect = new Rectangle(140, 150, 215, 50);
-    Rectangle helpRect = new Rectangle(140, 220, 215, 50);
-    Rectangle creditsRect = new Rectangle(140, 290, 215, 50);
+    Rectangle startRect = new Rectangle(130, 150, 215, 50);
+    Rectangle helpRect = new Rectangle(130, 220, 240, 50);
+    Rectangle creditsRect = new Rectangle(130, 290, 200, 50);
 
     final static int START_BUTTON = 0;
     final static int HELP_BUTTON = 1;
@@ -56,20 +56,20 @@ public class Menu {
         g.fillRect(helpRect.x, helpRect.y-35, helpRect.width, helpRect.height);
 
         g.setColor(Color.white);
-        g.drawString("Start Game", startRect.x, startRect.y);
-        g.drawString("How To Play", helpRect.x, helpRect.y);
-        g.drawString("Credits", creditsRect.x, creditsRect.y);
+        g.drawString("START GAME", startRect.x, startRect.y);
+        g.drawString("HOW TO PAY", helpRect.x, helpRect.y);
+        g.drawString("CREDITS", creditsRect.x, creditsRect.y);
 
         g.setColor(Color.DARK_GRAY);
         switch (currentHovered) {
             case START_BUTTON:
-                g.fillRect(startRect.x-10, startRect.y-30, startRect.width, startRect.height);
+                g.fillRect(startRect.x-10, startRect.y-10, startRect.width, startRect.height);
 
                 g.setColor(Color.GRAY);
                 g.fillRect(startRect.x, startRect.y-35, startRect.width, startRect.height);
 
                 g.setColor(Color.red);
-                g.drawString("Start Game", startRect.x, startRect.y);
+                g.drawString("START GAME", startRect.x, startRect.y);
                 break;
             case CREDITS_BUTTON:
                 g.fillRect(creditsRect.x-10, creditsRect.y-30, creditsRect.width, creditsRect.height);
@@ -78,7 +78,7 @@ public class Menu {
                 g.fillRect(creditsRect.x, creditsRect.y-35, creditsRect.width, creditsRect.height);
 
                 g.setColor(Color.red);
-                g.drawString("Credits", creditsRect.x, creditsRect.y);
+                g.drawString("CREDITS", creditsRect.x, creditsRect.y);
                 break;
             case HELP_BUTTON:
                 g.fillRect(helpRect.x-10, helpRect.y-30, helpRect.width, helpRect.height);
@@ -87,7 +87,7 @@ public class Menu {
                 g.fillRect(helpRect.x,helpRect.y-35, helpRect.width, helpRect.height);
 
                 g.setColor(Color.red);
-                g.drawString("How To Play", helpRect.x, helpRect.y);
+                g.drawString("HOW TO PLAY", helpRect.x, helpRect.y);
                 break;
         }
     }
