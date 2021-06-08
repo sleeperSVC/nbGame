@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Player extends GameMovingObject {
 
     int fireRate;
-
+    int money;
     //TODO: idk how the frame stuff works, so you guys can sort that out in GameMovingObject - bry
     int idleFrameCount = 4;
     int movingFrameCount = 6;

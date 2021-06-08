@@ -6,5 +6,4 @@ public class GameObjectAttributes {
     double bulletSpeedFactor = 100;
     double bulletInaccuracy = 2;
     int bulletDamage = 1;
-
 }

@@ -2,10 +2,11 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
 
-public class Baby extends GameObject{
+public class Baby extends GameObject {
     boolean frameChecker;
     Player p;
-    public Baby(int x, int y, int width, int height, int health, Player p){
+
+    public Baby(int x, int y, int width, int height, int health, Player p) {
         super(x, y, width, height);
         this.health = health;
         this.p = p;
@@ -25,7 +26,7 @@ public class Baby extends GameObject{
 
     @Override
     public void update() {
-        if (p.collisionBox.intersects(x, y, width, height)){
+        if (p.collisionBox.intersects(x, y, width, height)) {
             isAlive = false;
             //need to add points method
         }
@@ -41,8 +42,9 @@ public class Baby extends GameObject{
 
 
     }
+
     @Override
-    public void draw(Graphics g){
+    public void draw(Graphics g) {
         g.drawImage(frameHolder.get(frameCounter), x, y, null);
     }
 }

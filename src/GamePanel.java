@@ -8,14 +8,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     Menu menu;
     EndScene end;
     Map map;
+    HUD hud;
     GameObjectManager objectManager;
     Player p;
     Point point;
 
     final int MENU_STATE = 0;
     final int GAME_STATE = 1;
-    final int END_STATE = 2;
-    int currentState = END_STATE;
+    final int SHOP_STATE = 2;
+    final int END_STATE = 3;
+    int currentState = MENU_STATE;
 
     public static final int FRAME_WIDTH = 960;
     public static final int FRAME_HEIGHT = 540;
@@ -29,6 +31,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     ImageIcon layer2 = new ImageIcon(getClass().getResource("resources/image/environment/layer2.png"));
     ImageIcon layer3 = new ImageIcon(getClass().getResource("resources/image/environment/layer3.png"));
     ImageIcon layer4 = new ImageIcon(getClass().getResource("resources/image/environment/layer4.png"));
+    ImageIcon hudIcon = new ImageIcon(getClass().getResource("resources/image/environment/hud.png"));
 
     public GamePanel() {
         timer = new Timer(1000 / 60, this);
@@ -72,7 +75,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         }
     }
 
-    public void drawMenuState(Graphics g){
+
+    public void drawMenuState(Graphics g) {
         menu1.paintIcon(this, g, 0, 0);
         menu.draw(g);
     }
@@ -82,7 +86,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         layer2.paintIcon(this, g, 0, 0);
         layer3.paintIcon(this, g, 0, 0);
         objectManager.drawObjects(g);   // painting game objects before layer 4
+        hud.draw(g);
+        hudIcon.paintIcon(this, g, 0, 0);
         layer4.paintIcon(this, g, 0, 0);
+
     }
 
     public void drawEndState(Graphics g) {
@@ -176,7 +183,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
             if (end.mouseClicked(e) == end.RESTART_BUTTON){
                 currentState = GAME_STATE;
             }
-            if (end.mouseClicked(e) == end.MENU_BUTTON) {
+            if (end.mouseClicked(e) == EndScene.MENU_BUTTON) {
                 currentState = MENU_STATE;
             }
         }

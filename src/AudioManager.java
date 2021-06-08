@@ -1,5 +1,4 @@
 import javax.sound.sampled.*;
-import java.applet.AudioClip;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -27,8 +26,6 @@ public class AudioManager {
         hitSoundList.add("resources/sound/hitsounds/headshot3.wav");
 //        hitSoundList.add("resources/sound/hitsounds/headshot4.wav");
 //        hitSoundList.add("resources/sound/hitsounds/headshot5.wav");
-
-
 
 
     }
