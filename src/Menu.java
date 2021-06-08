@@ -4,8 +4,8 @@ import java.awt.event.MouseEvent;
 //960 x 540
 public class Menu {
 
-    Rectangle startRect = new Rectangle(130, 150, 215, 50);
-    Rectangle helpRect = new Rectangle(130, 220, 240, 50);
+    Rectangle startRect = new Rectangle(130, 150, 240, 50);
+    Rectangle helpRect = new Rectangle(130, 220, 250, 50);
     Rectangle creditsRect = new Rectangle(130, 290, 200, 50);
 
     final int START_BUTTON = 0;
@@ -54,7 +54,7 @@ public class Menu {
 
         g.setColor(Color.white);
         g.drawString("START GAME", startRect.x, startRect.y);
-        g.drawString("HOW TO PAY", helpRect.x, helpRect.y);
+        g.drawString("HOW TO PLAY", helpRect.x, helpRect.y);
         g.drawString("CREDITS", creditsRect.x, creditsRect.y);
 
         g.setColor(Color.DARK_GRAY);

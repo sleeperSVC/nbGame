@@ -9,8 +9,8 @@ public abstract class GameObject {
     int width;
     int height;
     int health;
-    boolean isDamaged = false;
     boolean isAlive = true;
+    boolean isDamaged = false;
 
     int orientation = 1;
     Rectangle collisionBox;

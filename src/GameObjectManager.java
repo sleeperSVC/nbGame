@@ -8,6 +8,8 @@ public class GameObjectManager {
     ArrayList<Enemy> enemies = new ArrayList<>();
     ArrayList<Baby> babies = new ArrayList<>();
 
+    Player p;
+    Map map;
     GameObjectAttributes am = new GameObjectAttributes();
     AudioManager audioManager = new AudioManager();
 
@@ -38,6 +40,7 @@ public class GameObjectManager {
         enemies.forEach(e -> e.update());
         flashes.forEach(f -> f.update());
         babies.forEach(c -> c.update());
+
     }
 
     //draws the sprites

@@ -7,6 +7,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     Timer timer;
     Menu menu;
     EndScene end;
+    Shop shop;
     Map map;
     HUD hud;
     GameObjectManager objectManager;
@@ -81,6 +82,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         if (currentState == END_STATE) {
             drawEndState(g);
         }
+        if (currentState == SHOP_STATE) {
+            drawShopState(g);
+        }
     }
 
 
@@ -122,6 +126,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         if (currentState == END_STATE) {
             updateEndState();
         }
+        if (currentState == SHOP_STATE) {
+            updateShopState();
+        }
         repaint();
     }
 
@@ -144,6 +151,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
             case KeyEvent.VK_D:
                 p.move('d');
                 p.changeMovingStatus(true);
+                break;
+            case KeyEvent.VK_P:
+                if (currentState == GAME_STATE) {
+                    currentState = SHOP_STATE;
+                } else if (currentState == SHOP_STATE) {
+                    currentState = GAME_STATE;
+                }
                 break;
         }
     }
@@ -193,6 +207,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
             if (end.mouseClicked(e) == EndScene.MENU_BUTTON) {
                 currentState = MENU_STATE;
             }
+        }
+
+        if (currentState == SHOP_STATE) {
+
         }
     }
 
