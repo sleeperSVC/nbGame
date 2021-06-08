@@ -1,15 +1,16 @@
-import java.awt.*;
 import java.awt.image.RescaleOp;
 
-public class GameMovingObject extends GameObject {
+public abstract class GameMovingObject extends GameObject {
 
     double speedFactor;
     double xV = 0;
     double yV = 0;
     double xVMax = 0;
-    double yVMax = 0;
-    boolean movingRight = false;    // NOT JUST FOR WASD INPUT ANYMORE
-    boolean movingLeft = false;     // NOT JUST FOR WASD INPUT ANYMORE
+    double yVMax = 10;
+    boolean movingRight = false;
+    boolean movingLeft = false;
+    boolean movingUp = false;
+    boolean canMoveUp = true;
 
     boolean isMoving = false;   // for seeing which frame arraylist to use
 
@@ -33,6 +34,9 @@ public class GameMovingObject extends GameObject {
         if (movingLeft) {
             xV -= speedFactor;
             orientation = 0;
+        }
+        if (movingUp && canMoveUp) {
+            yV += speedFactor;
         }
 
         // FRICTION STUFF AND MAX VELOCITY CAP
@@ -65,12 +69,6 @@ public class GameMovingObject extends GameObject {
         x += xV;
         y -= yV;
 
-        //y += GamePanel.GRAVITY; // move object down by GRAVITY pixels
+        //yV -= GamePanel.GRAVITY; // change y velocity by GRAVITY
     }
-
-    @Override
-    public void draw(Graphics g) {
-
-    }
-
 }

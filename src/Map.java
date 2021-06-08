@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class Map {
 
+    ArrayList<Rectangle> collisionRects = new ArrayList<>();
     ArrayList<Point> babySpawnPoints = new ArrayList<>();
     ArrayList<Point> enemySpawnPoints = new ArrayList<>();
 
@@ -19,6 +20,7 @@ public class Map {
 
 
     public Map() {
+
 
         //Spawnpoints take in account sprite height, dont worry about compensating in the draw method
         enemySpawnPoints.add(new Point(75, 288));

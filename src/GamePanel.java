@@ -37,10 +37,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         timer = new Timer(1000 / 60, this);
         menu = new Menu();
         end = new EndScene();
-        map = new Map();
-        p = new Player(448, 288, 32, 32, 200, 4, 100);    // initialize a new player
-        objectManager = new GameObjectManager(p);
+        restartGame();
+    }
 
+    private void restartGame() {
+        map = new Map();
+        p = new Player(448, 288, 32, 32, 10, 4, 100);    // initialize a new player
+        hud = new HUD(0, 0, 960, 540, p);
+        objectManager = new GameObjectManager(p);
         objectManager.addEnemy();// TODO: delete this eventually
     }
 
@@ -52,9 +56,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     // updates the player and all game objects
     public void updateGameState() {
         objectManager.updateObjects();
-        if(!p.isAlive){
+        if (!p.isAlive) {
             currentState = END_STATE;
         }
+    }
+
+    public void updateShopState() {
+        Point point = MouseInfo.getPointerInfo().getLocation();
     }
 
     public void updateEndState() {
@@ -92,6 +100,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     }
 
+    public void drawShopState(Graphics g) {
+        shop.drawShops(g);
+    }
+
     public void drawEndState(Graphics g) {
         menu1.paintIcon(this, g, 0, 0);
         end.draw(g);
@@ -111,11 +123,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
             updateEndState();
         }
         repaint();
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
     }
 
     //starts player movement when the keys are pressed
@@ -167,20 +174,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     @Override
     public void mouseClicked(MouseEvent e) {
         if (currentState == MENU_STATE) {
-            if (menu.mouseClicked(e) == Menu.HELP_BUTTON){
+            if (menu.mouseClicked(e) == menu.HELP_BUTTON) {
                 JOptionPane.showMessageDialog(null, "WASD to move\nLeft Mouse to Fire\nSave the minion babies and kill the Ghosts");
             }
-            if(menu.mouseClicked(e) == Menu.START_BUTTON){
+            if (menu.mouseClicked(e) == menu.START_BUTTON) {
                 currentState = GAME_STATE;
-               // updateGameState();
             }
-            if (menu.mouseClicked(e) == Menu.CREDITS_BUTTON) {
+            if (menu.mouseClicked(e) == menu.CREDITS_BUTTON) {
                 JOptionPane.showMessageDialog(null, "Bryan Rayan and Ethan");
             }
         }
 
-        if (currentState == END_STATE){
-            if (end.mouseClicked(e) == end.RESTART_BUTTON){
+        if (currentState == END_STATE) {
+            if (end.mouseClicked(e) == EndScene.RESTART_BUTTON) {
+                restartGame();
                 currentState = GAME_STATE;
             }
             if (end.mouseClicked(e) == EndScene.MENU_BUTTON) {
@@ -206,13 +213,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         }
     }
 
+    // unused methods that we still have to override cause interface
     @Override
     public void mouseEntered(MouseEvent e) {
-        objectManager.addBullet();//this is not done
+
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
 
     }
 }

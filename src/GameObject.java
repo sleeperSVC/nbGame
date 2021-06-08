@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class GameObject {
+public abstract class GameObject {
 
     int x;
     int y;
@@ -34,7 +34,5 @@ public class GameObject {
         collisionBox.setBounds(x, y, width, height);    // updates collisionBox to have the same values as the GameObject itself
     }
 
-    public void draw(Graphics g) {
-
-    }
+    public abstract void draw(Graphics g);
 }

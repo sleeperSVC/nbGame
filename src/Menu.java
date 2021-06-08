@@ -8,9 +8,9 @@ public class Menu {
     Rectangle helpRect = new Rectangle(130, 220, 240, 50);
     Rectangle creditsRect = new Rectangle(130, 290, 200, 50);
 
-    final static int START_BUTTON = 0;
-    final static int HELP_BUTTON = 1;
-    final static int CREDITS_BUTTON = 2;
+    final int START_BUTTON = 0;
+    final int HELP_BUTTON = 1;
+    final int CREDITS_BUTTON = 2;
 
     int currentHovered = -1;
 
@@ -42,7 +42,6 @@ public class Menu {
         } else {
             currentHovered = -1;
         }
-        System.out.println("mouse entered " + currentHovered);
     }
 
     public void draw(Graphics g) {

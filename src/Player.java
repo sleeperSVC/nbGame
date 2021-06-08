@@ -11,7 +11,8 @@ public class Player extends GameMovingObject {
     //TODO: idk how the frame stuff works, so you guys can sort that out in GameMovingObject - bry
     int idleFrameCount = 4;
     int movingFrameCount = 6;
-    int movingFrameCounter;
+    int movingFrameIndex = 0;
+
     ArrayList<BufferedImage> movingFrameHolder = new ArrayList<>();
 
     //constructor class for player
@@ -20,9 +21,6 @@ public class Player extends GameMovingObject {
         this.fireRate = fireRate;
 
         xVMax = 4;  // placeholder value
-        yVMax = 4;  // placeholder value
-
-        movingFrameCounter = 0;
 
         try {
             movingFrameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_1.png")));
@@ -36,18 +34,11 @@ public class Player extends GameMovingObject {
             frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_2.png")));
             frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_3.png")));
             frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_4.png")));
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    //animation for the player's model
-    public void changeMovingStatus(boolean isMoving) {
-        this.isMoving = isMoving;
-    }
-
-    //
     @Override
     public void update() {
         super.update();
@@ -55,8 +46,6 @@ public class Player extends GameMovingObject {
         if (health == 0) {
             isAlive = false;
         }
-
-
     }
 
     //draw method for the player's sprite
@@ -64,12 +53,11 @@ public class Player extends GameMovingObject {
     public void draw(Graphics g) {
 
         if (isMoving && frameCheck) {
-            if (movingFrameCounter < movingFrameCount - 1) {
-                movingFrameCounter++;
+            if (movingFrameIndex < movingFrameCount - 1) {
+                movingFrameIndex++;
             } else {
-                movingFrameCounter = 0;
+                movingFrameIndex = 0;
             }
-
         }
         if (!isMoving && frameCheck) {
             if (frameCounter < idleFrameCount - 1) {
@@ -78,16 +66,14 @@ public class Player extends GameMovingObject {
                 frameCounter = 0;
             }
         }
-        //orientation 0==left | 1==right
 
-
-        if (isMoving){
+        if (isMoving) {
             if (orientation == 1) {
-                g.drawImage(movingFrameHolder.get(movingFrameCounter), x, y, 32, 32, null);
+                g.drawImage(movingFrameHolder.get(movingFrameIndex), x, y, 32, 32, null);
             } else {
-                g.drawImage(movingFrameHolder.get(movingFrameCounter), x + 32, y, -32, 32, null);
+                g.drawImage(movingFrameHolder.get(movingFrameIndex), x + 32, y, -32, 32, null);
             }
-        }else {
+        } else {
             if (orientation == 1) {
                 g.drawImage(frameHolder.get(frameCounter), x, y, 32, 32, null);
             } else {
@@ -111,7 +97,8 @@ public class Player extends GameMovingObject {
                 movingLeft = true;
                 break;
             case 'w':   // up
-
+                movingUp = true;
+                canMoveUp = false;
                 break;
             case 's':   // down
                 /*
@@ -132,15 +119,16 @@ public class Player extends GameMovingObject {
                 movingLeft = false;
                 break;
             case 'w':   // up
-
+                movingUp = false;
                 break;
-
             case 's':   // down
 
                 break;
-
-
         }
+    }
+
+    public void changeMovingStatus(boolean isMoving) {
+        this.isMoving = isMoving;
     }
 
 }
