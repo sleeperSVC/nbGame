@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class ShopButton {
 
@@ -6,8 +7,8 @@ public class ShopButton {
     Rectangle shopBounds;
     String upgrade;
 
-    public ShopButton(int x, int y, int width, int height, String text, int textX, int textY) {
-        shopBounds = new Rectangle(x, y, width, height);
+    public ShopButton(Rectangle upgradeRect, String text, int textX, int textY) {
+        shopBounds = upgradeRect;
         upgradeX = textX;
         upgradeY = textY;
         upgrade = text;
@@ -24,5 +25,4 @@ public class ShopButton {
         g.drawString(upgrade, upgradeX, upgradeY);
 
     }
-
 }

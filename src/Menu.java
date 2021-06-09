@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 public class Menu {
 
     Rectangle startRect = new Rectangle(130, 150, 240, 50);
-    Rectangle helpRect = new Rectangle(130, 220, 250, 50);
+    Rectangle helpRect = new Rectangle(130, 220, 255, 50);
     Rectangle creditsRect = new Rectangle(130, 290, 200, 50);
 
     final int START_BUTTON = 0;
@@ -60,7 +60,7 @@ public class Menu {
         g.setColor(Color.DARK_GRAY);
         switch (currentHovered) {
             case START_BUTTON:
-                g.fillRect(startRect.x - 10, startRect.y - 10, startRect.width, startRect.height);
+                g.fillRect(startRect.x - 5, startRect.y - 30, startRect.width, startRect.height);
 
                 g.setColor(Color.GRAY);
                 g.fillRect(startRect.x, startRect.y - 35, startRect.width, startRect.height);
@@ -69,7 +69,7 @@ public class Menu {
                 g.drawString("START GAME", startRect.x, startRect.y);
                 break;
             case CREDITS_BUTTON:
-                g.fillRect(creditsRect.x - 10, creditsRect.y - 30, creditsRect.width, creditsRect.height);
+                g.fillRect(creditsRect.x - 5, creditsRect.y - 30, creditsRect.width, creditsRect.height);
 
                 g.setColor(Color.GRAY);
                 g.fillRect(creditsRect.x, creditsRect.y - 35, creditsRect.width, creditsRect.height);
@@ -78,7 +78,7 @@ public class Menu {
                 g.drawString("CREDITS", creditsRect.x, creditsRect.y);
                 break;
             case HELP_BUTTON:
-                g.fillRect(helpRect.x - 10, helpRect.y - 30, helpRect.width, helpRect.height);
+                g.fillRect(helpRect.x - 5, helpRect.y - 30, helpRect.width, helpRect.height);
 
                 g.setColor(Color.GRAY);
                 g.fillRect(helpRect.x, helpRect.y - 35, helpRect.width, helpRect.height);

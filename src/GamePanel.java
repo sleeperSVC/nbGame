@@ -37,6 +37,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     public GamePanel() {
         timer = new Timer(1000 / 60, this);
         menu = new Menu();
+        shop = new Shop();
         end = new EndScene();
         restartGame();
     }
