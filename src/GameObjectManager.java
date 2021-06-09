@@ -108,10 +108,16 @@ public class GameObjectManager {
 
     }
 
+    /*
     public void checkEnvironmentCollision() {
-
-
+        for (Rectangle r : map.collisionRects) {
+            if (p.collisionBox.intersects(r)) {
+                if (p.
+            }
+        }
     }
+
+     */
 
     //adds bullets to the arrayList. muzzle flash is also added in conjunction with bullets
     public void addBullet() {
