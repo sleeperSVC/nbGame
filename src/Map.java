@@ -20,7 +20,14 @@ public class Map {
 
 
     public Map() {
-
+        collisionRects.add(GROUND_LEFT_RECT);
+        collisionRects.add(GROUND_RIGHT_RECT);
+        collisionRects.add(TOP_SEWER_LEFT_RECT);
+        collisionRects.add(TOP_SEWER_RIGHT_RECT);
+        collisionRects.add(BOTTOM_SEWER_RECT);
+        collisionRects.add(LEFT_BUILDING_RECT);
+        collisionRects.add(RIGHT_BUILDING_RECT);
+        collisionRects.add(LEFT_BUILDING_BALCONY_RECT);
 
         //Spawnpoints take in account sprite height, dont worry about compensating in the draw method
         enemySpawnPoints.add(new Point(75, 288));

@@ -5,7 +5,7 @@ public class GameObjectManager {
 
     ArrayList<Bullet> bullets = new ArrayList<>();
     ArrayList<MuzzleFlash> flashes = new ArrayList<>();
-    ArrayList<Enemy> enemies = new ArrayList<>();
+    ArrayList<EnemyObject> enemies = new ArrayList<>();
     ArrayList<Baby> babies = new ArrayList<>();
 
     Player p;
@@ -80,16 +80,30 @@ public class GameObjectManager {
             }
         }
 
-        //if an enemy collides with the player, damage player
+        //if an enemy1 collides with the player, damage player
         for (int i = 0; i < enemies.size(); i++) {
 
             if (System.currentTimeMillis() - immuneStartTime >= 500) {
-                if (enemies.get(i).collisionBox.intersects(p.collisionBox)) {
-                    p.health -= am.enemyDamage;
+                if (enemies.get(i) instanceof Enemy1 && enemies.get(i).collisionBox.intersects(p.collisionBox)) {
+                    p.health -= am.enemy1Damage;
                     audioManager.playSound(0, 1);
                 }
-                immuneStartTime = System.currentTimeMillis();
+              //  immuneStartTime = System.currentTimeMillis();
+                //gotta figure out where this goes lol
             }
+
+        }
+
+        //if an enemy2 collides with the player, damage player
+        for (int i = 0; i < enemies.size(); i++) {
+            if (System.currentTimeMillis() - immuneStartTime >= 500) {
+                if (enemies.get(i) instanceof Enemy2 && enemies.get(i).collisionBox.intersects(p.collisionBox)) {
+                    p.health -= am.enemy2Damage;
+                    audioManager.playSound(0, 1);
+                }
+            }
+
+           // immuneStartTime = System.currentTimeMillis();
         }
 
     }
@@ -112,8 +126,11 @@ public class GameObjectManager {
     }
 
     //adds an enemy to the enemy arrayList
-    public void addEnemy() {
-        enemies.add(new Enemy(20, 288, 32, 32, am.enemyHealth, 4, p));
+    public void addEnemy1() {
+        enemies.add(new Enemy1(20, 288, 32, 32, am.enemy1Health, 4, p));
+    }
+    public void addEnemy2() {
+        enemies.add(new Enemy2(20, 288, 32, 32, am.enemy2Health, 8, p));
     }
 
 }
