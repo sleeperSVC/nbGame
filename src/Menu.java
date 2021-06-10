@@ -19,25 +19,25 @@ public class Menu {
 
     // we'll have this method return an integer, and then in GamePanel mouseClicked() depending
     // on the returned value it will do something
-    public int mouseClicked(MouseEvent e) {
-        if (startRect.intersects(e.getX(), e.getY(), 1, 1)) {
+    public int checkClicked(MouseEvent e) {
+        if (startRect.contains(e.getX(), e.getY())) {
             return START_BUTTON;
         }
-        if (helpRect.intersects(e.getX(), e.getY(), 1, 1)) {
+        if (helpRect.contains(e.getX(), e.getY())) {
             return HELP_BUTTON;
         }
-        if (creditsRect.intersects(e.getX(), e.getY(), 1, 1)) {
+        if (creditsRect.contains(e.getX(), e.getY())) {
             return CREDITS_BUTTON;
         }
         return -1;
     }
 
     public void checkHover(Point e) {
-        if (startRect.intersects(e.getX(), e.getY(), 1, 1)) {
+        if (startRect.contains(e.getX(), e.getY())) {
             currentHovered = START_BUTTON;
-        } else if (helpRect.intersects(e.getX(), e.getY(), 1, 1)) {
+        } else if (helpRect.contains(e.getX(), e.getY())) {
             currentHovered = HELP_BUTTON;
-        } else if (creditsRect.intersects(e.getX(), e.getY(), 1, 1)) {
+        } else if (creditsRect.contains(e.getX(), e.getY())) {
             currentHovered = CREDITS_BUTTON;
         } else {
             currentHovered = -1;

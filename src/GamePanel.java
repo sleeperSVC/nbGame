@@ -1,8 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.ImageObserver;
-import java.text.AttributedCharacterIterator;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener, MouseListener {
 
@@ -194,13 +192,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
         //menu state
         if (currentState == MENU_STATE) {
-            if (menu.mouseClicked(e) == menu.HELP_BUTTON) {
+            if (menu.checkClicked(e) == menu.HELP_BUTTON) {
                 JOptionPane.showMessageDialog(null, "WASD to move\nLeft Mouse to Fire\nSave the minion babies and kill the Ghosts");
             }
-            if (menu.mouseClicked(e) == menu.START_BUTTON) {
+            if (menu.checkClicked(e) == menu.START_BUTTON) {
                 currentState = GAME_STATE;
             }
-            if (menu.mouseClicked(e) == menu.CREDITS_BUTTON) {
+            if (menu.checkClicked(e) == menu.CREDITS_BUTTON) {
                 JOptionPane.showMessageDialog(null, "Bran Ran and Etan");
             }
         }
@@ -216,22 +214,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         }
         //shop state
         if (currentState == SHOP_STATE) {
-            if(shop.mouseClicked(e)==0){
+            if(shop.checkClicked(e)==0){
                 System.out.println("Rate Up");
                 p.raiseFireRate();
                 System.out.println(p.fireRate);
             }
-            if(shop.mouseClicked(e)==1){
+            if(shop.checkClicked(e)==1){
                 System.out.println("Dmg Up");
                 Atbs.bulletDamage+=5;
                 System.out.println(Atbs.bulletDamage);
             }
-            if(shop.mouseClicked(e)==2){
+            if(shop.checkClicked(e)==2){
                 System.out.println("Accuracy Up");
                 Atbs.bulletInaccuracy-=.1;
                 System.out.println(Atbs.bulletInaccuracy);
             }
-            if(shop.mouseClicked(e)==3){
+            if(shop.checkClicked(e)==3){
                 System.out.println("Speed Up");
                 Atbs.bulletSpeedFactor++;
                 System.out.println(Atbs.bulletSpeedFactor);
