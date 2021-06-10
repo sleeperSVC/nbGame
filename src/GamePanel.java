@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.ImageObserver;
+import java.text.AttributedCharacterIterator;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener, MouseListener {
 
@@ -188,7 +190,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent e){
+
         //menu state
         if (currentState == MENU_STATE) {
             if (menu.mouseClicked(e) == menu.HELP_BUTTON) {
@@ -198,7 +201,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
                 currentState = GAME_STATE;
             }
             if (menu.mouseClicked(e) == menu.CREDITS_BUTTON) {
-                JOptionPane.showMessageDialog(null, "Bryan Rayan and Ethan");
+                JOptionPane.showMessageDialog(null, "Bran Ran and Etan");
             }
         }
         //end state
@@ -214,16 +217,24 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         //shop state
         if (currentState == SHOP_STATE) {
             if(shop.mouseClicked(e)==0){
-                System.out.println("shit");
+                System.out.println("Rate Up");
+                p.raiseFireRate();
+                System.out.println(p.fireRate);
             }
             if(shop.mouseClicked(e)==1){
-                System.out.println("fuck");
+                System.out.println("Dmg Up");
+                Atbs.bulletDamage+=5;
+                System.out.println(Atbs.bulletDamage);
             }
             if(shop.mouseClicked(e)==2){
-                System.out.println("aaaa");
+                System.out.println("Accuracy Up");
+                Atbs.bulletInaccuracy-=.1;
+                System.out.println(Atbs.bulletInaccuracy);
             }
             if(shop.mouseClicked(e)==3){
-                System.out.println("ccc");
+                System.out.println("Speed Up");
+                Atbs.bulletSpeedFactor++;
+                System.out.println(Atbs.bulletSpeedFactor);
             }
         }
     }

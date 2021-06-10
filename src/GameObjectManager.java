@@ -10,7 +10,7 @@ public class GameObjectManager {
 
     Player p;
     Map map;
-    GameObjectAttributes am = new GameObjectAttributes();
+    HUD hud;
     AudioManager audioManager = new AudioManager();
 
     long immuneStartTime = System.currentTimeMillis();

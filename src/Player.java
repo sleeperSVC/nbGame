@@ -131,4 +131,6 @@ public class Player extends GameMovingObject {
         this.isMoving = isMoving;
     }
 
+    public void raiseFireRate(){ fireRate-=10; }
+
 }

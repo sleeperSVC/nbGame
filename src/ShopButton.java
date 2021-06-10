@@ -22,7 +22,6 @@ public class ShopButton {
         g.setColor(Color.black);
         g.drawRect(shopBounds.x, shopBounds.y-35, shopBounds.width, shopBounds.height);
         g.drawString(upgrade, upgradeX, upgradeY-40);
-
     }
 
     public Rectangle getRect(){
