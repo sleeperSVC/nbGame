@@ -17,7 +17,7 @@ public class Bullet extends GameMovingObject {
         this.inaccuracy = inaccuracy;
         this.damage = damage;
         this.orientation = orientation;
-        this.xV = pxV; // TODO initial velocity is the player's velocity. simulates inertia. kinda scuffed atm
+        this.xV = pxV; // TODO initial velocity is the player's velocity. simulates inertia. kinda scuffed atm.
         this.yV = pyV;
 
         if (orientation == 1) {
