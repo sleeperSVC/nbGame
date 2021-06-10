@@ -3,10 +3,10 @@ import java.io.IOException;
 
 public class Enemy1 extends EnemyObject{
 
-    public Enemy1(int x, int y, int width, int height, int health, int speedFactor, Player p) {
-        super(x, y, width, height, health, speedFactor, p);
+    public Enemy1(int x, int y, int width, int height, int health, int speedFactor, int damage, Player p) {
+        super(x, y, width, height, health, speedFactor, damage, p);
         xVMax = 1;
-        yVMax = 1;
+        maxFrames = 5;
 
         try {
             frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/enemy1/enemy1_1.png")));
@@ -17,6 +17,5 @@ public class Enemy1 extends EnemyObject{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        maxFrames = 5;
     }
 }

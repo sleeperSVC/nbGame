@@ -1,5 +1,5 @@
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class GameObjectManager {
 
@@ -67,6 +67,8 @@ public class GameObjectManager {
 
     public void checkEntityCollision() {
 
+        //TODO: delete this eventualy
+
         // if a bullet collides with any enemy, delete the bullet, damage the enemy
         for (int b = 0; b < bullets.size(); b++) {
             for (int e = 0; e < enemies.size(); e++) {
@@ -81,47 +83,33 @@ public class GameObjectManager {
         }
 
         //if an enemy1 collides with the player, damage player
-        for (int i = 0; i < enemies.size(); i++) {
+        for (EnemyObject e : enemies) {
+            //System.out.println("Enemy type = " + e.getClass().getSimpleName() + " collisionbox x= " + e.collisionBox.x);
 
             if (System.currentTimeMillis() - immuneStartTime >= 500) {
-                if (enemies.get(i) instanceof Enemy1 && enemies.get(i).collisionBox.intersects(p.collisionBox)) {
-                    p.health -= am.enemy1Damage;
+
+                if (e.collisionBox.intersects(p.collisionBox)) {
+                    p.health -= e.damage;
                     audioManager.playSound(0, 1);
                 }
-              //  immuneStartTime = System.currentTimeMillis();
-                //gotta figure out where this goes lol
+                immuneStartTime = System.currentTimeMillis();
             }
-
         }
-
-        //if an enemy2 collides with the player, damage player
-        for (int i = 0; i < enemies.size(); i++) {
-            if (System.currentTimeMillis() - immuneStartTime >= 500) {
-                if (enemies.get(i) instanceof Enemy2 && enemies.get(i).collisionBox.intersects(p.collisionBox)) {
-                    p.health -= am.enemy2Damage;
-                    audioManager.playSound(0, 1);
-                }
-            }
-
-           // immuneStartTime = System.currentTimeMillis();
-        }
-
     }
 
-    /*
+
     public void checkEnvironmentCollision() {
         for (Rectangle r : map.collisionRects) {
             if (p.collisionBox.intersects(r)) {
-                if (p.
+            //    if (p.collisionBox.intersection(r).x )
             }
         }
     }
 
-     */
 
     //adds bullets to the arrayList. muzzle flash is also added in conjunction with bullets
     public void addBullet() {
-        bullets.add(new Bullet(p.x, p.y, am.bulletWidth, am.bulletHeight, am.bulletSpeedFactor, am.bulletInaccuracy, am.bulletDamage, p.orientation, p.xV, p.yV));
+        bullets.add(new Bullet(p.x, p.y, Atbs.bulletWidth, Atbs.bulletHeight, Atbs.bulletSpeedFactor, Atbs.bulletInaccuracy, Atbs.bulletDamage, p.orientation, p.xV, p.yV));
         flashes.add(new MuzzleFlash(p.x, p.y, 9, 9, p));
         audioManager.playSound(0, audioManager.SOUND_LIST);
     }

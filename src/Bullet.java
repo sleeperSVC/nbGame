@@ -11,10 +11,11 @@ public class Bullet extends GameMovingObject {
     Color purple3 = new Color(131, 79, 222);
     Color current;
 
-    public Bullet(int x, int y, int width, int height, double speedFactor, double bulletInaccuracy, int bulletDamage, int orientation, double pxV, double pyV) {
+    public Bullet(int x, int y, int width, int height, double speedFactor, double inaccuracy, int damage, int orientation, double pxV, double pyV) {
         super((orientation == 1 ? x + 32 : x), y + 17, width, height, 1, speedFactor);
-        // don't get scared of this ^ ternary operator, its just the same as "if orientation == 1, then return x+32, else return x
-        this.inaccuracy = bulletInaccuracy;
+        // don't get scared of this ^ ternary operator, its just the same as "if orientation == 1, then return x+32, else return x"
+        this.inaccuracy = inaccuracy;
+        this.damage = damage;
         this.orientation = orientation;
         this.xV = pxV; // TODO initial velocity is the player's velocity. simulates inertia. kinda scuffed atm
         this.yV = pyV;
@@ -40,13 +41,12 @@ public class Bullet extends GameMovingObject {
             y -= inaccuracy;
         }
 
-        // if you wanna make the bullet slow down faster, or make it not slow down at all, edit this lines
-        //xVMax -= Math.random() * .5 + 1;
+        // if you wanna make the bullet slow down faster, or make it not slow down at all, edit this line
+        xVMax -= Math.random() * .5 + 1;
 
         if (!collisionBox.intersects(GamePanel.frameCollisionBox) || xVMax <= 1) {
             isAlive = false;
         }
-
 
     }
 

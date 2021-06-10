@@ -6,21 +6,16 @@ public class EnemyObject extends GameMovingObject{
 
     int damageTaken;
     boolean frameChecker;
+    int damage;
     Player p;
     int maxFrames;
 
-    public EnemyObject(int x, int y, int width, int height, int health, int speedFactor, Player p) {
-
+    public EnemyObject(int x, int y, int width, int height, int health, int speedFactor, int damage, Player p) {
         super(x, y, width, height, health, speedFactor);
+        this.damage = damage;
         this.p = p;
 
         xVMax = 1;
-        yVMax = 1;
-    }
-
-    public void damage(int d) {
-        isDamaged = true;
-        damageTaken = d;
     }
 
     @Override

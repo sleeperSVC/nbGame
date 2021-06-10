@@ -5,7 +5,7 @@ public abstract class GameMovingObject extends GameObject {
     double speedFactor;
     double xV = 0;
     double yV = 0;
-    double xVMax = 0;
+    double xVMax = 1;
     double yVMax = 10;
     boolean movingRight = false;
     boolean movingLeft = false;
