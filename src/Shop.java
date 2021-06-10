@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.awt.event.MouseEvent;
 
 public class Shop {
 
@@ -22,22 +23,21 @@ public class Shop {
         g.fillRect(0, 0, GamePanel.FRAME_WIDTH, GamePanel.FRAME_HEIGHT);
         shopButtons.forEach(s -> s.draw(g));
     }
-/*
+
     public int mouseClicked(MouseEvent e) {
         for(int index = 0; index < shopButtons.size(); index++){
-            if (shopButtons.get(index).Rectangle.intersects(e.getX(), e.getY(), 1, 1)){
+            if (shopButtons.get(index).getRect().intersects(e.getX(), e.getY(),1,1)){
                 return index;
             }
         }
         return -1;
     }
 
-    public void checkHover(Point e) {
+    public void checkHover(Point p) {
         for(int index=0;index<shopButtons.size();index++){
-            if(shopButtons.get(index).Rectangle.intersects(e.getX(), e.getY(), 1, 1){
+            if(shopButtons.get(index).getRect().contains(p)){
                 currentHovered = index;
             }
         }
     }
-*/
 }

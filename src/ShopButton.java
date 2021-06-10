@@ -18,11 +18,14 @@ public class ShopButton {
         shopBounds.setBounds(shopBounds.x, shopBounds.y, shopBounds.width, shopBounds.height);
     }
 
-
     public void draw(Graphics g) {
         g.setColor(Color.black);
-        g.drawRect(shopBounds.x, shopBounds.y, shopBounds.width, shopBounds.height);
-        g.drawString(upgrade, upgradeX, upgradeY);
+        g.drawRect(shopBounds.x, shopBounds.y-35, shopBounds.width, shopBounds.height);
+        g.drawString(upgrade, upgradeX, upgradeY-40);
 
+    }
+
+    public Rectangle getRect(){
+        return shopBounds;
     }
 }

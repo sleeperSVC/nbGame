@@ -189,6 +189,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        //menu state
         if (currentState == MENU_STATE) {
             if (menu.mouseClicked(e) == menu.HELP_BUTTON) {
                 JOptionPane.showMessageDialog(null, "WASD to move\nLeft Mouse to Fire\nSave the minion babies and kill the Ghosts");
@@ -200,7 +201,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
                 JOptionPane.showMessageDialog(null, "Bryan Rayan and Ethan");
             }
         }
-
+        //end state
         if (currentState == END_STATE) {
             if (end.mouseClicked(e) == EndScene.RESTART_BUTTON) {
                 restartGame();
@@ -210,9 +211,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
                 currentState = MENU_STATE;
             }
         }
-
+        //shop state
         if (currentState == SHOP_STATE) {
-
+            if(shop.mouseClicked(e)==0){
+                System.out.println("shit");
+            }
+            if(shop.mouseClicked(e)==1){
+                System.out.println("fuck");
+            }
+            if(shop.mouseClicked(e)==2){
+                System.out.println("aaaa");
+            }
+            if(shop.mouseClicked(e)==3){
+                System.out.println("ccc");
+            }
         }
     }
 
