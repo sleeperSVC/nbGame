@@ -26,10 +26,6 @@ public class Baby extends GameObject {
 
     @Override
     public void update() {
-        if (p.collisionBox.intersects(x, y, width, height)) {
-            isAlive = false;
-            //need to add points method
-        }
 
         if (frameChecker) {
             if (frameCounter < 3) {

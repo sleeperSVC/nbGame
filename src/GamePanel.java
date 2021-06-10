@@ -49,8 +49,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         p = new Player(448, 288, 32, 32, 10, 4, 100);    // initialize a new player
         hud = new HUD(0, 0, 960, 540, p);
         objectManager = new GameObjectManager(p);
-        objectManager.addEnemy1();// TODO: delete this eventually
-        objectManager.addEnemy2();
+        objectManager.addEnemy1(new Point(883, 288));// TODO: delete this eventually
+        objectManager.addEnemy2(new Point(883, 288));
     }
 
     public void updateMenuState() {

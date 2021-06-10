@@ -4,7 +4,6 @@ import java.io.IOException;
 
 public class EnemyObject extends GameMovingObject{
 
-    int damageTaken;
     boolean frameChecker;
     int damage;
     Player p;
@@ -21,10 +20,6 @@ public class EnemyObject extends GameMovingObject{
     @Override
     public void update() {
         super.update();
-
-        if (isDamaged) {
-            health -= damageTaken;
-        }
 
         if (health == 0) {
             isAlive = false;
