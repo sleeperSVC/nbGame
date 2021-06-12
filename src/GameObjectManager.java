@@ -15,6 +15,10 @@ public class GameObjectManager {
 
     long immuneStartTime = System.currentTimeMillis();
     long bulletStartTime = System.currentTimeMillis();
+    long spawnStartTime = System.currentTimeMillis();
+    long spawnInterval = Atbs.spawnInterval;
+    long babyStartTime = System.currentTimeMillis();
+    long babyInterval = Atbs.babyInterval;
     boolean isFiring;
 
     //constructor class
@@ -41,7 +45,8 @@ public class GameObjectManager {
         enemies.forEach(e -> e.update());
         flashes.forEach(f -> f.update());
         babies.forEach(c -> c.update());
-
+        spawnBabies();
+        spawnEnemies();
     }
 
     //draws the sprites
@@ -50,8 +55,8 @@ public class GameObjectManager {
 
         bullets.forEach(b -> b.draw(g));
         enemies.forEach(e -> e.draw(g));
-        flashes.forEach(f -> f.draw(g));
         babies.forEach(c -> c.draw(g));
+        flashes.forEach(f -> f.draw(g));
         hud.draw(g);
 
 
@@ -88,13 +93,14 @@ public class GameObjectManager {
 
         //TODO: delete this eventualy
 
-        // if a bullet collides with any enemy, delete the bullet, damage the enemy
+//        // if a bullet collides with any enemy, delete the bullet, damage the enemy
 //        for (int b = 0; b < bullets.size(); b++) {
 //            for (int e = 0; e < enemies.size(); e++) {
 //                if (bullets.get(b).collisionBox.intersects(enemies.get(e).collisionBox)) {
 //                    bullets.remove(b);
 //                    audioManager.playSound((int) (Math.random() * (audioManager.hitSoundList.size() - 1) + 1), audioManager.HIT_SOUND_LIST);
 //                    enemies.get(e).health -= Atbs.bulletDamage;
+//                    enemies.get(e).isDamaged = true;
 //                }
 //            }
 //        }
@@ -145,9 +151,8 @@ public class GameObjectManager {
         audioManager.playSound(0, audioManager.SOUND_LIST);
     }
 
-    public void addBaby(int babyX, int babyY) {
-        Baby newBaby = new Baby(babyX, babyY, 16, 16, 1, p);
-
+    public void addBaby(Point point) {
+        babies.add(new Baby(point.x, point.y, 16, 16, 1, p));
     }
 
     //adds an enemy to the enemy arrayList
@@ -160,6 +165,25 @@ public class GameObjectManager {
     }
 
     public void spawnEnemies() {
-
+        if (System.currentTimeMillis() - spawnStartTime >= spawnInterval){
+            if (Math.random() < 0.5){
+                addEnemy1(map.getEnemySpawn());
+                System.out.println("enemy 1 spawned");
+            } else {
+                addEnemy2(map.getEnemySpawn());
+                System.out.println("enemy 2 spawned");
+            }
+            spawnStartTime = System.currentTimeMillis();
+        }
     }
+
+    public void spawnBabies(){
+        if (System.currentTimeMillis() - babyStartTime >= babyInterval) {
+            addBaby(map.getBabySpawn());
+            babyStartTime = System.currentTimeMillis();
+            System.out.println("baby spawned");
+        }
+    }
+
+
 }

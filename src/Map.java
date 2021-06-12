@@ -48,4 +48,13 @@ public class Map {
         babySpawnPoints.add(new Point(497, 496));
     }
 
+    public Point getEnemySpawn(){
+        return enemySpawnPoints.get((int) (Math.random() * 8));
+    }
+
+    public Point getBabySpawn(){
+        return babySpawnPoints.get((int) (Math.random() * 6));
+    }
+
+
 }

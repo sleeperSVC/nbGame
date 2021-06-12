@@ -4,6 +4,8 @@ public class HUD extends GameObject {
     Player p;
     Rectangle hudRect;
     int y1;
+    String str;
+    Font hudFont = new Font("Courier", Font.BOLD, 14);
 
     public HUD(int x, int y, int width, int height, Player p) {
         super(x, y, width, height);
@@ -21,12 +23,18 @@ public class HUD extends GameObject {
     public void draw(Graphics g) {
 
         for (int i = 1; i <= p.health; i++) {
-            hudRect = new Rectangle(y1, 4, 13, 23);
+            hudRect = new Rectangle(y1, 4, 9, 23);
             g.setColor(Color.RED);
-            g.fillRect(y1, 4, 13, 23);
+            g.fillRect(y1, 4, 9, 23);
             y1 += 13;
         }
         y1 = 359;
+    }
+    public void drawMoney(Graphics g){
+        g.setColor(Color.WHITE);
+        g.setFont(hudFont);
+        str = "MONEY: " + p.money;
+        g.drawString(str,500,20);
     }
 
 }

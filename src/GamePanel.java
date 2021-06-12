@@ -9,7 +9,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     EndScene end;
     Shop shop;
     Map map;
-    HUD hud;
     GameObjectManager objectManager;
     Player p;
     Point point;
@@ -45,7 +44,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     private void restartGame() {
         map = new Map();
         p = new Player(448, 288, 32, 32, 10, 4, 100);    // initialize a new player
-        hud = new HUD(0, 0, 960, 540, p);
         objectManager = new GameObjectManager(p);
         objectManager.addEnemy1(new Point(883, 288));// TODO: delete this eventually
         objectManager.addEnemy2(new Point(883, 288));
@@ -100,8 +98,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         layer2.paintIcon(this, g, 0, 0);
         layer3.paintIcon(this, g, 0, 0);
         objectManager.drawObjects(g);   // painting game objects before layer 4
-        hud.draw(g);
         hudIcon.paintIcon(this, g, 0, 0);
+        objectManager.hud.drawMoney(g);
         layer4.paintIcon(this, g, 0, 0);
 
     }
@@ -216,7 +214,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         if (currentState == SHOP_STATE) {
             if(shop.checkClicked(e)==0){
                 System.out.println("Rate Up");
-                p.raiseFireRate();
+                if (p.fireRate > 0){
+                    p.raiseFireRate();
+                }
                 System.out.println(p.fireRate);
             }
             if(shop.checkClicked(e)==1){

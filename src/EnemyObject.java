@@ -32,7 +32,6 @@ public class EnemyObject extends GameMovingObject{
             }
         }
         frameChecker = !frameChecker;
-
         move();
     }
 

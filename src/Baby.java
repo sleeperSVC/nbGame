@@ -12,7 +12,7 @@ public class Baby extends GameObject {
         this.p = p;
         isAlive = true;
         frameChecker = true;
-
+        frameCounter = 0;
         try {
             frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/baby/baby_1.png")));
             frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/baby/baby_2.png")));
@@ -35,8 +35,6 @@ public class Baby extends GameObject {
             }
         }
         frameChecker = !frameChecker;
-
-
     }
 
     @Override
