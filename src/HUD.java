@@ -36,7 +36,7 @@ public class HUD extends GameObject {
     public void drawMoney(Graphics g) {
         g.setColor(Color.WHITE);
         g.setFont(hudFont);
-        str = "MONEY: " + p.money;
+        str = "MONEY: $" + p.money;
         g.drawString(str, 500, 20);
     }
 

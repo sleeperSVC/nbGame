@@ -147,6 +147,7 @@ public class GameObjectManager {
         for (Rectangle r : map.collisionRects) {
             if (obj.cBox.intersects(r)) {
 
+
                 double dx = obj.cBox.getCenterX() - r.getCenterX(); // diff between player and rect center X
                 double dy = obj.cBox.getCenterY() - r.getCenterY(); // diff between player and rect center Y
 
@@ -154,11 +155,11 @@ public class GameObjectManager {
                     if (dx > 0) {
                         // right side
                         obj.x = r.x + r.width;
-                        //obj.canMoveLeft = false;
+                        obj.canMoveLeft = false;
                     } else {
                         // left side
                         obj.x = r.x - obj.cBox.width;
-                        //obj.canMoveRight = false;
+                        obj.canMoveRight = false;
                     }
                     obj.xV = 0;
 
@@ -166,11 +167,11 @@ public class GameObjectManager {
                     if (dy < 0) {
                         // top side
                         obj.y = r.y - obj.cBox.width;
-                        //obj.canMoveDown = false;
+                        obj.canMoveDown = false;
                     } else {
                         // bottom side
                         obj.y = r.y + r.height;
-                        //obj.canMoveUp = false;
+                        obj.canMoveUp = false;
                     }
                     obj.yV = 0;
                 }

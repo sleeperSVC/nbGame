@@ -21,7 +21,7 @@ public class Player extends GameMovingObject {
     public Player(int x, int y, int width, int height, int health, int speedFactor, int fireRate) {
         super(x, y, width, height, health, speedFactor);
         this.fireRate = fireRate;
-
+        money = 5;
         xVMax = 4;  // placeholder value
 
         try {

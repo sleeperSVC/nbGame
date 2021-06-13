@@ -96,10 +96,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
         g.setColor(Color.BLACK);
         g.setFont(new Font("Courier", Font.BOLD, 14));
-        g.drawString("MONEY: ", 300, 110);
-        g.drawString("MONEY: ", 300, 210);
-        g.drawString("MONEY: ", 300, 310);
-        g.drawString("MONEY: ", 300, 410);
+        g.drawString("COST: $5", 300, 112);
+        g.drawString("COST: $2", 300, 212);
+        g.drawString("COST: $1", 300, 312);
+        g.drawString("COST: $2", 300, 412);
 
         if (p.fireRate >= .5) {
             g.drawString("Fire Rate = " + p.fireRate, 400, 85);
@@ -251,33 +251,37 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         //shop state
         if (currentState == SHOP_STATE) {   // fire rate
             if (shop.checkClicked(point) == 0) {
-                if (p.fireRate >= .5 && (p.money - 15) >= 0) {
+                if (p.fireRate >= .5 && (p.money - 5) >= 0) {
                     System.out.println("Rate Up");
                     p.raiseFireRate();
+                    p.money -= 5;
                     System.out.println(p.fireRate);
                 }
             }
 
             if (shop.checkClicked(point) == 1) {    // bullet damage
-                if (Atbs.bulletDamage <= 110 && (p.money - 15) >= 0) {
+                if (Atbs.bulletDamage <= 110 && (p.money - 2) >= 0) {
                     System.out.println("Dmg Up");
-                    Atbs.bulletDamage += 5;
+                    Atbs.bulletDamage += 1;
+                    p.money -= 2;
                     System.out.println(Atbs.bulletDamage);
                 }
             }
 
             if (shop.checkClicked(point) == 2) {    // bullet accuracy
-                if (Atbs.bulletInaccuracy >= .5 && (p.money - 15) >= 0) {
+                if (Atbs.bulletInaccuracy >= .5 && (p.money - 1) >= 0) {
                     System.out.println("Accuracy Up");
                     Atbs.bulletInaccuracy -= .1;
+                    p.money -= 2;
                     System.out.println(Atbs.bulletInaccuracy);
                 }
             }
 
             if (shop.checkClicked(point) == 3) {    // bullet speed
-                if (Atbs.bulletSpeedFactor <= 110 && (p.money - 15) >= 0) {
+                if (Atbs.bulletSpeedFactor <= 110 && (p.money - 2) >= 0) {
                     System.out.println("Speed Up");
                     Atbs.bulletSpeedFactor++;
+                    p.money -= 3;
                     System.out.println(Atbs.bulletSpeedFactor);
                 }
             }

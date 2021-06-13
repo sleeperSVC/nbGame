@@ -1,8 +1,8 @@
 public class Atbs {
 
-    public static int enemy1Health = 50;
+    public static int enemy1Health = 30;
     public static int enemy1Damage = 5;
-    public static int enemy2Health = 20;
+    public static int enemy2Health = 10;
     public static int enemy2Damage = 2;
     public static int bulletWidth = 5;
     public static int bulletHeight = 5;
