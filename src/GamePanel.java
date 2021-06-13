@@ -9,6 +9,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     EndScene end;
     Shop shop;
     Map map;
+    HUD h;
     GameObjectManager objectManager;
     Player p;
     Point point;
@@ -106,6 +107,41 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     public void drawShopState(Graphics g) {
         shop.drawShops(g);
+
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Courier", Font.BOLD, 14));
+        g.drawString("MONEY: ",300,84);
+        g.drawString("MONEY: ",300,184);
+        g.drawString("MONEY: ",300,284);
+        g.drawString("MONEY: ",300,384);
+
+        if(p.fireRate>=.5){
+            g.drawString("Fire Rate = "+p.fireRate, 400, 84);
+        }
+        else{
+            g.drawString("Fire Rate Maxed Out", 400, 84);
+        }
+
+        if(Atbs.bulletDamage<=110){
+            g.drawString("Damage = " + Atbs.bulletDamage, 400, 184);
+        }
+        else {
+            g.drawString("Bullet Damage Maxed Out", 400, 184);
+        }
+
+        if(Atbs.bulletInaccuracy>=.5){
+            g.drawString("Inaccuracy = " + (float)Atbs.bulletInaccuracy, 400, 284);
+        }
+        else{
+            g.drawString("Bullet Accuracy Maxed Out", 400, 284);
+        }
+
+        if(Atbs.bulletSpeedFactor<=110){
+            g.drawString("Bullet Speed = " + Atbs.bulletSpeedFactor, 400, 384);
+        }
+        else{
+            g.drawString("Bullet Speed Maxed Out", 400, 384);
+        }
     }
 
     public void drawEndState(Graphics g) {
@@ -211,31 +247,40 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
             }
         }
         //shop state
-        if (currentState == SHOP_STATE) {
-            if(shop.checkClicked(e)==0){
-                System.out.println("Rate Up");
-                if (p.fireRate > 0){
+        if (currentState == SHOP_STATE) {   //fire rate
+            if(shop.checkClicked(e)==0) {
+                if (p.fireRate >= .5 && (p.money - 15)>=0) {
+                    System.out.println("Rate Up");
                     p.raiseFireRate();
+                    System.out.println(p.fireRate);
                 }
-                System.out.println(p.fireRate);
             }
-            if(shop.checkClicked(e)==1){
-                System.out.println("Dmg Up");
-                Atbs.bulletDamage+=5;
-                System.out.println(Atbs.bulletDamage);
-            }
-            if(shop.checkClicked(e)==2){
-                System.out.println("Accuracy Up");
-                Atbs.bulletInaccuracy-=.1;
-                System.out.println(Atbs.bulletInaccuracy);
-            }
-            if(shop.checkClicked(e)==3){
-                System.out.println("Speed Up");
-                Atbs.bulletSpeedFactor++;
-                System.out.println(Atbs.bulletSpeedFactor);
+
+                if (shop.checkClicked(e) == 1) {    //bullet damage
+                    if (Atbs.bulletDamage <= 110 && (p.money - 15)>=0) {
+                        System.out.println("Dmg Up");
+                        Atbs.bulletDamage += 5;
+                        System.out.println(Atbs.bulletDamage);
+                    }
+                }
+
+                if (shop.checkClicked(e) == 2) {    //bullet accuracy
+                    if (Atbs.bulletInaccuracy >= .5 && (p.money - 15)>=0) {
+                        System.out.println("Accuracy Up");
+                        Atbs.bulletInaccuracy -= .1;
+                        System.out.println(Atbs.bulletInaccuracy);
+                    }
+                }
+
+                if (shop.checkClicked(e) == 3) {    //bullet speed
+                    if (Atbs.bulletSpeedFactor <= 110 && (p.money - 15)>=0) {
+                        System.out.println("Speed Up");
+                        Atbs.bulletSpeedFactor++;
+                        System.out.println(Atbs.bulletSpeedFactor);
+                    }
+                }
             }
         }
-    }
 
     //sets the firing status to true
     @Override
