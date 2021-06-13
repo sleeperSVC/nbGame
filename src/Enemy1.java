@@ -1,7 +1,7 @@
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class Enemy1 extends EnemyObject{
+public class Enemy1 extends EnemyObject {
 
     public Enemy1(int x, int y, int width, int height, int health, int speedFactor, int damage, Player p) {
         super(x, y, width, height, health, speedFactor, damage, p);

@@ -30,11 +30,12 @@ public class HUD extends GameObject {
         }
         y1 = 359;
     }
-    public void drawMoney(Graphics g){
+
+    public void drawMoney(Graphics g) {
         g.setColor(Color.WHITE);
         g.setFont(hudFont);
         str = "MONEY: " + p.money;
-        g.drawString(str,500,20);
+        g.drawString(str, 500, 20);
     }
 
 }

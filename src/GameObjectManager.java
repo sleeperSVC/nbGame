@@ -1,5 +1,6 @@
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class GameObjectManager {
 
@@ -26,7 +27,7 @@ public class GameObjectManager {
         // The object manager needs a reference to the player object created in GamePanel, in order to access its X and Y positions
         this.p = p;
         map = new Map();
-        hud = new HUD(0,0, 960, 540, p);
+        hud = new HUD(0, 0, 960, 540, p);
     }
 
     // iterate through bullets and enemies and call their update methods
@@ -41,10 +42,10 @@ public class GameObjectManager {
             }
         }
         hud.update();
-        bullets.forEach(b -> b.update());
-        enemies.forEach(e -> e.update());
-        flashes.forEach(f -> f.update());
-        babies.forEach(c -> c.update());
+        bullets.forEach(Bullet::update);
+        enemies.forEach(EnemyObject::update);
+        flashes.forEach(MuzzleFlash::update);
+        babies.forEach(Baby::update);
         spawnBabies();
         spawnEnemies();
     }
@@ -59,7 +60,6 @@ public class GameObjectManager {
         flashes.forEach(f -> f.draw(g));
         hud.draw(g);
 
-
     }
 
     // remove all the objects whose "isAlive" is false
@@ -71,19 +71,21 @@ public class GameObjectManager {
         flashes.removeIf(f -> !f.isAlive);
 
         // remove enemies
-        for (int e = 0; e < enemies.size(); e++) {
-            if (!enemies.get(e).isAlive) {
+        for (Iterator<EnemyObject> iterator = enemies.iterator(); iterator.hasNext(); ) {
+            EnemyObject e = iterator.next();
+            if (!e.isAlive) {
                 p.money++;
-                enemies.remove(e);
+                iterator.remove();
                 System.out.println("enemy killed");
             }
         }
 
         // remove babies
-        for (int b = 0; b < babies.size(); b++) {
-            if (!babies.get(b).isAlive) {
+        for (Iterator<Baby> iterator = babies.iterator(); iterator.hasNext(); ) {
+            Baby b = iterator.next();
+            if (!b.isAlive) {
                 p.money += 5;
-                babies.remove(b);
+                iterator.remove();
                 System.out.println("baby collected");
             }
         }
@@ -91,37 +93,30 @@ public class GameObjectManager {
 
     public void checkEntityCollision() {
 
-        //TODO: delete this eventualy
+        // if a bullet collides with any enemy, delete the bullet, damage the enemy
+        for (Iterator<Bullet> iterator = bullets.iterator(); iterator.hasNext(); ) {
+            Bullet b = iterator.next();
 
-//        // if a bullet collides with any enemy, delete the bullet, damage the enemy
-//        for (int b = 0; b < bullets.size(); b++) {
-//            for (int e = 0; e < enemies.size(); e++) {
-//                if (bullets.get(b).collisionBox.intersects(enemies.get(e).collisionBox)) {
-//                    bullets.remove(b);
-//                    audioManager.playSound((int) (Math.random() * (audioManager.hitSoundList.size() - 1) + 1), audioManager.HIT_SOUND_LIST);
-//                    enemies.get(e).health -= Atbs.bulletDamage;
-//                    enemies.get(e).isDamaged = true;
-//                }
-//            }
-//        }
+            for (EnemyObject e : enemies) {
+                if (b.collisionBox.intersects(e.collisionBox)) {
+                    iterator.remove();
+                    audioManager.playSound((int) (Math.random() * (audioManager.hitSoundList.size() - 1) + 1), audioManager.HIT_SOUND_LIST);
+                    e.health -= Atbs.bulletDamage;
+                    e.isDamaged = true;
+                }
+            }
+        }
 
-        //TODO: fix this
-//        for (Iterator<Bullet> iterator = bullets.iterator(); iterator.hasNext(); ) {
-//            if (bullets.get(b).collisionBox.intersects(enemies.get(e).collisionBox)) {
-//                    bullets.remove(b);
-//                    audioManager.playSound((int) (Math.random() * (audioManager.hitSoundList.size() - 1) + 1), audioManager.HIT_SOUND_LIST);
-//                    enemies.get(e).health -= Atbs.bulletDamage;
-//        }
-
-        for (int b = 0; b < babies.size(); b++) {
-            if (babies.get(b).collisionBox.intersects(p.collisionBox)) {
-                babies.remove(b);
+        for (Iterator<Baby> iterator = babies.iterator(); iterator.hasNext(); ) {
+            Baby b = iterator.next();
+            if (b.collisionBox.intersects(p.collisionBox)) {
+                iterator.remove();
             }
         }
 
         //if an enemy1 collides with the player, damage player
         for (EnemyObject e : enemies) {
-            //System.out.println("Enemy type = " + e.getClass().getSimpleName() + " collisionbox x= " + e.collisionBox.x);
+            //System.out.println("Enemy type = " + e.getClass().getSimpleName() + " collisionBox x= " + e.collisionBox.x);
 
             if (System.currentTimeMillis() - immuneStartTime >= 500) {
 
@@ -138,7 +133,7 @@ public class GameObjectManager {
     public void checkEnvironmentCollision() {
         for (Rectangle r : map.collisionRects) {
             if (p.collisionBox.intersects(r)) {
-            //    if (p.collisionBox.intersection(r).x )
+                //    if (p.collisionBox.intersection(r).x )
             }
         }
     }
@@ -165,8 +160,8 @@ public class GameObjectManager {
     }
 
     public void spawnEnemies() {
-        if (System.currentTimeMillis() - spawnStartTime >= spawnInterval){
-            if (Math.random() < 0.5){
+        if (System.currentTimeMillis() - spawnStartTime >= spawnInterval) {
+            if (Math.random() < 0.5) {
                 addEnemy1(map.getEnemySpawn());
                 System.out.println("enemy 1 spawned");
             } else {
@@ -177,7 +172,7 @@ public class GameObjectManager {
         }
     }
 
-    public void spawnBabies(){
+    public void spawnBabies() {
         if (System.currentTimeMillis() - babyStartTime >= babyInterval) {
             addBaby(map.getBabySpawn());
             babyStartTime = System.currentTimeMillis();

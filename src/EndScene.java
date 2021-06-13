@@ -23,7 +23,7 @@ public class EndScene {
         return -1;
     }
 
-    public void checkHover(Point e) {
+    public void checkHovering(Point e) {
         if (playAgain.intersects(e.getX(), e.getY(), 1, 1)) {
             currentHovered = RESTART_BUTTON;
         } else if (menuRect.intersects(e.getX(), e.getY(), 1, 1)) {
@@ -31,7 +31,6 @@ public class EndScene {
         } else {
             currentHovered = -1;
         }
-        System.out.println("mouse entered " + currentHovered);
     }
 
     public void draw(Graphics g) {

@@ -1,8 +1,6 @@
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.IOException;
 
-public class EnemyObject extends GameMovingObject{
+public class EnemyObject extends GameMovingObject {
 
     boolean frameChecker;
     int damage;

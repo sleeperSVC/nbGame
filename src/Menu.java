@@ -32,7 +32,7 @@ public class Menu {
         return -1;
     }
 
-    public void checkHover(Point e) {
+    public void checkHovering(Point e) {
         if (startRect.contains(e.getX(), e.getY())) {
             currentHovered = START_BUTTON;
         } else if (helpRect.contains(e.getX(), e.getY())) {
