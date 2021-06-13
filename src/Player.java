@@ -45,7 +45,7 @@ public class Player extends GameMovingObject {
     public void update() {
         super.update();
 
-        if (health == 0) {
+        if (health <= 0) {
             isAlive = false;
         }
     }
@@ -99,10 +99,14 @@ public class Player extends GameMovingObject {
                 movingLeft = true;
                 break;
             case 'w':   // up
-                movingUp = true;
-                canMoveUp = false;
+                if (canJump) {
+                    yV += speedFactor * 50;
+                }
+                canMoveUp = true;
                 break;
             case 's':   // down
+                movingDown = true;
+
                 /*
                     if(canGoDown) ladder
                     y -= speed;
@@ -124,7 +128,7 @@ public class Player extends GameMovingObject {
                 movingUp = false;
                 break;
             case 's':   // down
-
+                movingDown = false;
                 break;
         }
     }

@@ -27,7 +27,7 @@ public class Bullet extends GameMovingObject {
         }
 
         xVMax = 20; // placeholder value
-        yVMax = 20; // placeholder value
+        yVMax = 0; // placeholder value
     }
 
     @Override
@@ -44,7 +44,7 @@ public class Bullet extends GameMovingObject {
         // if you wanna make the bullet slow down faster, or make it not slow down at all, edit this line
         xVMax -= Math.random() * .5 + 1;
 
-        if (!collisionBox.intersects(GamePanel.frameCollisionBox) || xVMax <= 1) {
+        if (!cBox.intersects(GamePanel.frameCollisionBox) || xVMax <= 1) {
             isAlive = false;
         }
 

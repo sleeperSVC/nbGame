@@ -25,9 +25,9 @@ public class Shop {
         shopButtons.forEach(s -> s.draw(g));
     }
 
-    public int checkClicked(MouseEvent e) {
+    public int checkClicked(Point point) {
         for (int index = 0; index < shopButtons.size(); index++) {
-            if (shopButtons.get(index).getRect().contains(e.getX(), e.getY())) {
+            if (shopButtons.get(index).getRect().contains(point.getX(), point.getY())) {
                 return index;
             }
         }

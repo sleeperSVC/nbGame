@@ -13,7 +13,7 @@ public abstract class GameObject {
     boolean isDamaged = false;
 
     int orientation = 1;
-    Rectangle collisionBox;
+    Rectangle cBox;
 
     ArrayList<BufferedImage> frameHolder = new ArrayList<>();
     int frameCounter;
@@ -24,14 +24,14 @@ public abstract class GameObject {
         this.y = y;
         this.width = width;
         this.height = height;
-        collisionBox = new Rectangle(x, y, width, height);
+        cBox = new Rectangle(x, y, width, height);
         frameCounter = 0;
         frameCheck = true;
 
     }
 
     public void update() {
-        collisionBox.setBounds(x, y, width, height);    // updates collisionBox to have the same values as the GameObject itself
+        cBox.setBounds(x, y, width, height);    // updates collisionBox to have the same values as the GameObject itself
     }
 
     public abstract void draw(Graphics g);

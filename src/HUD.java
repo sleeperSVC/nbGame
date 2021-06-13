@@ -29,6 +29,8 @@ public class HUD extends GameObject {
             y1 += 13;
         }
         y1 = 359;
+
+        drawMoney(g);
     }
 
     public void drawMoney(Graphics g) {

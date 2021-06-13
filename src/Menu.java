@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
 //960 x 540
 public class Menu {
@@ -19,7 +18,7 @@ public class Menu {
 
     // we'll have this method return an integer, and then in GamePanel mouseClicked() depending
     // on the returned value it will do something
-    public int checkClicked(MouseEvent e) {
+    public int checkClicked(Point e) {
         if (startRect.contains(e.getX(), e.getY())) {
             return START_BUTTON;
         }
@@ -48,43 +47,43 @@ public class Menu {
         g.setColor(Color.GRAY);
         g.setFont(titleFont);
 
-        g.fillRect(startRect.x, startRect.y - 35, startRect.width, startRect.height);
-        g.fillRect(creditsRect.x, creditsRect.y - 35, creditsRect.width, creditsRect.height);
-        g.fillRect(helpRect.x, helpRect.y - 35, helpRect.width, helpRect.height);
+        g.fillRect(startRect.x, startRect.y, startRect.width, startRect.height);
+        g.fillRect(creditsRect.x, creditsRect.y, creditsRect.width, creditsRect.height);
+        g.fillRect(helpRect.x, helpRect.y, helpRect.width, helpRect.height);
 
         g.setColor(Color.white);
-        g.drawString("START GAME", startRect.x, startRect.y);
-        g.drawString("HOW TO PLAY", helpRect.x, helpRect.y);
-        g.drawString("CREDITS", creditsRect.x, creditsRect.y);
+        g.drawString("START GAME", startRect.x, startRect.y + titleFont.getSize());
+        g.drawString("HOW TO PLAY", helpRect.x, helpRect.y + titleFont.getSize());
+        g.drawString("CREDITS", creditsRect.x, creditsRect.y + titleFont.getSize());
 
         g.setColor(Color.DARK_GRAY);
         switch (currentHovered) {
             case START_BUTTON:
-                g.fillRect(startRect.x - 5, startRect.y - 30, startRect.width, startRect.height);
+                g.fillRect(startRect.x, startRect.y, startRect.width, startRect.height);
 
                 g.setColor(Color.GRAY);
-                g.fillRect(startRect.x, startRect.y - 35, startRect.width, startRect.height);
+                g.fillRect(startRect.x, startRect.y, startRect.width, startRect.height);
 
                 g.setColor(Color.red);
-                g.drawString("START GAME", startRect.x, startRect.y);
+                g.drawString("START GAME", startRect.x, startRect.y + titleFont.getSize());
                 break;
             case CREDITS_BUTTON:
-                g.fillRect(creditsRect.x - 5, creditsRect.y - 30, creditsRect.width, creditsRect.height);
+                g.fillRect(creditsRect.x, creditsRect.y, creditsRect.width, creditsRect.height);
 
                 g.setColor(Color.GRAY);
-                g.fillRect(creditsRect.x, creditsRect.y - 35, creditsRect.width, creditsRect.height);
+                g.fillRect(creditsRect.x, creditsRect.y, creditsRect.width, creditsRect.height);
 
                 g.setColor(Color.red);
-                g.drawString("CREDITS", creditsRect.x, creditsRect.y);
+                g.drawString("CREDITS", creditsRect.x, creditsRect.y + titleFont.getSize());
                 break;
             case HELP_BUTTON:
-                g.fillRect(helpRect.x - 5, helpRect.y - 30, helpRect.width, helpRect.height);
+                g.fillRect(helpRect.x, helpRect.y, helpRect.width, helpRect.height);
 
                 g.setColor(Color.GRAY);
-                g.fillRect(helpRect.x, helpRect.y - 35, helpRect.width, helpRect.height);
+                g.fillRect(helpRect.x, helpRect.y, helpRect.width, helpRect.height);
 
                 g.setColor(Color.red);
-                g.drawString("HOW TO PLAY", helpRect.x, helpRect.y);
+                g.drawString("HOW TO PLAY", helpRect.x, helpRect.y + titleFont.getSize());
                 break;
         }
     }

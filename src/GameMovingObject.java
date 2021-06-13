@@ -6,11 +6,19 @@ public abstract class GameMovingObject extends GameObject {
     double xV = 0;
     double yV = 0;
     double xVMax = 1;
-    double yVMax = 10;
+    double yVMax = 15;
+
     boolean movingRight = false;
     boolean movingLeft = false;
     boolean movingUp = false;
+    boolean movingDown = false;
+
+    boolean canMoveRight = true;
+    boolean canMoveLeft = true;
     boolean canMoveUp = true;
+    boolean canMoveDown = true;
+
+    boolean canJump = true;
 
     boolean isMoving = false;   // for seeing which frame arraylist to use
 
@@ -27,16 +35,19 @@ public abstract class GameMovingObject extends GameObject {
         super.update();
 
         // IF MOVING, INCREASE VELOCITIES BY SPEED
-        if (movingRight) {
+        if (movingRight && canMoveRight) {
             xV += speedFactor;
             orientation = 1;
         }
-        if (movingLeft) {
+        if (movingLeft && canMoveLeft) {
             xV -= speedFactor;
             orientation = 0;
         }
         if (movingUp && canMoveUp) {
             yV += speedFactor;
+        }
+        if (movingDown && canMoveDown) {
+            yV -= speedFactor;
         }
 
         // FRICTION STUFF AND MAX VELOCITY CAP
@@ -69,6 +80,6 @@ public abstract class GameMovingObject extends GameObject {
         x += xV;
         y -= yV;
 
-        //yV -= GamePanel.GRAVITY; // change y velocity by GRAVITY
+        yV -= GamePanel.GRAVITY; // change y velocity by GRAVITY
     }
 }

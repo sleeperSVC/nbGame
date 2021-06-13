@@ -12,7 +12,7 @@ public class ShopButton {
 
     public ShopButton(Rectangle shopBounds, String upgradeText) {
         this.shopBounds = shopBounds;
-        this.upgradeX = (int) (shopBounds.getX() + shopBounds.getWidth() / 10);
+        this.upgradeX = (int) (shopBounds.getX() + shopBounds.getWidth() / 20);
         this.upgradeY = (int) (shopBounds.getY() + shopBounds.getHeight() / 2);
         this.upgradeText = upgradeText;
     }
@@ -28,8 +28,8 @@ public class ShopButton {
             g.setColor(Color.BLACK);
         }
         g.setFont(shopButtonFont);
-        g.drawRect(shopBounds.x, shopBounds.y - 35, shopBounds.width, shopBounds.height);
-        g.drawString(upgradeText, upgradeX, upgradeY - 40);
+        g.drawRect(shopBounds.x, shopBounds.y, shopBounds.width, shopBounds.height);
+        g.drawString(upgradeText, upgradeX, upgradeY + shopButtonFont.getSize());
     }
 
     public Rectangle getRect() {

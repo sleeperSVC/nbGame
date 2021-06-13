@@ -32,33 +32,39 @@ public class GameObjectManager {
 
     // iterate through bullets and enemies and call their update methods
     public void updateObjects() {
-        checkEntityCollision();
-        killObjects();
-        p.update();
+
         if (isFiring) {
             if (System.currentTimeMillis() - bulletStartTime >= p.fireRate) {
                 addBullet();
                 bulletStartTime = System.currentTimeMillis();
             }
         }
-        hud.update();
         bullets.forEach(Bullet::update);
         enemies.forEach(EnemyObject::update);
         flashes.forEach(MuzzleFlash::update);
         babies.forEach(Baby::update);
         spawnBabies();
         spawnEnemies();
+        hud.update();
+        p.update();
+        doEnvironmentCollision(p);
+        enemies.forEach(this::doEnvironmentCollision);
+        doEntityCollision();
+        killObjects();
     }
 
     //draws the sprites
     public void drawObjects(Graphics g) {
         p.draw(g);
+        hud.draw(g);
+
+//        g.setColor(Color.BLACK);
+//        map.collisionRects.forEach(r -> g.fillRect(r.x, r.y, r.width, r.height));
 
         bullets.forEach(b -> b.draw(g));
         enemies.forEach(e -> e.draw(g));
         babies.forEach(c -> c.draw(g));
         flashes.forEach(f -> f.draw(g));
-        hud.draw(g);
 
     }
 
@@ -91,26 +97,33 @@ public class GameObjectManager {
         }
     }
 
-    public void checkEntityCollision() {
+    public void doEntityCollision() {
 
-        // if a bullet collides with any enemy, delete the bullet, damage the enemy
-        for (Iterator<Bullet> iterator = bullets.iterator(); iterator.hasNext(); ) {
-            Bullet b = iterator.next();
+        // if a bullet collides with any enemy or environment collision box, bullet is dead
+        for (Bullet b : bullets) {
 
             for (EnemyObject e : enemies) {
-                if (b.collisionBox.intersects(e.collisionBox)) {
-                    iterator.remove();
+                if (b.cBox.intersects(e.cBox)) {
+                    b.isAlive = false;
                     audioManager.playSound((int) (Math.random() * (audioManager.hitSoundList.size() - 1) + 1), audioManager.HIT_SOUND_LIST);
                     e.health -= Atbs.bulletDamage;
                     e.isDamaged = true;
+                    break;
+                }
+            }
+
+            if (b.isAlive) {
+                for (Rectangle r : map.collisionRects) {
+                    if (r.intersects(b.cBox)) {
+                        b.isAlive = false;
+                    }
                 }
             }
         }
 
-        for (Iterator<Baby> iterator = babies.iterator(); iterator.hasNext(); ) {
-            Baby b = iterator.next();
-            if (b.collisionBox.intersects(p.collisionBox)) {
-                iterator.remove();
+        for (Baby b : babies) {
+            if (p.cBox.intersects(b.cBox)) {
+                b.isAlive = false;
             }
         }
 
@@ -118,22 +131,49 @@ public class GameObjectManager {
         for (EnemyObject e : enemies) {
             //System.out.println("Enemy type = " + e.getClass().getSimpleName() + " collisionBox x= " + e.collisionBox.x);
 
-            if (System.currentTimeMillis() - immuneStartTime >= 500) {
+            if (System.currentTimeMillis() - immuneStartTime >= 1000) {
 
-                if (e.collisionBox.intersects(p.collisionBox)) {
+                if (e.cBox.intersects(p.cBox)) {
                     p.health -= e.damage;
                     audioManager.playSound(0, 1);
+                    immuneStartTime = System.currentTimeMillis();
                 }
-                immuneStartTime = System.currentTimeMillis();
+
             }
         }
     }
 
-
-    public void checkEnvironmentCollision() {
+    public void doEnvironmentCollision(GameMovingObject obj) {
         for (Rectangle r : map.collisionRects) {
-            if (p.collisionBox.intersects(r)) {
-                //    if (p.collisionBox.intersection(r).x )
+            if (obj.cBox.intersects(r)) {
+
+                double dx = obj.cBox.getCenterX() - r.getCenterX(); // diff between player and rect center X
+                double dy = obj.cBox.getCenterY() - r.getCenterY(); // diff between player and rect center Y
+
+                if (Math.abs(dx / r.width) > Math.abs(dy / r.height)) {
+                    if (dx > 0) {
+                        // right side
+                        obj.x = r.x + r.width;
+                        //obj.canMoveLeft = false;
+                    } else {
+                        // left side
+                        obj.x = r.x - obj.cBox.width;
+                        //obj.canMoveRight = false;
+                    }
+                    obj.xV = 0;
+
+                } else {
+                    if (dy < 0) {
+                        // top side
+                        obj.y = r.y - obj.cBox.width;
+                        //obj.canMoveDown = false;
+                    } else {
+                        // bottom side
+                        obj.y = r.y + r.height;
+                        //obj.canMoveUp = false;
+                    }
+                    obj.yV = 0;
+                }
             }
         }
     }
