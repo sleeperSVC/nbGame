@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     public static final int FRAME_HEIGHT = 540;
     public static final Rectangle frameCollisionBox = new Rectangle(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
 
-    public static final double GRAVITY = 1.5;
+    public static final double GRAVITY = 3;
     public static final int FRICTION = 1;
 
     ImageIcon menu1 = new ImageIcon(getClass().getResource("resources/image/environment/menu1.png"));
@@ -83,6 +83,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         objectManager.drawObjects(g);   // painting game objects before layer 4
         layer4.paintIcon(this, g, 0, 0);
         hudIcon.paintIcon(this, g, 0, 0);
+        objectManager.hud.drawMoney(g);
 
 
         g.setColor(Color.white);

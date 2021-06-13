@@ -48,6 +48,10 @@ public class Player extends GameMovingObject {
         if (health <= 0) {
             isAlive = false;
         }
+        if (System.currentTimeMillis() - jumpStartTime >= 300) {
+            canJump = true;
+            jumpStartTime = System.currentTimeMillis();
+        }
     }
 
     //draw method for the player's sprite
@@ -101,6 +105,7 @@ public class Player extends GameMovingObject {
             case 'w':   // up
                 if (canJump) {
                     yV += speedFactor * 50;
+                    canJump = false;
                 }
                 canMoveUp = true;
                 break;

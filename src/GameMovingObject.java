@@ -6,7 +6,7 @@ public abstract class GameMovingObject extends GameObject {
     double xV = 0;
     double yV = 0;
     double xVMax = 1;
-    double yVMax = 15;
+    double yVMax = 20;
 
     boolean movingRight = false;
     boolean movingLeft = false;
@@ -18,7 +18,8 @@ public abstract class GameMovingObject extends GameObject {
     boolean canMoveUp = true;
     boolean canMoveDown = true;
 
-    boolean canJump = true;
+    long jumpStartTime = System.currentTimeMillis();
+    boolean canJump = false;
 
     boolean isMoving = false;   // for seeing which frame arraylist to use
 
@@ -80,6 +81,10 @@ public abstract class GameMovingObject extends GameObject {
         x += xV;
         y -= yV;
 
-        yV -= GamePanel.GRAVITY; // change y velocity by GRAVITY
+        if (canMoveDown){
+            yV -= GamePanel.GRAVITY; // change y velocity by GRAVITY
+        }
+
+
     }
 }
