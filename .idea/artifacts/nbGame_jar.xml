@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="nbGame:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/nbGame_jar</output-path>
+    <root id="archive" name="nbGame.jar">
+      <element id="module-output" name="nbGame" />
+    </root>
+  </artifact>
+</component>
