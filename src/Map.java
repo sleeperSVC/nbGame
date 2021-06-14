@@ -30,9 +30,7 @@ public class Map {
         collisionRects.add(ROOF);
         collisionRects.add(TOP_SEWER_LEFT_RECT);
         collisionRects.add(TOP_SEWER_RIGHT_RECT);
-        collisionRects.add(BOTTOM_SEWER_LEFT_RECT);
-        collisionRects.add(BOTTOM_SEWER_RIGHT_RECT);
-//        collisionRects.add(LEFT_BUILDING_RECT);
+        collisionRects.add(BOTTOM_SEWER_RECT);
 //        collisionRects.add(RIGHT_BUILDING_RECT);
 //        collisionRects.add(LEFT_BUILDING_BALCONY_RECT);
 

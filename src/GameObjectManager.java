@@ -43,14 +43,14 @@ public class GameObjectManager {
         enemies.forEach(EnemyObject::update);
         flashes.forEach(MuzzleFlash::update);
         babies.forEach(Baby::update);
-        spawnBabies();
-        spawnEnemies();
         hud.update();
         p.update();
+        killObjects();
+        spawnBabies();
+        spawnEnemies();
+        doEntityCollision();
         doEnvironmentCollision(p);
         enemies.forEach(this::doEnvironmentCollision);
-        doEntityCollision();
-        killObjects();
     }
 
     //draws the sprites
@@ -171,6 +171,7 @@ public class GameObjectManager {
                         // top side
                         obj.y = r.y - obj.cBox.width;
                         obj.canMoveDown = false;
+                        obj.canJump = true;
                     } else {
                         // bottom side
                         obj.y = r.y + r.height;

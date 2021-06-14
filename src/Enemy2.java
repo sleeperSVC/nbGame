@@ -20,4 +20,25 @@ public class Enemy2 extends EnemyObject {
             e.printStackTrace();
         }
     }
+
+    public void update() {
+        super.update();
+    }
+
+    public void move() {
+        if (x < p.x) {
+            movingRight = true;
+            movingLeft = false;
+        } else if (x > p.x) {
+            movingLeft = true;
+            movingRight = false;
+        }
+        if (y < p.y && canJump) {
+
+        }
+    }
+
+    public void jump() {
+
+    }
 }

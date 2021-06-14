@@ -34,7 +34,6 @@ public abstract class GameMovingObject extends GameObject {
 
     @Override
     public void update() {
-        super.update();
 
         // IF MOVING, INCREASE VELOCITIES BY SPEED
         if (movingRight && canMoveRight) {
@@ -82,10 +81,12 @@ public abstract class GameMovingObject extends GameObject {
         x += xV;
         y -= yV;
 
-        if (canMoveDown){
+        if (canMoveDown) {
             yV -= GamePanel.GRAVITY; // change y velocity by GRAVITY
         }
 
-
+        super.update(); // update collisionBox
     }
+
+    public abstract void jump();
 }

@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class EnemyObject extends GameMovingObject {
+public abstract class EnemyObject extends GameMovingObject {
 
     boolean frameChecker;
     int damage;
@@ -33,17 +33,6 @@ public class EnemyObject extends GameMovingObject {
         move();
     }
 
-    //helper method for moving
-    private void move() {
-        if (x < p.x) {
-            movingRight = true;
-            movingLeft = false;
-        } else if (x > p.x) {
-            movingLeft = true;
-            movingRight = false;
-        }
-    }
-
     @Override
     public void draw(Graphics g) {
 
@@ -64,5 +53,9 @@ public class EnemyObject extends GameMovingObject {
         }
     }
 
+    //helper method for moving
+    public abstract void move();
 
+    //helper method for jumping
+    public abstract void jump();
 }

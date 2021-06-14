@@ -74,4 +74,8 @@ public class Bullet extends GameMovingObject {
         g.setColor(Color.BLACK);
         g.drawOval(x, y, width + randWidth, height + randHeight);
     }
+
+    public void jump() {
+
+    }
 }
