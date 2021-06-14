@@ -34,7 +34,7 @@ public class GameObjectManager {
     public void updateObjects() {
 
         if (isFiring) {
-            if (System.currentTimeMillis() - bulletStartTime >= p.fireRate) {
+            if (System.currentTimeMillis() - bulletStartTime >= Atbs.fireRate) {
                 addBullet();
                 bulletStartTime = System.currentTimeMillis();
             }

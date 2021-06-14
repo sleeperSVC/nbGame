@@ -11,6 +11,7 @@ public class Atbs {
     public static int bulletDamage = 1;
     public static long spawnInterval = 4000;
     public static long babyInterval = 10000;
+    public static int fireRate = 50;
     //20, 5, 10, 2, 5, 5, 10, 1, 1
 
     /*

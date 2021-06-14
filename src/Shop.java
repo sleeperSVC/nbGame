@@ -23,6 +23,37 @@ public class Shop {
         g.fillRect(0, 0, GamePanel.FRAME_WIDTH, GamePanel.FRAME_HEIGHT);
 
         shopButtons.forEach(s -> s.draw(g));
+
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Courier", Font.BOLD, 14));
+        g.drawString("COST: $5", 300, 112);
+        g.drawString("COST: $2", 300, 212);
+        g.drawString("COST: $1", 300, 312);
+        g.drawString("COST: $2", 300, 412);
+
+        if (Atbs.fireRate >= .5) {
+            g.drawString("Fire Rate = " + Atbs.fireRate, 400, 85);
+        } else {
+            g.drawString("Fire Rate Maxed Out", 400, 85);
+        }
+
+        if (Atbs.bulletDamage <= 110) {
+            g.drawString("Damage = " + Atbs.bulletDamage, 400, 185);
+        } else {
+            g.drawString("Bullet Damage Maxed Out", 400, 185);
+        }
+
+        if (Atbs.bulletInaccuracy >= .5) {
+            g.drawString("Inaccuracy = " + (float) Atbs.bulletInaccuracy, 400, 284);
+        } else {
+            g.drawString("Bullet Accuracy Maxed Out", 400, 284);
+        }
+
+        if (Atbs.bulletSpeedFactor <= 110) {
+            g.drawString("Bullet Speed = " + Atbs.bulletSpeedFactor, 400, 384);
+        } else {
+            g.drawString("Bullet Speed Maxed Out", 400, 384);
+        }
     }
 
     public int checkClicked(Point point) {

@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 public class Player extends GameMovingObject {
 
-    int fireRate;
-
     int idleFrameCount = 4;
     int movingFrameCount = 6;
     int movingFrameIndex = 0;
@@ -18,9 +16,8 @@ public class Player extends GameMovingObject {
     ArrayList<BufferedImage> movingFrameHolder = new ArrayList<>();
 
     //constructor class for player
-    public Player(int x, int y, int width, int height, int health, int speedFactor, int fireRate) {
+    public Player(int x, int y, int width, int height, int health, int speedFactor) {
         super(x, y, width, height, health, speedFactor);
-        this.fireRate = fireRate;
         money = 5;
         xVMax = 4;  // placeholder value
 
@@ -141,9 +138,4 @@ public class Player extends GameMovingObject {
     public void changeMovingStatus(boolean isMoving) {
         this.isMoving = isMoving;
     }
-
-    public void raiseFireRate() {
-        fireRate -= 10;
-    }
-
 }
