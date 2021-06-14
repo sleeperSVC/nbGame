@@ -21,8 +21,7 @@ public class Map {
     final Rectangle RIGHT_BUILDING_RECT = new Rectangle();
     final Rectangle LEFT_BUILDING_BALCONY_RECT = new Rectangle();
 //made this one only 2 wide so we can use intersects
-    final Rectangle LADDER = new Rectangle(463,302,2,114);
-
+    final Rectangle LADDER = new Rectangle(442,302,LADDER_WIDTH,300);
 
     public Map() {
         collisionRects.add(GROUND_LEFT_RECT);

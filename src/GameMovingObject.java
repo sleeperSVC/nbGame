@@ -1,4 +1,4 @@
-import java.awt.*;
+
 import java.awt.image.RescaleOp;
 
 public abstract class GameMovingObject extends GameObject {

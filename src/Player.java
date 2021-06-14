@@ -12,6 +12,8 @@ public class Player extends GameMovingObject {
     int movingFrameCount = 6;
     int movingFrameIndex = 0;
     boolean canTravelLadder;
+    boolean travelingLadderUp;
+    boolean travelingLadderDown;
     int money;
     int ladderSpeed = 1;
     int score;
@@ -26,6 +28,8 @@ public class Player extends GameMovingObject {
         money = 5;
         xVMax = 4;  // placeholder value
         canTravelLadder = false;
+        travelingLadderUp = false;
+        travelingLadderDown = false;
 
         try {
             movingFrameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_1.png")));
@@ -55,6 +59,28 @@ public class Player extends GameMovingObject {
             canJump = true;
             jumpStartTime = System.currentTimeMillis();
         }
+
+        //TODO fix this, He goes down just fine but cant go up. canJump is checked in the environmentcollision call
+
+        if (canTravelLadder) {
+            yV += GamePanel.GRAVITY;        // counteract gravity
+            if (travelingLadderDown) {
+                yV -= ladderSpeed;
+                yVMax = 3;
+            } else if (travelingLadderUp) {
+                yV += ladderSpeed;
+                yVMax = 3;
+            } else {
+                yVMax = yVMaxOriginal;
+            }
+        }
+
+        if (canTravelLadder){
+            canJump = false;
+        }
+
+
+        System.out.println("yV= " + yV + " yVMax= " + yVMax);
     }
 
     //draw method for the player's sprite
@@ -109,19 +135,13 @@ public class Player extends GameMovingObject {
                 if (canJump) {
                     yV += speedFactor * 50;
                     canJump = false;
-                }
-                canMoveUp = true;
-
-//                if (canTravelLadder)
-//                    y += ladderSpeed;
-
+                } else if (canTravelLadder)
+                    travelingLadderUp = true;
                 break;
             case 's':   // down
                 movingDown = true;
-
-//                if (canTravelLadder)
-//                    y -= ladderSpeed;
-
+                if (canTravelLadder)
+                    travelingLadderDown = true;
                 break;
         }
     }
@@ -137,9 +157,15 @@ public class Player extends GameMovingObject {
                 break;
             case 'w':   // up
                 movingUp = false;
+                if (travelingLadderUp) {
+                    travelingLadderUp = false;
+                }
                 break;
             case 's':   // down
                 movingDown = false;
+                if (travelingLadderDown) {
+                    travelingLadderDown = false;
+                }
                 break;
         }
     }

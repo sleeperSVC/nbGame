@@ -182,13 +182,12 @@ public class GameObjectManager {
             }
         }
 
-//        if (map.LADDER.intersects(p.cBox) && obj.canMoveDown) {
-//            p.canTravelLadder = true;
-//            p.canMoveDown = false;
-//            p.canMoveUp = false;
-//        } else {
-//            p.canTravelLadder = false;
-//        }
+        if (map.LADDER.intersects(p.cBox)) {
+            p.canTravelLadder = true;
+            p.canJump = false;
+        } else {
+            p.canTravelLadder = false;
+        }
     }
 
 
