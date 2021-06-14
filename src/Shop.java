@@ -10,7 +10,7 @@ public class Shop {
         shopButtons.add(new ShopButton(new Rectangle(50, 100, 500, 50), "Fire Rate"));
         shopButtons.add(new ShopButton(new Rectangle(50, 200, 500, 50), "Dmg"));
         shopButtons.add(new ShopButton(new Rectangle(50, 300, 500, 50), "Accuracy"));
-        shopButtons.add(new ShopButton(new Rectangle(50, 400, 500, 50), "Bullet Speed"));
+        shopButtons.add(new ShopButton(new Rectangle(50, 400, 500, 50), "Bullet Range"));
     }
 
     public void updateShops() {

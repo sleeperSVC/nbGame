@@ -1,4 +1,5 @@
 import javax.sound.sampled.*;
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -44,6 +45,7 @@ public class AudioManager {
 
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             e.printStackTrace();
+        } catch (IllegalArgumentException e) {
         }
     }
 
@@ -64,6 +66,8 @@ public class AudioManager {
 
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, "Song couldn't be loaded! :(");
         }
     }
 

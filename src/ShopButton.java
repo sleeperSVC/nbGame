@@ -39,7 +39,7 @@ public class ShopButton {
                 upgradeValue = Atbs.bulletInaccuracy;
                 upgradeCost = Atbs.accuracyCost;
                 break;
-            case "Bullet Speed":
+            case "Bullet Range":
                 upgradeValue = Atbs.bulletSpeedFactor;
                 upgradeCost = Atbs.speedCost;
                 break;

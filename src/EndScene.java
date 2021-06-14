@@ -40,6 +40,7 @@ public class EndScene {
         g.fillRect(menuRect.x, menuRect.y, menuRect.width, menuRect.height);
 
         g.setColor(Color.white);
+        g.drawString("YOU DIED!", playAgain.x, playAgain.y - 100 + endFont.getSize());
         g.drawString("Play Again?", playAgain.x, playAgain.y + endFont.getSize());
         g.drawString("Back to Menu", menuRect.x, menuRect.y + endFont.getSize());
 

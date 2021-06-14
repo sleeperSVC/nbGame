@@ -271,9 +271,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
                 }
             }
 
-            if (shop.checkClicked(point) == 3) {    // bullet speed
+            if (shop.checkClicked(point) == 3) {    // bullet range
                 if (Atbs.bulletXVMax < 25 && (p.money - Atbs.speedCost) >= 0) {
-                    System.out.println("Speed Up");
+                    System.out.println("Range Up");
                     Atbs.bulletXVMax++;
                     p.money -= Atbs.speedCost;
                     Atbs.speedCost += 2;

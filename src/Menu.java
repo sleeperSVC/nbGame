@@ -52,6 +52,7 @@ public class Menu {
         g.fillRect(helpRect.x, helpRect.y, helpRect.width, helpRect.height);
 
         g.setColor(Color.white);
+        g.drawString("Minion Rescue", startRect.x, startRect.y - 100 + titleFont.getSize());
         g.drawString("START GAME", startRect.x, startRect.y + titleFont.getSize());
         g.drawString("HOW TO PLAY", helpRect.x, helpRect.y + titleFont.getSize());
         g.drawString("CREDITS", creditsRect.x, creditsRect.y + titleFont.getSize());
