@@ -1,6 +1,3 @@
-
-import java.awt.image.RescaleOp;
-
 public abstract class GameMovingObject extends GameObject {
 
     double speedFactor;
@@ -18,13 +15,10 @@ public abstract class GameMovingObject extends GameObject {
     boolean canMoveLeft = true;
     boolean canMoveUp = true;
     boolean canMoveDown = true;
-
-    long jumpStartTime = System.currentTimeMillis();
     boolean canJump = false;
 
-    boolean isMoving = false;   // for seeing which frame arraylist to use
-
-    RescaleOp rescaleOp = new RescaleOp(2f, 15, null);
+    // This is only used to see if the moving animation should be used, it has nothing to do with movement
+    boolean isMoving = false;
 
     public GameMovingObject(int x, int y, int width, int height, int health, double speedFactor) {
         super(x, y, width, height);
@@ -35,7 +29,7 @@ public abstract class GameMovingObject extends GameObject {
     @Override
     public void update() {
 
-        // IF MOVING, INCREASE VELOCITIES BY SPEED
+        // IF MOVING, INCREASE VELOCITIES BY SPEEDFACTOR
         if (movingRight && canMoveRight) {
             xV += speedFactor;
             orientation = 1;
@@ -51,7 +45,7 @@ public abstract class GameMovingObject extends GameObject {
             yV -= speedFactor;
         }
 
-        // FRICTION STUFF AND MAX VELOCITY CAP
+        // DECREASE VELOCITY BY FRICTION, AND CAP THE MAX VELOCITY
         if (Math.abs(xV) > 0) {
             if (xV > 0)
                 xV -= GamePanel.FRICTION;
@@ -81,12 +75,13 @@ public abstract class GameMovingObject extends GameObject {
         x += xV;
         y -= yV;
 
+        // CHANGE Y VELOCITY WITH GRAVITY
         if (canMoveDown) {
-            yV -= GamePanel.GRAVITY; // change y velocity by GRAVITY
+            yV -= GamePanel.GRAVITY;
         }
 
         super.update(); // update collisionBox
     }
 
-    public abstract void jump();
+    protected abstract void jump();
 }

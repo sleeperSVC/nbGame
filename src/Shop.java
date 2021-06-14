@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class Shop {
@@ -19,7 +18,7 @@ public class Shop {
     }
 
     public void drawShops(Graphics g) {
-        g.setColor(Color.white);
+        g.setColor(Color.lightGray);
         g.fillRect(0, 0, GamePanel.FRAME_WIDTH, GamePanel.FRAME_HEIGHT);
 
         shopButtons.forEach(s -> s.draw(g));

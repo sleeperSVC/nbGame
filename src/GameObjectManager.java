@@ -17,10 +17,13 @@ public class GameObjectManager {
     long immuneStartTime = System.currentTimeMillis();
     long bulletStartTime = System.currentTimeMillis();
     long spawnStartTime = System.currentTimeMillis();
-    long spawnInterval = Atbs.spawnInterval;
     long babyStartTime = System.currentTimeMillis();
-    long babyInterval = Atbs.babyInterval;
+    long difficultyStartTime = System.currentTimeMillis();
+
+    int difficultyInterval = 10000;  // every 10,000 miliseconds, the enemy spawn time will decrease
+
     boolean isFiring;
+
 
     //constructor class
     public GameObjectManager(Player p) {
@@ -34,7 +37,7 @@ public class GameObjectManager {
     public void updateObjects() {
 
         if (isFiring) {
-            if (System.currentTimeMillis() - bulletStartTime >= p.fireRate) {
+            if (System.currentTimeMillis() - bulletStartTime >= Atbs.bulletFireRate) {
                 addBullet();
                 bulletStartTime = System.currentTimeMillis();
             }
@@ -46,8 +49,8 @@ public class GameObjectManager {
         hud.update();
         p.update();
         killObjects();
-//        spawnBabies();
-//        spawnEnemies();
+        spawnBabies();
+        spawnEnemies();
         doEntityCollision();
         doEnvironmentCollision(p);
         enemies.forEach(this::doEnvironmentCollision);
@@ -91,6 +94,9 @@ public class GameObjectManager {
             Baby b = iterator.next();
             if (!b.isAlive) {
                 p.money += 5;
+                if (p.health < 10) {
+                    p.health++;
+                }
                 iterator.remove();
                 System.out.println("baby collected");
             }
@@ -106,8 +112,9 @@ public class GameObjectManager {
                 if (b.cBox.intersects(e.cBox)) {
                     b.isAlive = false;
                     audioManager.playSound((int) (Math.random() * (audioManager.hitSoundList.size() - 1) + 1), audioManager.HIT_SOUND_LIST);
-                    e.health -= p.bulletDamage;
+                    e.health -= b.damage;
                     e.isDamaged = true;
+                    p.score += b.damage * 5;
                     break;
                 }
             }
@@ -182,7 +189,7 @@ public class GameObjectManager {
             }
         }
 
-        if (map.LADDER.intersects(p.cBox)) {
+        if (Map.LADDER.intersects(p.cBox)) {
             p.canTravelLadder = true;
             p.canJump = false;
         } else {
@@ -193,7 +200,7 @@ public class GameObjectManager {
 
     //adds bullets to the arrayList. muzzle flash is also added in conjunction with bullets
     public void addBullet() {
-        bullets.add(new Bullet(p.x, p.y, Atbs.bulletWidth, Atbs.bulletHeight, Atbs.bulletSpeedFactor, Atbs.bulletInaccuracy, p.bulletDamage, p.orientation, p.xV, p.yV));
+        bullets.add(new Bullet(p.x, p.y, Atbs.bulletWidth, Atbs.bulletHeight, Atbs.bulletSpeedFactor, Atbs.bulletInaccuracy, Atbs.bulletDamage, p.orientation, p.xV, Atbs.bulletXVMax));
         flashes.add(new MuzzleFlash(p.x, p.y, 9, 9, p));
         audioManager.playSound(0, audioManager.SOUND_LIST);
     }
@@ -212,7 +219,7 @@ public class GameObjectManager {
     }
 
     public void spawnEnemies() {
-        if (System.currentTimeMillis() - spawnStartTime >= spawnInterval) {
+        if (System.currentTimeMillis() - spawnStartTime >= Atbs.spawnInterval) {
             if (Math.random() < 0.5) {
                 addEnemy1(map.getEnemySpawn());
                 System.out.println("enemy 1 spawned");
@@ -221,12 +228,18 @@ public class GameObjectManager {
                 System.out.println("enemy 2 spawned");
             }
             spawnStartTime = System.currentTimeMillis();
-            spawnInterval -= 40;
+        }
+
+        if (System.currentTimeMillis() - difficultyStartTime >= difficultyInterval) {
+            if (Atbs.spawnInterval - 100 >= 200) {
+                Atbs.spawnInterval -= 100;
+            }
+            difficultyStartTime = System.currentTimeMillis();
         }
     }
 
     public void spawnBabies() {
-        if (System.currentTimeMillis() - babyStartTime >= babyInterval) {
+        if (System.currentTimeMillis() - babyStartTime >= Atbs.babyInterval) {
             addBaby(map.getBabySpawn());
             babyStartTime = System.currentTimeMillis();
             System.out.println("baby spawned");

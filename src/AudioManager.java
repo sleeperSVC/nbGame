@@ -2,15 +2,17 @@ import javax.sound.sampled.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-//TODO: fix hitsounds
-
 public class AudioManager {
 
     ArrayList<String> soundList = new ArrayList<>();
     ArrayList<String> hitSoundList = new ArrayList<>();
 
-    public final int SOUND_LIST = 0;
-    public final int HIT_SOUND_LIST = 1;
+    private final String SONG_FILENAME = "resources/sound/song.wav";
+    long songStartTime = System.currentTimeMillis();
+    int songLength = 45191;
+
+    final int SOUND_LIST = 0;
+    final int HIT_SOUND_LIST = 1;
 
     AudioInputStream audioIn;
 
@@ -18,16 +20,7 @@ public class AudioManager {
         soundList.add("resources/sound/guns/mp5navy/mp5-1.wav");
 
         hitSoundList.add("resources/sound/hitsounds/bhit_flesh-2.wav");
-//        hitSoundList.add("resources/sound/hitsounds/kevlar1.wav");
-//        hitSoundList.add("resources/sound/hitsounds/kevlar2.wav");
-//        hitSoundList.add("resources/sound/hitsounds/kevlar3.wav");
-//        hitSoundList.add("resources/sound/hitsounds/kevlar4.wav");
-//        hitSoundList.add("resources/sound/hitsounds/kevlar5.wav");
         hitSoundList.add("resources/sound/hitsounds/headshot3.wav");
-//        hitSoundList.add("resources/sound/hitsounds/headshot4.wav");
-//        hitSoundList.add("resources/sound/hitsounds/headshot5.wav");
-
-
     }
 
     public void playSound(int i, int whichList) {
@@ -41,13 +34,34 @@ public class AudioManager {
             Clip clip = AudioSystem.getClip();
             clip.open(audioIn);
 
-            // volume stuff
+            // set the volume to 10%
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             double gain = 0.1;
             double dB = (Math.log(gain) / Math.log(10.0) * 20.0);
             gainControl.setValue((float) dB);
 
-            clip.start();
+            clip.start();   // play sound
+
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void playSong() {
+
+        try {
+            audioIn = AudioSystem.getAudioInputStream(getClass().getResource(SONG_FILENAME));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+
+            // set the volume to 20%
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            double gain = 0.2;
+            double dB = (Math.log(gain) / Math.log(10.0) * 20.0);
+            gainControl.setValue((float) dB);
+
+            clip.start();   // play sound
+
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             e.printStackTrace();
         }

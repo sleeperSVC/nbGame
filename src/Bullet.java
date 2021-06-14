@@ -3,22 +3,19 @@ import java.awt.*;
 public class Bullet extends GameMovingObject {
 
     double inaccuracy;
-    int damage;
+    double damage;
 
     //bullet colorings
-    Color purple1 = new Color(125, 52, 235);
-    Color purple2 = new Color(96, 30, 191);
-    Color purple3 = new Color(131, 79, 222);
-    Color current;
+    Color fillColor;
+    Color outlineColor;
 
-    public Bullet(int x, int y, int width, int height, double speedFactor, double inaccuracy, int damage, int orientation, double pxV, double pyV) {
+    public Bullet(int x, int y, int width, int height, double speedFactor, double inaccuracy, double damage, int orientation, double pxV, double xVMax) {
         super((orientation == 1 ? x + 32 : x), y + 17, width, height, 1, speedFactor);
-        // don't get scared of this ^ ternary operator, its just the same as "if orientation == 1, then return x+32, else return x"
+        // this ^ ternary operator is just the same as "if orientation == 1, then return x+32, else return x"
         this.inaccuracy = inaccuracy;
         this.damage = damage;
         this.orientation = orientation;
-        this.xV = pxV; // TODO initial velocity is the player's velocity. simulates inertia. kinda scuffed atm.
-        this.yV = pyV;
+        this.xV = pxV; // initial velocity is the player's velocity, simulates intertia
 
         if (orientation == 1) {
             movingRight = true;
@@ -26,8 +23,8 @@ public class Bullet extends GameMovingObject {
             movingLeft = true;
         }
 
-        xVMax = 20; // placeholder value
-        yVMax = 0; // placeholder value
+        this.xVMax = xVMax;
+        yVMax = 0;
     }
 
     @Override
@@ -53,25 +50,15 @@ public class Bullet extends GameMovingObject {
     @Override
     public void draw(Graphics g) {
 
-        //updates color
-        int randColor = (int) (Math.random() * 3);
-        switch (randColor) {
-            case 0:
-                current = purple1;
-                break;
-            case 1:
-                current = purple2;
-                break;
-            default:
-                current = purple3;
-                break;
-        }
+        // random colors
+        fillColor = new Color((int) (Atbs.bulletDamage * 255 / Atbs.bulletDamage), 0, 0);
+        outlineColor = new Color((int) (255 - (2.5 * Atbs.bulletFireRate)), 0, 0);
 
         int randWidth = (int) (Math.random() * 5);
         int randHeight = (int) (Math.random() * 5);
-        g.setColor(current);
+        g.setColor(fillColor);
         g.fillOval(x, y, width + randWidth, height + randHeight);
-        g.setColor(Color.BLACK);
+        g.setColor(outlineColor);
         g.drawOval(x, y, width + randWidth, height + randHeight);
     }
 

@@ -16,7 +16,6 @@ public class HUD extends GameObject {
     @Override
     public void update() {
 
-        //TODO need to add waves counter later on, also need to add money display
     }
 
     @Override
@@ -30,16 +29,27 @@ public class HUD extends GameObject {
         }
         y1 = 359;
 
-        drawMoney(g);
     }
 
     public void drawMoney(Graphics g) {
         g.setColor(Color.WHITE);
         g.setFont(hudFont);
-        str = "MONEY: $" + p.money;
-        g.drawString(str, 500, 20);
+        String str = "MONEY: $" + p.money;
+        if (str.length() >= 12) {
+            str = str.substring(0, 12);
+        }
+        g.drawString(str, 490, 14);
     }
 
+    public void drawScore(Graphics g) {
+        g.setColor(Color.WHITE);
+        g.setFont(hudFont);
+        String str = "SCORE: " + p.score;
+        if (str.length() >= 12) {
+            str = str.substring(0, 12);
+        }
+        g.drawString(str, 490, 30);
+    }
 }
 
 

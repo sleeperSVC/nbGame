@@ -10,13 +10,13 @@ public class MuzzleFlash extends GameObject {
 
         super(x, y, width, height);
         this.p = p;
-        frameCounter = 0;
+        frameIndex = 0;
 
         try {
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_2.png")));
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_3.png")));
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_4.png")));
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_5.png")));
+            frames.add(ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_2.png")));
+            frames.add(ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_3.png")));
+            frames.add(ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_4.png")));
+            frames.add(ImageIO.read(getClass().getResource("resources/image/entities/bullet/bullet_5.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -28,10 +28,10 @@ public class MuzzleFlash extends GameObject {
         x = p.x;
         y = p.y;
 
-        if (frameCounter < 3) {
-            frameCounter++;
+        if (frameIndex < 3) {
+            frameIndex++;
         } else {
-            frameCounter = 0;
+            frameIndex = 0;
             isAlive = false;
         }
     }
@@ -40,9 +40,9 @@ public class MuzzleFlash extends GameObject {
     public void draw(Graphics g) {
 
         if (p.orientation == 1) {
-            g.drawImage(frameHolder.get(frameCounter), x + 32, y + 14, 9, 9, null);
+            g.drawImage(frames.get(frameIndex), x + 32, y + 14, 9, 9, null);
         } else {
-            g.drawImage(frameHolder.get(frameCounter), x, y + 14, -9, 9, null);
+            g.drawImage(frames.get(frameIndex), x, y + 14, -9, 9, null);
         }
     }
 }

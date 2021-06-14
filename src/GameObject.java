@@ -12,12 +12,13 @@ public abstract class GameObject {
     boolean isAlive = true;
     boolean isDamaged = false;
 
-    int orientation = 1;
-    Rectangle cBox;
+    Rectangle cBox; // collisionBox
 
-    ArrayList<BufferedImage> frameHolder = new ArrayList<>();
-    int frameCounter;
-    boolean frameCheck;
+    int orientation = 1;
+
+    ArrayList<BufferedImage> frames = new ArrayList<>();
+    int frameIndex = 0;
+    boolean canDisplayNextFrame = true;
 
     public GameObject(int x, int y, int width, int height) {
         this.x = x;
@@ -25,9 +26,6 @@ public abstract class GameObject {
         this.width = width;
         this.height = height;
         cBox = new Rectangle(x, y, width, height);
-        frameCounter = 0;
-        frameCheck = true;
-
     }
 
     public void update() {

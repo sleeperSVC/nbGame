@@ -11,7 +11,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     Map map;
     GameObjectManager objectManager;
     Player p;
-    Point point;
+    Point point;    // hold location of mouse
 
     final int MENU_STATE = 0;
     final int GAME_STATE = 1;
@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     public static final int FRAME_HEIGHT = 540;
     public static final Rectangle frameCollisionBox = new Rectangle(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
 
-    public static final double GRAVITY = 3;
+    public static final double GRAVITY = 2;
     public static final int FRICTION = 1;
 
     ImageIcon menu1 = new ImageIcon(getClass().getResource("resources/image/environment/menu1.png"));
@@ -33,17 +33,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     ImageIcon layer4 = new ImageIcon(getClass().getResource("resources/image/environment/layer4.png"));
     ImageIcon hudIcon = new ImageIcon(getClass().getResource("resources/image/environment/hud.png"));
 
+    Font titleFont = new Font("Courier", Font.BOLD, 36);
+
     public GamePanel() {
         timer = new Timer(1000 / 60, this);
         menu = new Menu();
         shop = new Shop();
         end = new EndScene();
         restartGame();
+
+        objectManager.audioManager.playSong();
     }
 
     private void restartGame() {
+        Atbs.restart();
         map = new Map();
-        p = new Player(416, 288, 32, 32, 10, 3, 100);    // initialize a new player
+        p = new Player(416, 288, 32, 32, 10, 3);    // initialize a new player
         objectManager = new GameObjectManager(p);
     }
 
@@ -81,12 +86,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         layer4.paintIcon(this, g, 0, 0);
         hudIcon.paintIcon(this, g, 0, 0);
         objectManager.hud.drawMoney(g);
+        objectManager.hud.drawScore(g);
 
         g.setColor(Color.white);
         g.drawString("relative to window: " + point.x + "," + point.y, 10, 100);
+
+        // draw the collision rectangles
+        map.collisionRects.forEach(r -> g.fillRect(r.x, r.y, r.width, r.height));
     }
 
-    // TODO this is why we have the Shop and ShopButton classes, so that we dont have to have 9999 lines clogging up gamepanel
     public void drawShopState(Graphics g) {
         shop.drawShops(g);
 
@@ -125,6 +133,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     public void drawEndState(Graphics g) {
         menu1.paintIcon(this, g, 0, 0);
         end.draw(g);
+        g.setColor(Color.WHITE);
+        g.setFont(titleFont);
+        g.drawString("Your score: " + p.score, 140, 80);
     }
 
     // illustrates the game display onto the JPanel based on the game state
@@ -157,6 +168,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
             updateShopState();
         }
         repaint();
+
+        if (System.currentTimeMillis() - objectManager.audioManager.songLength >= objectManager.audioManager.songStartTime) {
+            objectManager.audioManager.playSong();
+            objectManager.audioManager.songStartTime = System.currentTimeMillis();
+        }
     }
 
     //starts player movement when the keys are pressed
@@ -225,10 +241,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
                 currentState = GAME_STATE;
             }
             if (menu.checkClicked(point) == menu.HELP_BUTTON) {
-                JOptionPane.showMessageDialog(null, "WASD to move\nLeft Mouse to Fire\nSave the minion babies and kill the Ghosts");
+                JOptionPane.showMessageDialog(null, "WASD to move\nLeft Mouse to Fire\nP to open the shop\nEarn money and regain health by saving minion babies\nSave the minion babies and kill the Ghosts");
             }
             if (menu.checkClicked(point) == menu.CREDITS_BUTTON) {
-                JOptionPane.showMessageDialog(null, "Bran Ran and Etan");
+                JOptionPane.showMessageDialog(null, "By Bryan, Ray, and Ethan");
             }
         }
         //end state
@@ -243,42 +259,57 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
             }
         }
 
-        // TODO this is why we have the Shop and ShopButton classes, so that we dont have to have 9999 lines clogging up gamepanel
-        //shop state
         if (currentState == SHOP_STATE) {   // fire rate
             if (shop.checkClicked(point) == 0) {
                 if (p.fireRate >= .5 && (p.money - 5) >= 0) {
                     System.out.println("Rate Up");
-                    p.raiseFireRate();
-                    p.money -= 5;
-                    System.out.println(p.fireRate);
+                    Atbs.bulletFireRate -= 10;
+                    p.money -= Atbs.fireRateCost;
+                    Atbs.fireRateCost += 2;
+
+                    System.out.println(Atbs.bulletFireRate);
+                } else if (Atbs.bulletFireRate <= 30) {
+                    shop.shopButtons.get(0).soldOut = true;
                 }
             }
 
             if (shop.checkClicked(point) == 1) {    // bullet damage
-                if (p.bulletDamage <= 110 && (p.money - 8) >= 0) {
+                if (Atbs.bulletDamage <= 4 && (p.money - Atbs.damageCost) >= 0) {
                     System.out.println("Dmg Up");
-                    p.bulletDamage += 1;
-                    p.money -= 8;
-                    System.out.println(p.bulletDamage);
+                    Atbs.bulletDamage += 1;
+                    Atbs.bulletWidth += 1;
+                    Atbs.bulletHeight += 1;
+                    p.money -= Atbs.damageCost;
+                    Atbs.damageCost += 5;
+
+                    System.out.println(Atbs.bulletDamage);
+                } else if (Atbs.bulletDamage > 4) {
+                    shop.shopButtons.get(1).soldOut = true;
                 }
             }
 
             if (shop.checkClicked(point) == 2) {    // bullet accuracy
                 if (Atbs.bulletInaccuracy >= .5 && (p.money - 1) >= 0) {
                     System.out.println("Accuracy Up");
-                    Atbs.bulletInaccuracy -= .1;
-                    p.money -= 2;
+                    Atbs.bulletInaccuracy -= 1;
+                    p.money -= Atbs.accuracyCost;
+
                     System.out.println(Atbs.bulletInaccuracy);
+                } else if (Atbs.bulletInaccuracy <= 1) {
+                    shop.shopButtons.get(2).soldOut = true;
                 }
             }
 
             if (shop.checkClicked(point) == 3) {    // bullet speed
                 if (Atbs.bulletSpeedFactor <= 110 && (p.money - 2) >= 0) {
                     System.out.println("Speed Up");
-                    Atbs.bulletSpeedFactor++;
-                    p.money -= 3;
-                    System.out.println(Atbs.bulletSpeedFactor);
+                    Atbs.bulletXVMax++;
+                    p.money -= Atbs.speedCost;
+                    Atbs.speedCost += 2;
+
+                    System.out.println(Atbs.bulletXVMax);
+                } else if (Atbs.bulletXVMax >= 25) {
+                    shop.shopButtons.get(3).soldOut = true;
                 }
             }
         }

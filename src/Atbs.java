@@ -1,29 +1,44 @@
 public class Atbs {
 
-    public static int enemy1Health = 30;
-    public static int enemy1Damage = 5;
-    public static int enemy2Health = 10;
-    public static int enemy2Damage = 2;
-    public static int bulletWidth = 5;
-    public static int bulletHeight = 5;
-    public static double bulletSpeedFactor = 100;
-    public static double bulletInaccuracy = 1;
-    public static long spawnInterval = 4000;
-    public static long babyInterval = 10000;
-    public static int fireRate = 50;
-    //20, 5, 10, 2, 5, 5, 10, 1, 1
+    // This class holds data for other classes to use. The restart method "resets" the data back to original values.
 
-    /*
-    public Atbs(int e1H, int e1D, int e2H, int e2D, int bW, int bH, double bSF, double bI, int bDMG){
-        enemy1Health = e1H;
-        enemy1Damage = e1D;
-        enemy2Health = e2H;
-        enemy2Damage = e2D;
-        bulletWidth = bW;
-        bulletHeight = bH;
-        bulletSpeedFactor = bSF;
-        bulletInaccuracy = bI;
-        bulletDamage = bDMG;
+    public static int enemy1Health;
+    public static int enemy1Damage;
+    public static int enemy2Health;
+    public static int enemy2Damage;
+    public static int bulletFireRate;
+    public static double bulletDamage;
+    public static int bulletWidth;
+    public static int bulletHeight;
+    public static double bulletSpeedFactor;
+    public static double bulletXVMax;
+    public static double bulletInaccuracy;
+    public static int spawnInterval;
+    public static int babyInterval;
+
+    public static int fireRateCost;
+    public static int damageCost;
+    public static int accuracyCost;
+    public static int speedCost;
+
+    public static void restart() {
+        enemy1Health = 30;
+        enemy1Damage = 2;
+        enemy2Health = 10;
+        enemy2Damage = 2;
+        bulletFireRate = 100;
+        bulletDamage = 1;
+        bulletWidth = 5;
+        bulletHeight = 5;
+        bulletSpeedFactor = 100;
+        bulletXVMax = 20;
+        bulletInaccuracy = 5;
+        spawnInterval = 4000;
+        babyInterval = 10000;
+
+        fireRateCost = 5;
+        damageCost = 10;
+        accuracyCost = 2;
+        speedCost = 3;
     }
-    */
 }

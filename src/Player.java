@@ -6,32 +6,24 @@ import java.util.ArrayList;
 
 public class Player extends GameMovingObject {
 
-    int fireRate;
-    int bulletDamage;
     int idleFrameCount = 4;
     int movingFrameCount = 6;
     int movingFrameIndex = 0;
-    boolean canTravelLadder;
-    boolean travelingLadderUp;
-    boolean travelingLadderDown;
-    int money;
-    int ladderSpeed = 1;
-    int score;
+    boolean canTravelLadder = false;
+    boolean travelingLadderUp = false;
+    boolean travelingLadderDown = false;
+    int ladderSpeed = 2;
 
     double yVMaxOriginal = yVMax;
 
+    int money = 0;
+    int score = 0;
+
     ArrayList<BufferedImage> movingFrameHolder = new ArrayList<>();
 
-    //constructor class for player
-    public Player(int x, int y, int width, int height, int health, int speedFactor, int fireRate) {
+    public Player(int x, int y, int width, int height, int health, int speedFactor) {
         super(x, y, width, height, health, speedFactor);
-        this.fireRate = fireRate;
-        bulletDamage = 1;
-        money = 5;
-        xVMax = 4;  // placeholder value
-        canTravelLadder = false;
-        travelingLadderUp = false;
-        travelingLadderDown = false;
+        xVMax = 4;
 
         try {
             movingFrameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_1.png")));
@@ -41,10 +33,10 @@ public class Player extends GameMovingObject {
             movingFrameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_5.png")));
             movingFrameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_6.png")));
 
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_1.png")));
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_2.png")));
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_3.png")));
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_4.png")));
+            frames.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_1.png")));
+            frames.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_2.png")));
+            frames.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_3.png")));
+            frames.add(ImageIO.read(getClass().getResource("resources/image/entities/idle/idle_4.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -56,50 +48,43 @@ public class Player extends GameMovingObject {
         if (health <= 0) {
             isAlive = false;
         }
-        if (System.currentTimeMillis() - jumpStartTime >= 300) {
-            canJump = true;
-            jumpStartTime = System.currentTimeMillis();
-        }
-
-        //TODO fix this, He goes down just fine but cant go up. canJump is checked in the environmentcollision call
 
         if (canTravelLadder) {
             yV += GamePanel.GRAVITY;        // counteract gravity
             if (travelingLadderDown) {
                 yV -= ladderSpeed;
-                yVMax = 3;
+                yVMax = 3;                  // when moving up or down ladder, limit the max Y velocity
             } else if (travelingLadderUp) {
                 yV += ladderSpeed;
-                yVMax = 3;
+                yVMax = 3;                  // when moving up or down ladder, limit the max Y velocity
             } else {
                 yVMax = yVMaxOriginal;
             }
         }
 
-        if (canTravelLadder){
+        if (canTravelLadder) {
             canJump = false;
         }
-
-
-        System.out.println("yV= " + yV + " yVMax= " + yVMax);
     }
 
     //draw method for the player's sprite
     @Override
     public void draw(Graphics g) {
 
-        if (isMoving && frameCheck) {
+        isMoving = movingRight || movingLeft || movingUp || movingDown;
+
+        if (isMoving && canDisplayNextFrame) {
             if (movingFrameIndex < movingFrameCount - 1) {
                 movingFrameIndex++;
             } else {
                 movingFrameIndex = 0;
             }
         }
-        if (!isMoving && frameCheck) {
-            if (frameCounter < idleFrameCount - 1) {
-                frameCounter++;
+        if (!isMoving && canDisplayNextFrame) {
+            if (frameIndex < idleFrameCount - 1) {
+                frameIndex++;
             } else {
-                frameCounter = 0;
+                frameIndex = 0;
             }
         }
 
@@ -111,17 +96,18 @@ public class Player extends GameMovingObject {
             }
         } else {
             if (orientation == 1) {
-                g.drawImage(frameHolder.get(frameCounter), x, y, 32, 32, null);
+                g.drawImage(frames.get(frameIndex), x, y, 32, 32, null);
             } else {
-                g.drawImage(frameHolder.get(frameCounter), x + 32, y, -32, 32, null);
+                g.drawImage(frames.get(frameIndex), x + 32, y, -32, 32, null);
             }
         }
 
-        //changes fps to 30
-        frameCheck = !frameCheck;
+        // This boolean is used so that sprites are updated every TWO frames, rather than every single frame.
+        // ie: the animation becomes 30 frames per second instead of 60 frames per second
+        canDisplayNextFrame = !canDisplayNextFrame;
     }
 
-    //method for player movement(running)
+    //method for player movement
     public void move(char dir) {
         switch (dir) {
             case 'd':   // right
@@ -134,8 +120,8 @@ public class Player extends GameMovingObject {
                 break;
             case 'w':   // up
                 if (canJump) {
-                    yV += speedFactor * 50;
-                    canJump = false;
+
+                    jump();
                 } else if (canTravelLadder)
                     travelingLadderUp = true;
                 break;
@@ -175,13 +161,11 @@ public class Player extends GameMovingObject {
         this.isMoving = isMoving;
     }
 
-    public void raiseFireRate() {
-        fireRate -= 10;
-    }
 
     @Override
     public void jump() {
-
+        yV += speedFactor * 50;
+        canJump = false;
     }
 }
 

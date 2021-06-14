@@ -12,12 +12,12 @@ public class Baby extends GameObject {
         this.p = p;
         isAlive = true;
         frameChecker = true;
-        frameCounter = 0;
+        frameIndex = 0;
         try {
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/baby/baby_1.png")));
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/baby/baby_2.png")));
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/baby/baby_3.png")));
-            frameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/baby/baby_4.png")));
+            frames.add(ImageIO.read(getClass().getResource("resources/image/entities/baby/baby_1.png")));
+            frames.add(ImageIO.read(getClass().getResource("resources/image/entities/baby/baby_2.png")));
+            frames.add(ImageIO.read(getClass().getResource("resources/image/entities/baby/baby_3.png")));
+            frames.add(ImageIO.read(getClass().getResource("resources/image/entities/baby/baby_4.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -28,10 +28,10 @@ public class Baby extends GameObject {
     public void update() {
 
         if (frameChecker) {
-            if (frameCounter < 3) {
-                frameCounter++;
+            if (frameIndex < 3) {
+                frameIndex++;
             } else {
-                frameCounter = 0;
+                frameIndex = 0;
             }
         }
         frameChecker = !frameChecker;
@@ -39,6 +39,6 @@ public class Baby extends GameObject {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(frameHolder.get(frameCounter), x, y, null);
+        g.drawImage(frames.get(frameIndex), x, y, null);
     }
 }
