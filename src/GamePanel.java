@@ -97,37 +97,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     public void drawShopState(Graphics g) {
         shop.drawShops(g);
-
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("Courier", Font.BOLD, 14));
-        g.drawString("COST: $5", 300, 112);
-        g.drawString("COST: $8", 300, 212);
-        g.drawString("COST: $1", 300, 312);
-        g.drawString("COST: $2", 300, 412);
-
-        if (p.fireRate >= .5) {
-            g.drawString("Fire Rate = " + p.fireRate, 400, 85);
-        } else {
-            g.drawString("Fire Rate Maxed Out", 400, 85);
-        }
-
-        if (p.bulletDamage <= 110) {
-            g.drawString("Damage = " + p.bulletDamage, 400, 185);
-        } else {
-            g.drawString("Bullet Damage Maxed Out", 400, 185);
-        }
-
-        if (Atbs.bulletInaccuracy >= .5) {
-            g.drawString("Inaccuracy = " + (float) Atbs.bulletInaccuracy, 400, 284);
-        } else {
-            g.drawString("Bullet Accuracy Maxed Out", 400, 284);
-        }
-
-        if (Atbs.bulletSpeedFactor <= 110) {
-            g.drawString("Bullet Speed = " + Atbs.bulletSpeedFactor, 400, 384);
-        } else {
-            g.drawString("Bullet Speed Maxed Out", 400, 384);
-        }
+        g.setFont(titleFont);
+        g.drawString("Money: $" + p.money, 50, 50);
     }
 
     public void drawEndState(Graphics g) {
@@ -261,7 +232,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
         if (currentState == SHOP_STATE) {   // fire rate
             if (shop.checkClicked(point) == 0) {
-                if (p.fireRate >= .5 && (p.money - 5) >= 0) {
+                if (Atbs.bulletFireRate > 30 && (p.money - Atbs.fireRateCost) >= 0) {
                     System.out.println("Rate Up");
                     Atbs.bulletFireRate -= 10;
                     p.money -= Atbs.fireRateCost;
@@ -289,7 +260,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
             }
 
             if (shop.checkClicked(point) == 2) {    // bullet accuracy
-                if (Atbs.bulletInaccuracy >= .5 && (p.money - 1) >= 0) {
+                if (Atbs.bulletInaccuracy > 1 && (p.money - Atbs.accuracyCost) >= 0) {
                     System.out.println("Accuracy Up");
                     Atbs.bulletInaccuracy -= 1;
                     p.money -= Atbs.accuracyCost;
@@ -301,7 +272,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
             }
 
             if (shop.checkClicked(point) == 3) {    // bullet speed
-                if (Atbs.bulletSpeedFactor <= 110 && (p.money - 2) >= 0) {
+                if (Atbs.bulletXVMax < 25 && (p.money - Atbs.speedCost) >= 0) {
                     System.out.println("Speed Up");
                     Atbs.bulletXVMax++;
                     p.money -= Atbs.speedCost;

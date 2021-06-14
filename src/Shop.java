@@ -15,6 +15,7 @@ public class Shop {
 
     public void updateShops() {
         shopButtons.forEach(ShopButton::update);
+
     }
 
     public void drawShops(Graphics g) {
