@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
     private void restartGame() {
         map = new Map();
-        p = new Player(416, 288, 32, 32, 10, 3);    // initialize a new player
+        p = new Player(416, 288, 32, 32, 10, 3, 100);    // initialize a new player
         objectManager = new GameObjectManager(p);
         objectManager.addEnemy1(new Point(883, 288));// TODO: delete this eventually
         objectManager.addEnemy2(new Point(883, 288));
@@ -92,6 +92,37 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
     // TODO this is why we have the Shop and ShopButton classes, so that we dont have to have 9999 lines clogging up gamepanel
     public void drawShopState(Graphics g) {
         shop.drawShops(g);
+
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Courier", Font.BOLD, 14));
+        g.drawString("COST: $5", 300, 112);
+        g.drawString("COST: $8", 300, 212);
+        g.drawString("COST: $1", 300, 312);
+        g.drawString("COST: $2", 300, 412);
+
+        if (p.fireRate >= .5) {
+            g.drawString("Fire Rate = " + p.fireRate, 400, 85);
+        } else {
+            g.drawString("Fire Rate Maxed Out", 400, 85);
+        }
+
+        if (p.bulletDamage <= 110) {
+            g.drawString("Damage = " + p.bulletDamage, 400, 185);
+        } else {
+            g.drawString("Bullet Damage Maxed Out", 400, 185);
+        }
+
+        if (Atbs.bulletInaccuracy >= .5) {
+            g.drawString("Inaccuracy = " + (float) Atbs.bulletInaccuracy, 400, 284);
+        } else {
+            g.drawString("Bullet Accuracy Maxed Out", 400, 284);
+        }
+
+        if (Atbs.bulletSpeedFactor <= 110) {
+            g.drawString("Bullet Speed = " + Atbs.bulletSpeedFactor, 400, 384);
+        } else {
+            g.drawString("Bullet Speed Maxed Out", 400, 384);
+        }
     }
 
     public void drawEndState(Graphics g) {
@@ -219,20 +250,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         //shop state
         if (currentState == SHOP_STATE) {   // fire rate
             if (shop.checkClicked(point) == 0) {
-                if (Atbs.fireRate >= .5 && (p.money - 5) >= 0) {
+                if (p.fireRate >= .5 && (p.money - 5) >= 0) {
                     System.out.println("Rate Up");
-                    Atbs.fireRate+=10;
+                    p.raiseFireRate();
                     p.money -= 5;
-                    System.out.println(Atbs.fireRate);
+                    System.out.println(p.fireRate);
                 }
             }
 
             if (shop.checkClicked(point) == 1) {    // bullet damage
-                if (Atbs.bulletDamage <= 110 && (p.money - 2) >= 0) {
+                if (p.bulletDamage <= 110 && (p.money - 8) >= 0) {
                     System.out.println("Dmg Up");
-                    Atbs.bulletDamage += 1;
-                    p.money -= 2;
-                    System.out.println(Atbs.bulletDamage);
+                    p.bulletDamage += 1;
+                    p.money -= 8;
+                    System.out.println(p.bulletDamage);
                 }
             }
 

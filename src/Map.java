@@ -16,13 +16,12 @@ public class Map {
     final Rectangle ROOF = new Rectangle(220, 256, 486, 16);
     final Rectangle TOP_SEWER_LEFT_RECT = new Rectangle(0, 416, 446, 48);
     final Rectangle TOP_SEWER_RIGHT_RECT = new Rectangle(446 + LADDER_WIDTH, 416, GamePanel.FRAME_WIDTH - (446 + LADDER_WIDTH), 48);
-    final Rectangle BOTTOM_SEWER_LEFT_RECT = new Rectangle(0, 512, 446, 48);
-    final Rectangle BOTTOM_SEWER_RIGHT_RECT = new Rectangle(446 + LADDER_WIDTH, 512, GamePanel.FRAME_WIDTH - (446 + LADDER_WIDTH), 48);
+    final Rectangle BOTTOM_SEWER_RECT = new Rectangle(0, 512, GamePanel.FRAME_WIDTH, 100);
     final Rectangle LEFT_BUILDING_RECT = new Rectangle();
     final Rectangle RIGHT_BUILDING_RECT = new Rectangle();
     final Rectangle LEFT_BUILDING_BALCONY_RECT = new Rectangle();
-
-    final Rectangle TEST = new Rectangle(520, 100, 100, 100);
+//made this one only 2 wide so we can use intersects
+    final Rectangle LADDER = new Rectangle(463,302,2,114);
 
 
     public Map() {

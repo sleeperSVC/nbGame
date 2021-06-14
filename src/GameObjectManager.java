@@ -34,7 +34,7 @@ public class GameObjectManager {
     public void updateObjects() {
 
         if (isFiring) {
-            if (System.currentTimeMillis() - bulletStartTime >= Atbs.fireRate) {
+            if (System.currentTimeMillis() - bulletStartTime >= p.fireRate) {
                 addBullet();
                 bulletStartTime = System.currentTimeMillis();
             }
@@ -106,7 +106,7 @@ public class GameObjectManager {
                 if (b.cBox.intersects(e.cBox)) {
                     b.isAlive = false;
                     audioManager.playSound((int) (Math.random() * (audioManager.hitSoundList.size() - 1) + 1), audioManager.HIT_SOUND_LIST);
-                    e.health -= Atbs.bulletDamage;
+                    e.health -= p.bulletDamage;
                     e.isDamaged = true;
                     break;
                 }
@@ -144,9 +144,12 @@ public class GameObjectManager {
     }
 
     public void doEnvironmentCollision(GameMovingObject obj) {
+        obj.canMoveRight = true;
+        obj.canMoveLeft = true;
+        obj.canMoveUp = true;
+        obj.canMoveDown = true;
         for (Rectangle r : map.collisionRects) {
             if (obj.cBox.intersects(r)) {
-
 
                 double dx = obj.cBox.getCenterX() - r.getCenterX(); // diff between player and rect center X
                 double dy = obj.cBox.getCenterY() - r.getCenterY(); // diff between player and rect center Y
@@ -177,12 +180,20 @@ public class GameObjectManager {
                 }
             }
         }
+
+//        if (map.LADDER.intersects(p.cBox) && obj.canMoveDown) {
+//            p.canTravelLadder = true;
+//            p.canMoveDown = false;
+//            p.canMoveUp = false;
+//        } else {
+//            p.canTravelLadder = false;
+//        }
     }
 
 
     //adds bullets to the arrayList. muzzle flash is also added in conjunction with bullets
     public void addBullet() {
-        bullets.add(new Bullet(p.x, p.y, Atbs.bulletWidth, Atbs.bulletHeight, Atbs.bulletSpeedFactor, Atbs.bulletInaccuracy, Atbs.bulletDamage, p.orientation, p.xV, p.yV));
+        bullets.add(new Bullet(p.x, p.y, Atbs.bulletWidth, Atbs.bulletHeight, Atbs.bulletSpeedFactor, Atbs.bulletInaccuracy, p.bulletDamage, p.orientation, p.xV, p.yV));
         flashes.add(new MuzzleFlash(p.x, p.y, 9, 9, p));
         audioManager.playSound(0, audioManager.SOUND_LIST);
     }
@@ -210,6 +221,7 @@ public class GameObjectManager {
                 System.out.println("enemy 2 spawned");
             }
             spawnStartTime = System.currentTimeMillis();
+            spawnInterval -= 40;
         }
     }
 

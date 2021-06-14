@@ -8,7 +8,6 @@ public class Atbs {
     public static int bulletHeight = 5;
     public static double bulletSpeedFactor = 100;
     public static double bulletInaccuracy = 1;
-    public static int bulletDamage = 1;
     public static long spawnInterval = 4000;
     public static long babyInterval = 10000;
     public static int fireRate = 50;

@@ -6,20 +6,26 @@ import java.util.ArrayList;
 
 public class Player extends GameMovingObject {
 
+    int fireRate;
+    int bulletDamage;
     int idleFrameCount = 4;
     int movingFrameCount = 6;
     int movingFrameIndex = 0;
-
+    boolean canTravelLadder;
     int money;
+    int ladderSpeed = 1;
     int score;
 
     ArrayList<BufferedImage> movingFrameHolder = new ArrayList<>();
 
     //constructor class for player
-    public Player(int x, int y, int width, int height, int health, int speedFactor) {
+    public Player(int x, int y, int width, int height, int health, int speedFactor, int fireRate) {
         super(x, y, width, height, health, speedFactor);
+        this.fireRate = fireRate;
+        bulletDamage = 1;
         money = 5;
         xVMax = 4;  // placeholder value
+        canTravelLadder = false;
 
         try {
             movingFrameHolder.add(ImageIO.read(getClass().getResource("resources/image/entities/run/run_1.png")));
@@ -105,14 +111,17 @@ public class Player extends GameMovingObject {
                     canJump = false;
                 }
                 canMoveUp = true;
+
+//                if (canTravelLadder)
+//                    y += ladderSpeed;
+
                 break;
             case 's':   // down
                 movingDown = true;
 
-                /*
-                    if(canGoDown) ladder
-                    y -= speed;
-                 */
+//                if (canTravelLadder)
+//                    y -= ladderSpeed;
+
                 break;
         }
     }
@@ -138,4 +147,14 @@ public class Player extends GameMovingObject {
     public void changeMovingStatus(boolean isMoving) {
         this.isMoving = isMoving;
     }
+
+    public void raiseFireRate() {
+        fireRate -= 10;
+    }
+
+    @Override
+    public void jump() {
+
+    }
 }
+
