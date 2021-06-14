@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class EndScene {
     Rectangle playAgain = new Rectangle(140, 150, 240, 50);
-    Rectangle menuRect = new Rectangle(140, 220, 240, 50);
+    Rectangle menuRect = new Rectangle(140, 220, 270, 50);
 
     final static int RESTART_BUTTON = 0;
     final static int MENU_BUTTON = 1;

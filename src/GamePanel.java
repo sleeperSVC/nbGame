@@ -87,12 +87,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         hudIcon.paintIcon(this, g, 0, 0);
         objectManager.hud.drawMoney(g);
         objectManager.hud.drawScore(g);
-
-        g.setColor(Color.white);
-        g.drawString("relative to window: " + point.x + "," + point.y, 10, 100);
-
-        // draw the collision rectangles
-        map.collisionRects.forEach(r -> g.fillRect(r.x, r.y, r.width, r.height));
+//
+//        g.setColor(Color.white);
+//        g.drawString("relative to window: " + point.x + "," + point.y, 10, 100);
+//
+//        // draw the collision rectangles
+//        map.collisionRects.forEach(r -> g.fillRect(r.x, r.y, r.width, r.height));
     }
 
     public void drawShopState(Graphics g) {
