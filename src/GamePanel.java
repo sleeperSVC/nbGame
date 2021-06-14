@@ -45,8 +45,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         map = new Map();
         p = new Player(416, 288, 32, 32, 10, 3, 100);    // initialize a new player
         objectManager = new GameObjectManager(p);
-        objectManager.addEnemy1(new Point(883, 288));// TODO: delete this eventually
-        objectManager.addEnemy2(new Point(883, 288));
     }
 
     public void updateMenuState() {
@@ -83,7 +81,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
         layer4.paintIcon(this, g, 0, 0);
         hudIcon.paintIcon(this, g, 0, 0);
         objectManager.hud.drawMoney(g);
-
 
         g.setColor(Color.white);
         g.drawString("relative to window: " + point.x + "," + point.y, 10, 100);

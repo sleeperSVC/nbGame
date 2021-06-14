@@ -46,8 +46,8 @@ public class GameObjectManager {
         hud.update();
         p.update();
         killObjects();
-        spawnBabies();
-        spawnEnemies();
+//        spawnBabies();
+//        spawnEnemies();
         doEntityCollision();
         doEnvironmentCollision(p);
         enemies.forEach(this::doEnvironmentCollision);

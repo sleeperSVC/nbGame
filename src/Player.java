@@ -18,6 +18,8 @@ public class Player extends GameMovingObject {
     int ladderSpeed = 1;
     int score;
 
+    double yVMaxOriginal = yVMax;
+
     ArrayList<BufferedImage> movingFrameHolder = new ArrayList<>();
 
     //constructor class for player
@@ -51,7 +53,6 @@ public class Player extends GameMovingObject {
     @Override
     public void update() {
         super.update();
-
         if (health <= 0) {
             isAlive = false;
         }

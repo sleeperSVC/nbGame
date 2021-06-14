@@ -9,13 +9,13 @@ public class Map {
 
     // rescale constant
     final double RC = 1.5;
-    final int LADDER_WIDTH = 36;
+    final int LADDER_WIDTH = 40;
 
-    final Rectangle GROUND_LEFT_RECT = new Rectangle(0, 320, 446, 48);
-    final Rectangle GROUND_RIGHT_RECT = new Rectangle(446 + LADDER_WIDTH, 320, GamePanel.FRAME_WIDTH - (446 + LADDER_WIDTH), 48);
+    final Rectangle GROUND_LEFT_RECT = new Rectangle(0, 320, 444, 48);
+    final Rectangle GROUND_RIGHT_RECT = new Rectangle(444 + LADDER_WIDTH, 320, GamePanel.FRAME_WIDTH - (444 + LADDER_WIDTH), 48);
     final Rectangle ROOF = new Rectangle(220, 256, 486, 16);
-    final Rectangle TOP_SEWER_LEFT_RECT = new Rectangle(0, 416, 446, 48);
-    final Rectangle TOP_SEWER_RIGHT_RECT = new Rectangle(446 + LADDER_WIDTH, 416, GamePanel.FRAME_WIDTH - (446 + LADDER_WIDTH), 48);
+    final Rectangle TOP_SEWER_LEFT_RECT = new Rectangle(0, 416, 444, 48);
+    final Rectangle TOP_SEWER_RIGHT_RECT = new Rectangle(444 + LADDER_WIDTH, 416, GamePanel.FRAME_WIDTH - (444 + LADDER_WIDTH), 48);
     final Rectangle BOTTOM_SEWER_RECT = new Rectangle(0, 512, GamePanel.FRAME_WIDTH, 100);
     final Rectangle LEFT_BUILDING_RECT = new Rectangle();
     final Rectangle RIGHT_BUILDING_RECT = new Rectangle();
