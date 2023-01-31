@@ -1,2 +1,3 @@
-# nbGame bla bla bla bla
-# sounds from counter strike source
+# Minion Rescue
+# Mr. Dunlea's AP CS class: 2020-2021
+# Sounds from counter strike source
